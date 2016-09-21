@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion commonCompileSdkVersion
+    buildToolsVersion commonBuildToolsVersion
 
     defaultConfig {
         applicationId "com.bikefit.wedgecalculator"
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion commonMinSdkVersion
+        targetSdkVersion commonTargetSdkVersion
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -20,7 +21,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.1'
+    /**
+     * Android support libraries
+     */
+    compile "com.android.support:support-annotations:${androidSupportLibVersion}"
+    compile "com.android.support:appcompat-v7:${androidSupportLibVersion}"
+    compile "com.android.support:design:${androidSupportLibVersion}"
+
+
+    /**
+     * Test libraries
+     */
+    testCompile "junit:junit:${junitVersion}"
+    testCompile "org.mockito:mockito-core:${mockitoVersion}"
+    androidTestCompile("com.google.dexmaker:dexmaker-mockito:${mockitoDexVersion}")
+    androidTestCompile "org.mockito:mockito-core:${mockitoVersion}"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espressoVersion}") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
 }

@@ -21,3 +21,19 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    commonCompileSdkVersion = 24
+    commonTargetSdkVersion = 24
+    commonMinSdkVersion = 14
+    commonBuildToolsVersion = "24.0.2"
+
+    // Library versions
+    androidSupportLibVersion = "24.2.1"
+
+    // Test versions
+    espressoVersion = "2.2.2"
+    junitVersion = "4.12"
+    mockitoDexVersion = "1.2"
+    mockitoVersion = "1.10.19"
+}
