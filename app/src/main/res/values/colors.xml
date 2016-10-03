@@ -8,4 +8,11 @@
 
     <color name="backgroundColor">#043054</color>
     <color name="white">@android:color/white</color>
+    <color name="orange">#FF3825</color>
+    <color name="cobaltBlue">#052343</color>
+    <color name="imageBackgroundColor">#0A3D6B</color>
+
+    <color name="standardButtonBackground">@color/cobaltBlue</color>
+    <color name="actionButtonBackground">@color/orange</color>
+
 </resources>

@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.bikefit.wedgecalculator.R;
 
-public class WelcomeActivity extends AppCompatActivity {
+/**
+ * Created by GeneralUI on 10/3/16.
+ */
+public class WedgingBenefitsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_wedging_benefits);
     }
-
-
 }
