@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 /**
- * Created by max on 10/4/16.
+ * Application class for the app.
  */
 public class BikeFitApplication extends Application {
     private static BikeFitApplication instance;
