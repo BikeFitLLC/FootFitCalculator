@@ -56,7 +56,6 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/panelBottom"
         android:layout_width="match_parent"
@@ -67,6 +66,7 @@
         android:gravity="center_horizontal">
 
         <Button
+            android:id="@+id/activity_wedging_benefits_start_button"
             style="@style/Button.Focus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
