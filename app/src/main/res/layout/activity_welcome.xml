@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:weightSum="10"
-    tools:context="com.bikefit.wedgecalculator.activity.WelcomeActivity">
+    tools:context="com.bikefit.wedgecalculator.main.WelcomeActivity">
 
     <!-- example include -->
     <!--<include layout="@layout/toolbar" />-->
@@ -33,18 +33,21 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/activity_welcome_more_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@string/welcome_screen_more_button" />
 
         <Button
+            android:id="@+id/activity_welcome_orientation_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@string/welcome_screen_orientation_button" />
 
         <Button
+            android:id="@+id/activity_welcome_start_button"
             style="@style/BaseButton.Focus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

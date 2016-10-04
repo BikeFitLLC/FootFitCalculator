@@ -1,11 +1,12 @@
-package com.bikefit.wedgecalculator.activity;
+package com.bikefit.wedgecalculator.startup;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.main.WelcomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,10 +21,10 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+                finish();
             }
         };
 
-        handler.postDelayed(runnable, 5000);
-
+        handler.postDelayed(runnable, getResources().getInteger(R.integer.splash_screen_pause));
     }
 }
