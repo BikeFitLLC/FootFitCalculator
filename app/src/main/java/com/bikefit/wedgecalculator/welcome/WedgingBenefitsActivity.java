@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.main;
+package com.bikefit.wedgecalculator.welcome;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;

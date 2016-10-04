@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.main.WelcomeActivity;
+import com.bikefit.wedgecalculator.welcome.WelcomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

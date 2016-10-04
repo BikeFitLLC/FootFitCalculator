@@ -27,9 +27,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".main.WelcomeActivity"></activity>
+        <activity android:name=".welcome.WelcomeActivity"></activity>
 
-        <activity android:name=".main.WedgingBenefitsActivity"></activity>
+        <activity android:name=".welcome.WedgingBenefitsActivity"></activity>
+
+        <activity android:name=".main.OrientationVideoActivity"></activity>
 
     </application>
 
