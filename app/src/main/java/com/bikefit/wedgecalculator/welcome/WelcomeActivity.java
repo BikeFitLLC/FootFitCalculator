@@ -3,9 +3,9 @@ package com.bikefit.wedgecalculator.welcome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.main.OrientationVideoActivity;
 
 import butterknife.ButterKnife;
@@ -40,13 +40,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.activity_welcome_orientation_button)
     public void onOrientationVideoButton() {
-        Log.i(TAG, "orientation video button pressed");
         startActivity(new Intent(WelcomeActivity.this, OrientationVideoActivity.class));
     }
 
     @OnClick(R.id.activity_welcome_start_button)
     public void onStartButton() {
-        Log.i(TAG, "Start button pressed");
+        startActivity(new Intent(WelcomeActivity.this, MainMenuActivity.class));
     }
 
     // endregion

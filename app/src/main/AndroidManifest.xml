@@ -23,15 +23,14 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".welcome.WelcomeActivity"></activity>
-
-        <activity android:name=".welcome.WedgingBenefitsActivity"></activity>
-
-        <activity android:name=".main.OrientationVideoActivity"></activity>
+        <activity android:name=".welcome.WelcomeActivity" />
+        <activity android:name=".welcome.WedgingBenefitsActivity" />
+        <activity android:name=".main.OrientationVideoActivity" />
+        <activity android:name=".main.MainMenuActivity" />
 
     </application>
 

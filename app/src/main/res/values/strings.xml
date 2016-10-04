@@ -15,5 +15,13 @@
     <string name="activity_wedging_benefits_top_text">Placeholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
     <string name="activity_wedging_benefits_bottom_text">Placeholder text, please replace with real copy. A misalignment may not always be visible while the cyclist is pedaling but that does not mean a misalighment does not exist. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
 
+    <!-- Main Menu Fragment -->
+    <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. \nTap a step to skip to it.</string>
+    <string name="main_menu_fragment_orientation_video">Orientation Video</string>
+    <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
+    <string name="main_menu_fragment_get_in_position">Get in Position</string>
+    <string name="main_menu_fragment_measure_left_foot">Measure Left Foot</string>
+    <string name="main_menu_fragment_measure_right_foot">Measure Right Foot</string>
+    <string name="main_menu_fragment_get_results">Results</string>
 
 </resources>
