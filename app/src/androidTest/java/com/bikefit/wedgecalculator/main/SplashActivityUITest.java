@@ -5,8 +5,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.startup.SplashActivity;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,18 +32,6 @@ public class SplashActivityUITest {
     //endregion
 
     //region SETUP ---------------------------------------------------------------------------------
-
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     //endregion
 
     //region TESTS ---------------------------------------------------------------------------------

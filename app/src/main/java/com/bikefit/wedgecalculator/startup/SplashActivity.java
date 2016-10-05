@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.welcome.WelcomeActivity;
 
+/**
+ * Activity to show the splash screen
+ */
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.splash_activity);
 
         Handler handler = new Handler();
 

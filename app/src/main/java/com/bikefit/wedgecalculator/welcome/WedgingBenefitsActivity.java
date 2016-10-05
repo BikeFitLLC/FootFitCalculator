@@ -2,14 +2,14 @@ package com.bikefit.wedgecalculator.welcome;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -19,32 +19,25 @@ import butterknife.OnClick;
  */
 public class WedgingBenefitsActivity extends AppCompatActivity {
 
+    //region CLASS VARIABLES -----------------------------------------------------------------------
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    // endregion
+
     // region LIFECYCLE METHODS --------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wedging_benefits);
+        setContentView(R.layout.wedging_benefits_activity);
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        toolbar.setNavigationOnClickListener(toolbarBackButtonListener);
     }
 
     // endregion
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
-        }
-        return true;
-    }
 
     // region LISTENER METHODS ---------------------------------------------------------------------
 
@@ -55,4 +48,15 @@ public class WedgingBenefitsActivity extends AppCompatActivity {
     }
 
     // endregion
+
+    //region INNER CLASSES -------------------------------------------------------------------------
+
+    private View.OnClickListener toolbarBackButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
+
+    //endregion
 }

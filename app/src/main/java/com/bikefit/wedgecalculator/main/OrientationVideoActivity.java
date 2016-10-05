@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.bikefit.wedgecalculator.R;
 
 /**
- * Created by max on 10/4/16.
+ * Activity that contains the Orientation Video (via OrientationVideoFragment)
  */
 public class OrientationVideoActivity extends AppCompatActivity {
 

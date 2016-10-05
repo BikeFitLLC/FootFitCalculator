@@ -79,19 +79,15 @@ public class WelcomeActivityUITest {
         // THEN check the button appears
         onView(withId(R.id.activity_welcome_more_button)).check(matches(isDisplayed()));
 
-
         // WHEN the button is clicked
         onView(withId(R.id.activity_welcome_more_button)).perform(click());
 
-        //Thread.sleep(2000);
+        // THEN check for text on resulting activity
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.waitForIdleSync();
 
-        // THEN check for text on resulting activity
         onView(withId(R.id.activity_splash_text)).check(matches(isDisplayed()));
-
     }
-
 
     //endregion
 

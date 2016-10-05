@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.bikefit.wedgecalculator.R;
 
 /**
- * Created by max on 10/4/16.
+ * Fragment that contains layout of the main menu of application.
  */
 public class MainMenuFragment extends Fragment {
 
@@ -19,20 +19,10 @@ public class MainMenuFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
 }

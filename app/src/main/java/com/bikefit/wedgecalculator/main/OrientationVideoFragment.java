@@ -10,17 +10,12 @@ import android.view.ViewGroup;
 import com.bikefit.wedgecalculator.R;
 
 /**
- * Created by max on 10/4/16.
+ * Fragment containing the orientation video
  */
 public class OrientationVideoFragment extends Fragment {
 
-
     public static OrientationVideoFragment newInstance() {
-        //Bundle args = new Bundle();
-        //args.put...
-
         OrientationVideoFragment fragment = new OrientationVideoFragment();
-        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -39,6 +34,5 @@ public class OrientationVideoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
 
 }
