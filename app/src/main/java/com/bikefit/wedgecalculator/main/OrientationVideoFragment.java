@@ -22,11 +22,16 @@ import butterknife.Unbinder;
  */
 public class OrientationVideoFragment extends Fragment {
 
-    //region CLASS VARIABLES -----------------------------------------------------------------------
+    //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
     private static final String URL_KEY = "URL_KEY";
+
+    //endregion
+
+    //region CLASS VARIABLES -----------------------------------------------------------------------
     @BindView(R.id.webview)
     WebView webView;
+
     private Unbinder viewUnbinder;
 
     //endregion
@@ -69,7 +74,7 @@ public class OrientationVideoFragment extends Fragment {
             url = args.getString(URL_KEY);
         }
 
-        if (url.isEmpty()) {
+        if (url == null || url.isEmpty()) {
             //default to known video url
             url = getActivity().getResources().getString(R.string.orientation_video_url);
         }
