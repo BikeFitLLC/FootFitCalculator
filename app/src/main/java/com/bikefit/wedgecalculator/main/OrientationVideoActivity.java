@@ -3,10 +3,9 @@ package com.bikefit.wedgecalculator.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.bikefit.wedgecalculator.R;
 
@@ -14,7 +13,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * <<<<<<< HEAD
+ * Activity that contains the Orientation Video (via OrientationVideoFragment)
+ * =======
  * Activity for Orientation Video, which just loads OrientationVideoFragment
+ * >>>>>>> Add embedded video (via webview) to OrientationVideoFragment
  */
 public class OrientationVideoActivity extends AppCompatActivity {
 
@@ -34,12 +37,7 @@ public class OrientationVideoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        toolbar.setNavigationOnClickListener(toolbarBackButtonListener);
 
         if (savedInstanceState == null) {
             String url = getResources().getString(R.string.orientation_video_url);
@@ -57,21 +55,24 @@ public class OrientationVideoActivity extends AppCompatActivity {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
-        }
-        return true;
-    }
-
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
     //endregion
 
     //region INNER CLASSES -------------------------------------------------------------------------
+
+    //endregion
+
+    //region LISTENERS -----------------------------------------------------------------------------
+
+    private View.OnClickListener toolbarBackButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            onBackPressed();
+        }
+    };
+
     //endregion
 
 }
