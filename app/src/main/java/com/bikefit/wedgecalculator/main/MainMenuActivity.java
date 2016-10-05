@@ -55,7 +55,7 @@ public class MainMenuActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             MainMenuFragment fragment = MainMenuFragment.newInstance();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, fragment);
+            fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
             fragmentTransaction.commit();
         }
     }

@@ -63,14 +63,18 @@ public class OrientationVideoFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
 
         Bundle args = getArguments();
+
+        String url = "";
         if (args != null) {
-            setUrl(args.getString(URL_KEY));
-        } else {
-            //default to known video url
-            String url = getActivity().getResources().getString(R.string.orientation_video_url);
-            setUrl(url);
+            url = args.getString(URL_KEY);
         }
 
+        if (url.isEmpty()) {
+            //default to known video url
+            url = getActivity().getResources().getString(R.string.orientation_video_url);
+        }
+
+        setUrl(url);
     }
 
     //endregion

@@ -13,11 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * <<<<<<< HEAD
- * Activity that contains the Orientation Video (via OrientationVideoFragment)
- * =======
  * Activity for Orientation Video, which just loads OrientationVideoFragment
- * >>>>>>> Add embedded video (via webview) to OrientationVideoFragment
  */
 public class OrientationVideoActivity extends AppCompatActivity {
 
@@ -43,7 +39,7 @@ public class OrientationVideoActivity extends AppCompatActivity {
             String url = getResources().getString(R.string.orientation_video_url);
             OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(url);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment, fragment);
+            fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
             fragmentTransaction.commit();
         }
 
