@@ -8,8 +8,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.welcome.WelcomeActivity;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,22 +39,9 @@ public class WelcomeActivityUITest {
     //endregion
 
     //region SETUP ---------------------------------------------------------------------------------
-
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     //endregion
 
     //region TESTS ---------------------------------------------------------------------------------
-
 
     @Test
     public void testOptionButtonsAppear() {
@@ -86,7 +71,7 @@ public class WelcomeActivityUITest {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
         instrumentation.waitForIdleSync();
 
-        onView(withId(R.id.activity_splash_text)).check(matches(isDisplayed()));
+        onView(withId(R.id.bikefit_banner_title)).check(matches(isDisplayed()));
     }
 
     //endregion
