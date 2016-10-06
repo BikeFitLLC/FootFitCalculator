@@ -3,4 +3,27 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="titlebarBackground">#1C4364</color>
+
+    <color name="backgroundColor">#043054</color>
+    <color name="white">@android:color/white</color>
+    <color name="orange">#FF3825</color>
+
+
+    <color name="cobaltBlue">#052343</color>
+    <color name="mediumBlue">#0A3D6B</color>
+    <color name="lightBlue">#C5CAE9</color>
+
+    <color name="imageBackgroundColor">@color/mediumBlue</color>
+
+
+    <color name="primaryButton">@color/cobaltBlue</color>
+    <color name="primaryButtonPressed">@color/mediumBlue</color>
+    <color name="primaryButtonDisabled">@color/lightBlue</color>
+
+    <color name="focusButton">@color/orange</color>
+    <color name="focusButtonPressed">#FF5722</color>
+    <color name="focusButtonDisabled">#FFCCBC</color>
+
 </resources>

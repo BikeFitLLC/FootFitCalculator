@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/app_margins"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context=".welcome.WelcomeActivity">
+
+    <!-- example include -->
+    <!--<include layout="@layout/toolbar" />-->
+
+    <include layout="@layout/bikefit_banner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="4"
+        android:text="@string/activity_welcome_message"
+        android:textSize="18sp"
+        tools:text="@string/activity_welcome_message" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="bottom|center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/activity_welcome_more_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/welcome_screen_more_button" />
+
+        <Button
+            android:id="@+id/activity_welcome_orientation_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/welcome_screen_orientation_button" />
+
+        <Button
+            android:id="@+id/activity_welcome_start_button"
+            style="@style/Button.Focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_screen_start_button" />
+    </LinearLayout>
+
+</LinearLayout>

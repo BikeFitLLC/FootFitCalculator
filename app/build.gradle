@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
 
 /**
  * @return suffix to be appended to version name.
@@ -41,6 +43,12 @@ dependencies {
     compile "com.android.support:support-annotations:${androidSupportLibVersion}"
     compile "com.android.support:appcompat-v7:${androidSupportLibVersion}"
     compile "com.android.support:design:${androidSupportLibVersion}"
+
+    /**
+     * ButterKnife view injection
+     */
+    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
+    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
 
     /**
