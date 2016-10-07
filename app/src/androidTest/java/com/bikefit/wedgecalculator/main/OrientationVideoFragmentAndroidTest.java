@@ -25,26 +25,34 @@ import static org.mockito.Mockito.when;
 public class OrientationVideoFragmentAndroidTest {
 
     //region CLASS UNDER TEST ----------------------------------------------------------------------
-    //endregion
-
-    //region MOCKS ---------------------------------------------------------------------------------
 
     @Rule
     public ActivityTestRule<TestFragmentActivity> mActivityRule = new ActivityTestRule<>(
             TestFragmentActivity.class, false, false);
+
+    //endregion
+
+    //region MOCKS VIEWS ---------------------------------------------------------------------------
+
     @Mock
     WebView mMockWebview;
+
+    //endregion
+
+    //region MOCKS ---------------------------------------------------------------------------------
+
     @Mock
     WebSettings mMockWebSettings;
+
     @Mock
     View mMockMainView;
+
+    @Mock
+    FragmentActivity mMockActivity;
 
     //endregion
 
     //region NON-MOCKS -----------------------------------------------------------------------------
-    @Mock
-    FragmentActivity mMockActivity;
-
     //endregion
 
     //region SETUP ---------------------------------------------------------------------------------
@@ -71,13 +79,12 @@ public class OrientationVideoFragmentAndroidTest {
         final String partialUrl = "www.google.com";
         final String url = "http://" + partialUrl;
 
-        // GIVEN a fragment with a known url
+        // GIVEN a fragment with the given url
         final OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(url);
-
         activity.transactToFragment(fragment);
 
+        // THEN the webview is setup with the expected url
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -99,14 +106,12 @@ public class OrientationVideoFragmentAndroidTest {
         // GIVEN an empty url
         final String url = "";
 
-        // GIVEN a fragment with a known url
+        // GIVEN a fragment with the given url
         final OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(url);
-
         activity.transactToFragment(fragment);
 
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-
         // THEN the webview is setup with the expected url
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -127,14 +132,12 @@ public class OrientationVideoFragmentAndroidTest {
         // GIVEN a null url
         final String url = null;
 
-        // GIVEN a fragment with a known url
+        // GIVEN a fragment with the given url
         final OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(url);
-
         activity.transactToFragment(fragment);
 
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-
         // THEN the webview is setup with the expected url
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {

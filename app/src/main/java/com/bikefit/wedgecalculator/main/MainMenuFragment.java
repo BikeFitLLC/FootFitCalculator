@@ -32,6 +32,10 @@ public class MainMenuFragment extends Fragment {
         return fragment;
     }
 
+    //endregion
+
+    //region LIFECYCLE METHODS ---------------------------------------------------------------------
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,9 +78,6 @@ public class MainMenuFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
 
 }
