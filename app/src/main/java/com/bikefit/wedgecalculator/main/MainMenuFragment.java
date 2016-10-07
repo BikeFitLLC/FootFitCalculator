@@ -1,5 +1,7 @@
 package com.bikefit.wedgecalculator.main;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,9 +9,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.camera.CameraFragment;
+import com.bikefit.wedgecalculator.camera.Camera2Fragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,8 +72,13 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
     public void onMeasureLeftFootButton() {
-        CameraFragment fragment = new CameraFragment().newInstance();
-        showFragment2(fragment, true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Camera2Fragment fragment = new Camera2Fragment().newInstance();
+            showFragmentAPI21(fragment, true);
+        } else {
+            Toast.makeText(getActivity(), "Not supported for this API yet", Toast.LENGTH_LONG).show();
+        }
     }
 
     //endregion
@@ -86,7 +94,8 @@ public class MainMenuFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private void showFragment2(android.app.Fragment fragment2, boolean addToBackstack) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void showFragmentAPI21(android.app.Fragment fragment2, boolean addToBackstack) {
         android.app.FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment2);
         if (addToBackstack) {

@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.camera;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,6 +30,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -64,7 +66,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class CameraFragment extends Fragment implements FragmentCompat.OnRequestPermissionsResultCallback {
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+public class Camera2Fragment extends Fragment implements FragmentCompat.OnRequestPermissionsResultCallback {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
@@ -77,7 +80,7 @@ public class CameraFragment extends Fragment implements FragmentCompat.OnRequest
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
-    private static final String TAG = "CameraFragment";
+    private static final String TAG = "Camera2Fragment";
 
     // Camera states
     private static final int STATE_PREVIEW = 0;             // Camera state: Showing camera preview.
@@ -127,6 +130,33 @@ public class CameraFragment extends Fragment implements FragmentCompat.OnRequest
      * A {@link Semaphore} to prevent the app from exiting before closing the camera.
      */
     private Semaphore mCameraOpenCloseLock = new Semaphore(1);
+    /**
+     * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
+     * {@link TextureView}.
+     */
+    private final TextureView.SurfaceTextureListener mSurfaceTextureListener
+            = new TextureView.SurfaceTextureListener() {
+
+        @Override
+        public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
+            openCamera(width, height);
+        }
+
+        @Override
+        public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
+            configureTransform(width, height);
+        }
+
+        @Override
+        public boolean onSurfaceTextureDestroyed(SurfaceTexture texture) {
+            return true;
+        }
+
+        @Override
+        public void onSurfaceTextureUpdated(SurfaceTexture texture) {
+        }
+
+    };
     // The current state of camera state for taking pictures.
     private int mState = STATE_PREVIEW;
     private Handler mMainThreadHandler;
@@ -151,14 +181,10 @@ public class CameraFragment extends Fragment implements FragmentCompat.OnRequest
 
 
     //endregion
-
+    //endregion
+    //region LIFECYCLE METHODS ---------------------------------------------------------------------
     //region CONSTRUCTOR ---------------------------------------------------------------------------
     private Unbinder unbinder;
-
-
-    //endregion
-
-    //region LIFECYCLE METHODS ---------------------------------------------------------------------
     /**
      * A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
      */
@@ -257,39 +283,12 @@ public class CameraFragment extends Fragment implements FragmentCompat.OnRequest
         }
 
     };
-    /**
-     * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
-     * {@link TextureView}.
-     */
-    private final TextureView.SurfaceTextureListener mSurfaceTextureListener
-            = new TextureView.SurfaceTextureListener() {
 
-        @Override
-        public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
-            openCamera(width, height);
-        }
-
-        @Override
-        public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
-            configureTransform(width, height);
-        }
-
-        @Override
-        public boolean onSurfaceTextureDestroyed(SurfaceTexture texture) {
-            return true;
-        }
-
-        @Override
-        public void onSurfaceTextureUpdated(SurfaceTexture texture) {
-        }
-
-    };
-
-    public static CameraFragment newInstance() {
+    public static Camera2Fragment newInstance() {
 
         Bundle args = new Bundle();
 
-        CameraFragment fragment = new CameraFragment();
+        Camera2Fragment fragment = new Camera2Fragment();
         fragment.setArguments(args);
         return fragment;
     }
