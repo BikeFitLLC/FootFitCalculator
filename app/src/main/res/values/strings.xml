@@ -27,4 +27,8 @@
     <string name="main_menu_fragment_measure_right_foot">Measure Right Foot</string>
     <string name="main_menu_fragment_get_results">Results</string>
 
+    <!-- Camera Fragment -->
+    <string name="camera_fragment_instruction_text">Center the red line with the back of the heal and tap the screen to take a screenshot</string>
+    <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
+    <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
 </resources>

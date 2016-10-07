@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.camera.CameraFragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 
 /**
  * Fragment that contains layout of the main menu of application.
@@ -65,6 +67,12 @@ public class MainMenuFragment extends Fragment {
 
     }
 
+    @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
+    public void onMeasureLeftFootButton() {
+        CameraFragment fragment = new CameraFragment().newInstance();
+        showFragment2(fragment, true);
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
@@ -77,6 +85,16 @@ public class MainMenuFragment extends Fragment {
         }
         fragmentTransaction.commit();
     }
+
+    private void showFragment2(android.app.Fragment fragment2, boolean addToBackstack) {
+        android.app.FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment2);
+        if (addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+    }
+
 
     //endregion
 
