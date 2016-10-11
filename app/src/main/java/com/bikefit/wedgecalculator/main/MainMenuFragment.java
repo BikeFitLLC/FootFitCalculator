@@ -9,10 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.camera.Camera2Fragment;
+import com.bikefit.wedgecalculator.camera.MaterialCameraFragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -73,12 +72,19 @@ public class MainMenuFragment extends Fragment {
     @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
     public void onMeasureLeftFootButton() {
 
+        MaterialCameraFragment fragment = new MaterialCameraFragment().newInstance();
+        showFragmentAPI21(fragment, true);
+/*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Camera2Fragment fragment = new Camera2Fragment().newInstance();
             showFragmentAPI21(fragment, true);
         } else {
-            Toast.makeText(getActivity(), "Not supported for this API yet", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), "Not supported for this API yet", Toast.LENGTH_LONG).show();
+
+            MaterialCameraFragment fragment = new MaterialCameraFragment().newInstance();
+            showFragmentAPI21(fragment, true);
         }
+*/
     }
 
     //endregion

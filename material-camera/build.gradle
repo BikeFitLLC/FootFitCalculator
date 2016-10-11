@@ -17,7 +17,7 @@ android {
     buildToolsVersion BUILD_TOOLS
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion TARGET_SDK
         versionCode PUBLISH_VERSION_CODE
         versionName PUBLISH_VERSION
@@ -33,6 +33,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 repositories {

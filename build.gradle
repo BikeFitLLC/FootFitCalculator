@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://dl.bintray.com/drummer-aidan/maven" }
     }
 }
 
@@ -25,7 +26,7 @@ task clean(type: Delete) {
 ext {
     commonCompileSdkVersion = 24
     commonTargetSdkVersion = 24
-    commonMinSdkVersion = 14
+    commonMinSdkVersion = 19
     commonBuildToolsVersion = "24.0.2"
 
     // Library versions
