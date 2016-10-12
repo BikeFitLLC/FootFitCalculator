@@ -79,7 +79,11 @@ public class ImageUtil {
         final BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(inputFile, opts);
-        opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight, inSampleSize);
+
+        // Code for com.bikefit.wedgecalculator
+        //opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight, inSampleSize);
+        opts.inSampleSize = calculateInSampleSize2(opts, reqWidth, reqHeight);
+
         opts.inJustDecodeBounds = false;
 
         final Bitmap origBitmap = BitmapFactory.decodeFile(inputFile, opts);
@@ -97,6 +101,39 @@ public class ImageUtil {
             return getRotatedBitmap(inputFile, reqWidth, reqHeight, opts.inSampleSize + 1);
         }
     }
+
+    /**
+     * Code for com.bikefit.wedgecalculator
+     */
+    public static int calculateInSampleSize2(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (reqWidth <= 0) {
+            reqWidth = width;
+        }
+
+        if (reqHeight <= 0) {
+            reqHeight = height;
+        }
+
+        if (height > reqHeight || width > reqWidth) {
+            // Calculate ratios of height and width to requested height and width
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
+            final int widthRatio = Math.round((float) width / (float) reqWidth);
+
+            // Choose the smallest ratio as inSampleSize value, this will guarantee
+            // a final image with both dimensions larger than or equal to the
+            // requested height and width.
+            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+        }
+
+        return inSampleSize;
+    }
+
 
     private static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight, int inSampleSize) {

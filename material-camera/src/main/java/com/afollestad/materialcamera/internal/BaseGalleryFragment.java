@@ -65,6 +65,19 @@ public abstract class BaseGalleryFragment extends Fragment implements CameraUriI
         return getArguments().getString("output_uri");
     }
 
+    @Override
+    public void onDestroyView() {
+
+        // Code for com.bikefit.wedgecalculator
+        mInterface = null;
+        mOutputUri = null;
+        mControlsFrame = null;
+        mRetry = null;
+        mConfirm = null;
+
+        super.onDestroyView();
+    }
+
     void showDialog(String title, String errorMsg) {
         new MaterialDialog.Builder(getActivity())
                 .title(title)

@@ -63,6 +63,9 @@ public class StillshotPreviewFragment extends BaseGalleryFragment {
 
     @Override
     public void onDestroyView() {
+        // Code for com.bikefit.wedgecalculator
+        mImageView.setImageBitmap(null);
+
         super.onDestroyView();
         if (mBitmap != null && !mBitmap.isRecycled()) {
             try {
@@ -72,6 +75,9 @@ public class StillshotPreviewFragment extends BaseGalleryFragment {
                 t.printStackTrace();
             }
         }
+
+        // Code for com.bikefit.wedgecalculator
+        mImageView = null;
     }
 
 
