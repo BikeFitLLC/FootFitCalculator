@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/camera_instructions_fragment_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0"
+            android:gravity="center_horizontal"
+            android:text="@string/camera_instructions_fragment_header_text"/>
+
+        <TextView
+            android:id="@+id/camera_instructions_fragment_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_weight="1"
+            android:text="@string/camera_instructions_fragment_description_text"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/camera_instructions_fragment_more_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/camera_instructions_fragment_more_button_text"
+            />
+
+        <Button
+            android:id="@+id/camera_instructions_fragment_snapshot_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/camera_instructions_fragment_snapshot_button_text"
+            style="@style/Button.Focus"/>
+    </LinearLayout>
+</LinearLayout>
