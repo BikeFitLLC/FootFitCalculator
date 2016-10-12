@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.camera.MaterialCameraFragment;
+import com.bikefit.wedgecalculator.camera.CameraInstructionsFragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -72,7 +72,7 @@ public class MainMenuFragment extends Fragment {
     @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
     public void onMeasureLeftFootButton() {
 
-        MaterialCameraFragment fragment = new MaterialCameraFragment().newInstance();
+        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance();
         showFragmentAPI21(fragment, true);
 /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -81,7 +81,7 @@ public class MainMenuFragment extends Fragment {
         } else {
             //Toast.makeText(getActivity(), "Not supported for this API yet", Toast.LENGTH_LONG).show();
 
-            MaterialCameraFragment fragment = new MaterialCameraFragment().newInstance();
+            CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance();
             showFragmentAPI21(fragment, true);
         }
 */

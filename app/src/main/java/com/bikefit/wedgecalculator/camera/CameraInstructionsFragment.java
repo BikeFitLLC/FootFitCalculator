@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class MaterialCameraFragment extends Fragment {
+public class CameraInstructionsFragment extends Fragment {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
@@ -37,11 +37,11 @@ public class MaterialCameraFragment extends Fragment {
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public MaterialCameraFragment() {
+    public CameraInstructionsFragment() {
     }
 
-    public static MaterialCameraFragment newInstance() {
-        MaterialCameraFragment fragment = new MaterialCameraFragment();
+    public static CameraInstructionsFragment newInstance() {
+        CameraInstructionsFragment fragment = new CameraInstructionsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -59,7 +59,7 @@ public class MaterialCameraFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.material_camera_fragment, container, false);
+        View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         viewUnbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -95,6 +95,9 @@ public class MaterialCameraFragment extends Fragment {
                 final File file = new File(data.getData().getPath());
                 Toast.makeText(getActivity(), String.format("Saved to: %s, size: %s", file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
 
+                MeasurementFragment fragment = MeasurementFragment.newInstance(file.getAbsolutePath());
+                showFragment(fragment, true);
+
             } else if (data != null) {
 
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
@@ -122,10 +125,10 @@ public class MaterialCameraFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.launchCameraStillshot)
+    @OnClick(R.id.camera_instructions_fragment_snapshot_button)
     public void onLaunchCameraButton() {
 
-        File saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot.jpg");
+        File saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot");
 /*
         File saveDir = null;
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -156,6 +159,15 @@ public class MaterialCameraFragment extends Fragment {
 
     private String fileSize(File file) {
         return readableFileSize(file.length());
+    }
+
+    private void showFragment(Fragment fragment, boolean addToBackstack) {
+        android.app.FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
+        if (addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
     }
 
     //endregion

@@ -31,4 +31,12 @@
     <string name="camera_fragment_instruction_text">Center the red line with the back of the heal and tap the screen to take a screenshot</string>
     <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
     <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
+
+    <!-- Camera Instructions Fragment -->
+    <string name="camera_instructions_fragment_header_text">Instructions</string>
+    <string name="camera_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen, tap the camera button to take a snapshot.</string>
+    <string name="camera_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
+    <string name="camera_instructions_fragment_more_button_text">Tell me more</string>
+
+
 </resources>
