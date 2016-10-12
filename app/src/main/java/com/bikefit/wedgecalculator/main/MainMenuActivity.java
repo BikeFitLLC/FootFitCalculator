@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.main;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,16 @@ public class MainMenuActivity extends AppCompatActivity {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+
+    public void showFragment(Fragment fragment, boolean addToBackstack) {
+        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
+        if (addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
@@ -54,9 +65,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             MainMenuFragment fragment = MainMenuFragment.newInstance();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
-            fragmentTransaction.commit();
+            showFragment(fragment, false);
         }
     }
 

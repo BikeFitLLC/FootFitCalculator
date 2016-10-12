@@ -2,12 +2,13 @@ package com.bikefit.wedgecalculator.camera;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +94,7 @@ public class CameraInstructionsFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 final File file = new File(data.getData().getPath());
-                Toast.makeText(getActivity(), String.format("Saved to: %s, size: %s", file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), String.format("Saved to: %s, size: %s", file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
 
                 MeasurementFragment fragment = MeasurementFragment.newInstance(file.getAbsolutePath());
                 showFragment(fragment, true);
@@ -129,12 +130,6 @@ public class CameraInstructionsFragment extends Fragment {
     public void onLaunchCameraButton() {
 
         File saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot");
-/*
-        File saveDir = null;
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot.jpg");
-        }
-*/
 
         MaterialCamera materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
@@ -162,7 +157,7 @@ public class CameraInstructionsFragment extends Fragment {
     }
 
     private void showFragment(Fragment fragment, boolean addToBackstack) {
-        android.app.FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
         if (addToBackstack) {
             fragmentTransaction.addToBackStack(null);

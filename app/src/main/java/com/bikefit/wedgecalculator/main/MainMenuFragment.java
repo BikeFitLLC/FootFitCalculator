@@ -1,11 +1,8 @@
 package com.bikefit.wedgecalculator.main;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +62,7 @@ public class MainMenuFragment extends Fragment {
     public void onOrientationVideoButton() {
 
         OrientationVideoFragment fragment = new OrientationVideoFragment().newInstance("");
-        showFragment(fragment, true);
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
     }
 
@@ -73,44 +70,13 @@ public class MainMenuFragment extends Fragment {
     public void onMeasureLeftFootButton() {
 
         CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance();
-        showFragmentAPI21(fragment, true);
-/*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Camera2Fragment fragment = new Camera2Fragment().newInstance();
-            showFragmentAPI21(fragment, true);
-        } else {
-            //Toast.makeText(getActivity(), "Not supported for this API yet", Toast.LENGTH_LONG).show();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
-            CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance();
-            showFragmentAPI21(fragment, true);
-        }
-*/
     }
 
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
-
-    private void showFragment(Fragment fragment, boolean addToBackstack) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
-        if (addToBackstack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void showFragmentAPI21(android.app.Fragment fragment2, boolean addToBackstack) {
-        android.app.FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment2);
-        if (addToBackstack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-    }
-
-
     //endregion
 
 }
