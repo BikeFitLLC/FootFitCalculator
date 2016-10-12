@@ -32,6 +32,7 @@ ext {
     // Library versions
     androidSupportLibVersion = "24.2.1"
     butterKnifeVersion = "8.4.0"
+    leakCanaryVersion = "1.5"
 
     // Test versions
     espressoVersion = "2.2.2"

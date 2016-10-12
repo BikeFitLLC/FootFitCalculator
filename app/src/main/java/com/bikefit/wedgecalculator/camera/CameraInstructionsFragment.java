@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.main.MainMenuActivity;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -33,6 +35,7 @@ public class CameraInstructionsFragment extends Fragment {
     private final static int PERMISSION_RQ = 84;
 
     private Unbinder viewUnbinder;
+    private MaterialCamera materialCamera;
 
     //endregion
 
@@ -77,9 +80,17 @@ public class CameraInstructionsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
 
     @Override
     public void onDestroyView() {
+        materialCamera = null;
+
         super.onDestroyView();
         viewUnbinder.unbind();
     }
@@ -94,10 +105,8 @@ public class CameraInstructionsFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
 
                 final File file = new File(data.getData().getPath());
-                //Toast.makeText(getActivity(), String.format("Saved to: %s, size: %s", file.getAbsolutePath(), fileSize(file)), Toast.LENGTH_LONG).show();
-
                 MeasurementFragment fragment = MeasurementFragment.newInstance(file.getAbsolutePath());
-                showFragment(fragment, true);
+                ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
             } else if (data != null) {
 
@@ -131,7 +140,7 @@ public class CameraInstructionsFragment extends Fragment {
 
         File saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot");
 
-        MaterialCamera materialCamera = new MaterialCamera(this)
+        materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
                 .showPortraitWarning(true)
                 .allowRetry(true)
@@ -154,15 +163,6 @@ public class CameraInstructionsFragment extends Fragment {
 
     private String fileSize(File file) {
         return readableFileSize(file.length());
-    }
-
-    private void showFragment(Fragment fragment, boolean addToBackstack) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
-        if (addToBackstack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
     }
 
     //endregion
