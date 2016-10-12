@@ -1,14 +1,11 @@
 package com.bikefit.wedgecalculator.camera;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +16,6 @@ import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.squareup.leakcanary.RefWatcher;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
@@ -183,36 +179,13 @@ public class MeasurementFragment extends Fragment {
         @Override
         protected Bitmap doInBackground(Void... params) {
 
-            //Determine if image needs to be rotated by looking at Exif information
-            int orientation = ExifInterface.ORIENTATION_NORMAL;
-
-            try {
-                ExifInterface exif = new ExifInterface(filePath);
-                orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                Log.i(this.getClass().getSimpleName(), "orientation: " + orientation);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
             // decode the bitmap with scaling
-            Bitmap myBitmap = decodeSampledBitmap(filePath, width, height);
+            Bitmap myBitmap = BitmapUtil.decodeBitmap(filePath, width, height);
 
-            // rotate the bitmap if necessary
-            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
-
-                Matrix matrix = new Matrix();
-                switch (orientation) {
-                    case ExifInterface.ORIENTATION_ROTATE_90:
-                        matrix.postRotate(90);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_180:
-                        matrix.postRotate(180);
-                        break;
-                    case ExifInterface.ORIENTATION_ROTATE_270:
-                        matrix.postRotate(270);
-                        break;
-                }
-
+            //Determine if image needs to be rotated
+            if (BitmapUtil.doesBitmapNeedToBeRotated(filePath)) {
+                int orientation = BitmapUtil.getBitmapOrientation(filePath);
+                Matrix matrix = BitmapUtil.getBitmapOrientationMatrix(orientation);
                 myBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true); // rotating bitmap
             }
 
@@ -229,59 +202,6 @@ public class MeasurementFragment extends Fragment {
                 }
                 bitmap = null;
             }
-        }
-
-
-        /**
-         * Determine a sample size based on options derived from the BitmapFactory (using inJustDecodeBounds)
-         *
-         * @param options   Options derived from a BitmapFactory call on bitmap
-         * @param reqWidth  desired width of image after scaling
-         * @param reqHeight desired height of image after scaling
-         * @return a sample size to use for the BitmapFactory
-         */
-        private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-
-            // Raw height and width of image
-            final int height = options.outHeight;
-            final int width = options.outWidth;
-            int inSampleSize = 1;
-
-            if (height > reqHeight || width > reqWidth) {
-                // Calculate ratios of height and width to requested height and width
-                final int heightRatio = Math.round((float) height / (float) reqHeight);
-                final int widthRatio = Math.round((float) width / (float) reqWidth);
-
-                // Choose the smallest ratio as inSampleSize value, this will guarantee
-                // a final image with both dimensions larger than or equal to the
-                // requested height and width.
-                inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-            }
-
-            return inSampleSize;
-        }
-
-        /**
-         * decode the bitmap to determine it's full height / width
-         *
-         * @param filePath  Path to the file
-         * @param reqWidth  desired max width
-         * @param reqHeight desired max height
-         * @return a scaled bitmap using the desired width / height
-         */
-        private Bitmap decodeSampledBitmap(String filePath, int reqWidth, int reqHeight) {
-
-            // First decode with inJustDecodeBounds=true to check dimensions
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(filePath, options);
-
-            // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-            // Decode bitmap with inSampleSize set
-            options.inJustDecodeBounds = false;
-            return BitmapFactory.decodeFile(filePath, options);
         }
 
     }
