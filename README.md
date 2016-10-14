@@ -1,8 +1,14 @@
 # BikeFit-WedgeCalculator-Android
 
-### Project Vision Statement:
-
-	is a mobile application
+### Project Vision Statement:	
+	FOR  Highend Bikers,
+	WHO  Want better foot/pedal alignment,
+	THE  Wedge Calculator, 
+	IS A mobile application,
+	THAT performs a personal wedge calculation.
+	
+	UNLIKE Going to a bikefitter,
+	IT     Can be done anytime 
 
 ### Project information (tech stack):
 
