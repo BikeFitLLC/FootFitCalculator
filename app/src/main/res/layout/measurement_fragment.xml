@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,9 +16,7 @@
             android:id="@+id/measurement_fragment_foot_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            tools:background="@android:color/darker_gray"
-            />
+            tools:background="@android:color/darker_gray"/>
 
         <View
             android:id="@+id/measurement_fragment_vertical_guideline"
@@ -32,75 +29,22 @@
             android:id="@+id/measurement_fragment_horizontal_guideline"
             android:layout_width="wrap_content"
             android:layout_height="1dp"
-            android:background="@android:color/holo_red_dark"
-            tools:layout_gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="70dp"
-            />
+            android:background="@android:color/holo_red_dark"
+            tools:layout_gravity="center"/>
 
-<!--
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:background="@android:color/transparent"
-                android:layout_marginLeft="32dp"
-                android:layout_marginBottom="32dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/up_down_icon"/>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/measurement_fragment_horizontal_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="1dp"
-                android:background="@android:color/holo_red_dark"
-                tools:layout_gravity="center"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="70dp"
-                />
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:background="@android:color/transparent"
-                android:layout_marginRight="32dp"
-                android:layout_marginBottom="32dp">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/rotate_icon"/>
-            </LinearLayout>
-
-        </RelativeLayout>
--->
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_weight="0"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/undo_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
@@ -111,19 +55,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/undo_icon"
-                />
+                app:srcCompat="@drawable/undo_icon"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="UNDO"/>
+                android:text="@string/measurement_fragment_undo_button_text"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/save_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
@@ -140,10 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="SAVE"/>
+                android:text="@string/measurement_fragment_save_button_text"/>
         </LinearLayout>
-
     </LinearLayout>
-
 
 </LinearLayout>

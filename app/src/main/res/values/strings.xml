@@ -39,5 +39,8 @@
     <string name="camera_instructions_fragment_more_button_text">Tell me more</string>
     <string name="camera_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
 
+    <!-- Measurement Fragment -->
+    <string name="measurement_fragment_undo_button_text">UNDO</string>
+    <string name="measurement_fragment_save_button_text">SAVE</string>
 
 </resources>
