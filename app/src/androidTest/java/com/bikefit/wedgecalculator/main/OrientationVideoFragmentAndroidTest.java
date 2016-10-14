@@ -9,7 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.example.TestFragmentActivity;
+import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
 import org.junit.Rule;

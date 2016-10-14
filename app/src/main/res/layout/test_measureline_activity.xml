@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/test_draw_line_activity"
     android:layout_width="match_parent"
@@ -9,19 +10,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.bikefit.wedgecalculator.view.TestDrawLineActivity">
+    tools:context="com.bikefit.wedgecalculator.test.TestMeasureLineActivity">
 
-    <!--    <View
-            android:id="@+id/measurement_fragment_vertical_guideline"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/holo_red_dark"/>-->
-
-    <com.bikefit.wedgecalculator.view.DrawLine
+    <com.bikefit.wedgecalculator.view.MeasureLine
         android:id="@+id/measurement_fragment_draw_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:antiAlias="true"
+        app:strokeColor="@android:color/holo_red_dark"
+        app:strokeWidth="8"
+        app:touchRadius="20"
         />
 
 </RelativeLayout>
