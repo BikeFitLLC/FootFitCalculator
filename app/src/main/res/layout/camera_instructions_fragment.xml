@@ -51,17 +51,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/camera_instructions_fragment_more_button_text"
-            />
+            android:text="@string/camera_instructions_fragment_more_button_text"/>
 
         <Button
             android:id="@+id/camera_instructions_fragment_snapshot_button"
+            style="@style/Button.Focus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/camera_instructions_fragment_snapshot_button_text"
-            style="@style/Button.Focus"/>
+            android:layout_marginTop="16dp"
+            android:text="@string/camera_instructions_fragment_snapshot_button_text"/>
     </LinearLayout>
 </LinearLayout>
