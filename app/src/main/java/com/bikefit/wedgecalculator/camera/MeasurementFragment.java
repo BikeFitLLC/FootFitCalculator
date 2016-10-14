@@ -125,7 +125,7 @@ public class MeasurementFragment extends Fragment {
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
-    //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+    //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------

@@ -22,11 +22,11 @@
             android:name=".startup.SplashActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <intent-filter>
+<!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".example.ExampleActivity"/>
         <activity android:name=".welcome.WelcomeActivity"/>
@@ -37,7 +37,6 @@
             android:name=".example.TestFragmentActivity"
             android:exported="false"/>
 
-
         <!-- Register material-camera library Activities -->
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity"
@@ -47,6 +46,13 @@
             android:name="com.afollestad.materialcamera.CaptureActivity2"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialCamera.CaptureActivity"/>
+        <activity android:name=".view.TestDrawLineActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
