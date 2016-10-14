@@ -21,7 +21,6 @@ import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
-import java.text.DecimalFormat;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,10 +28,18 @@ import butterknife.Unbinder;
 
 public class CameraInstructionsFragment extends Fragment {
 
-    //region CLASS VARIABLES -----------------------------------------------------------------------
+
+    //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
     private final static int CAMERA_RQ = 6969;
     private final static int PERMISSION_RQ = 84;
+
+    //todo parameterize this value when we start creating pictures for right foot
+    private final static String SAVE_FOLDER_NAME = "leftfoot";
+    //endregion
+
+
+    //region CLASS VARIABLES -----------------------------------------------------------------------
 
     private Unbinder viewUnbinder;
     private MaterialCamera materialCamera;
@@ -40,9 +47,6 @@ public class CameraInstructionsFragment extends Fragment {
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
-
-    public CameraInstructionsFragment() {
-    }
 
     public static CameraInstructionsFragment newInstance() {
         CameraInstructionsFragment fragment = new CameraInstructionsFragment();
@@ -81,13 +85,6 @@ public class CameraInstructionsFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
-    }
-
-    @Override
     public void onDestroyView() {
         materialCamera = null;
 
@@ -95,27 +92,31 @@ public class CameraInstructionsFragment extends Fragment {
         viewUnbinder.unbind();
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
+        refWatcher.watch(this);
+    }
+
+    //endregion
+
+    //region WIDGET --------------------------------------------------------------------------------
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
-
             if (resultCode == Activity.RESULT_OK) {
-
                 final File file = new File(data.getData().getPath());
                 MeasurementFragment fragment = MeasurementFragment.newInstance(file.getAbsolutePath());
                 ((MainMenuActivity) getActivity()).showFragment(fragment, true);
-
             } else if (data != null) {
-
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
-                if (e != null) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-
+                handleCameraResultError(e);
             }
         }
     }
@@ -126,7 +127,7 @@ public class CameraInstructionsFragment extends Fragment {
 
         if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
             // Sample was denied WRITE_EXTERNAL_STORAGE permission
-            Toast.makeText(getActivity(), "Videos will be saved in a cache directory instead of an external storage directory since permission was denied.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.camera_instructions_fragment_permission_denied_text), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -138,7 +139,7 @@ public class CameraInstructionsFragment extends Fragment {
     @OnClick(R.id.camera_instructions_fragment_snapshot_button)
     public void onLaunchCameraButton() {
 
-        File saveDir = new File(getActivity().getExternalFilesDir(null), "leftFoot");
+        File saveDir = new File(getActivity().getExternalFilesDir(null), SAVE_FOLDER_NAME);
 
         materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
@@ -146,7 +147,7 @@ public class CameraInstructionsFragment extends Fragment {
                 .allowRetry(true)
                 .defaultToFrontFacing(false);
 
-        materialCamera.stillShot(); // launches the Camera in stillshot mode
+        materialCamera.stillShot();
         materialCamera.start(CAMERA_RQ);
     }
 
@@ -154,15 +155,13 @@ public class CameraInstructionsFragment extends Fragment {
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
-    private String readableFileSize(long size) {
-        if (size <= 0) return size + " B";
-        final String[] units = new String[]{"B", "KB", "MB", "GB", "TB"};
-        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.##").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
-    }
-
-    private String fileSize(File file) {
-        return readableFileSize(file.length());
+    private void handleCameraResultError(Exception e) {
+        String message = "";
+        if (e != null) {
+            e.printStackTrace();
+            message = e.getMessage() == null ? "" : ": " + e.getMessage();
+        }
+        Toast.makeText(getActivity(), "Camera Error" + message, Toast.LENGTH_LONG).show();
     }
 
     //endregion
