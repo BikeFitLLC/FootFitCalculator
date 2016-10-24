@@ -16,7 +16,7 @@
     <string name="activity_wedging_benefits_bottom_text">Placeholder text, please replace with real copy. A misalignment may not always be visible while the cyclist is pedaling but that does not mean a misalighment does not exist. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
 
     <!-- Video Orientation -->
-    <string name="orientation_video_url">https://www.youtube.com/embed/K4rSJTlMXWQ</string>
+    <string name="orientation_video_url">https://www.youtube.com/embed/C0DPdy98e4c</string>
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. \nTap a step to skip to it.</string>
