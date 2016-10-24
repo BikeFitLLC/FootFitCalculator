@@ -3,16 +3,17 @@ package com.bikefit.wedgecalculator.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.camera.CameraInstructionsFragment;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 
 /**
  * Fragment that contains layout of the main menu of application.
@@ -61,23 +62,21 @@ public class MainMenuFragment extends Fragment {
     public void onOrientationVideoButton() {
 
         OrientationVideoFragment fragment = new OrientationVideoFragment().newInstance("");
-        showFragment(fragment, true);
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+
+    }
+
+    @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
+    public void onMeasureLeftFootButton() {
+
+        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
     }
 
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
-
-    private void showFragment(Fragment fragment, boolean addToBackstack) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
-        if (addToBackstack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commit();
-    }
-
     //endregion
 
 }

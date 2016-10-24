@@ -16,7 +16,7 @@
     <string name="activity_wedging_benefits_bottom_text">Placeholder text, please replace with real copy. A misalignment may not always be visible while the cyclist is pedaling but that does not mean a misalighment does not exist. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
 
     <!-- Video Orientation -->
-    <string name="orientation_video_url">https://www.youtube.com/embed/K4rSJTlMXWQ</string>
+    <string name="orientation_video_url">https://www.youtube.com/embed/C0DPdy98e4c</string>
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. \nTap a step to skip to it.</string>
@@ -26,5 +26,21 @@
     <string name="main_menu_fragment_measure_left_foot">Measure Left Foot</string>
     <string name="main_menu_fragment_measure_right_foot">Measure Right Foot</string>
     <string name="main_menu_fragment_get_results">Results</string>
+
+    <!-- Camera Fragment -->
+    <string name="camera_fragment_instruction_text">Center the red line with the back of the heal and tap the screen to take a screenshot</string>
+    <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
+    <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
+
+    <!-- Camera Instructions Fragment -->
+    <string name="camera_instructions_fragment_header_text">Instructions</string>
+    <string name="camera_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen, tap the camera button to take a snapshot.</string>
+    <string name="camera_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
+    <string name="camera_instructions_fragment_more_button_text">Tell me more</string>
+    <string name="camera_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
+
+    <!-- Measurement Fragment -->
+    <string name="measurement_fragment_undo_button_text">UNDO</string>
+    <string name="measurement_fragment_save_button_text">SAVE</string>
 
 </resources>

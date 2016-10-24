@@ -15,6 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://dl.bintray.com/drummer-aidan/maven" }
     }
 }
 
@@ -25,12 +26,13 @@ task clean(type: Delete) {
 ext {
     commonCompileSdkVersion = 24
     commonTargetSdkVersion = 24
-    commonMinSdkVersion = 14
+    commonMinSdkVersion = 19
     commonBuildToolsVersion = "24.0.2"
 
     // Library versions
     androidSupportLibVersion = "24.2.1"
     butterKnifeVersion = "8.4.0"
+    leakCanaryVersion = "1.5"
 
     // Test versions
     espressoVersion = "2.2.2"

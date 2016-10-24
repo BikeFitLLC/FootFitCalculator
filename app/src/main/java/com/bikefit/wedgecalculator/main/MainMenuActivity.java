@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.main;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,9 @@ public class MainMenuActivity extends AppCompatActivity {
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
+    //endregion
+
+    //region LIFECYCLE METHODS ---------------------------------------------------------------------
     private View.OnClickListener toolbarBackButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -37,12 +41,6 @@ public class MainMenuActivity extends AppCompatActivity {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
-    //endregion
-
-    //region PRIVATE METHODS -----------------------------------------------------------------------
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +52,24 @@ public class MainMenuActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             MainMenuFragment fragment = MainMenuFragment.newInstance();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
-            fragmentTransaction.commit();
+            showFragment(fragment, false);
         }
+    }
+
+    //endregion
+
+    //region PRIVATE METHODS -----------------------------------------------------------------------
+    //endregion
+
+    //region LISTENERS -----------------------------------------------------------------------------
+
+    public void showFragment(Fragment fragment, boolean addToBackstack) {
+        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
+        if (addToBackstack) {
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.commit();
     }
 
     //endregion
