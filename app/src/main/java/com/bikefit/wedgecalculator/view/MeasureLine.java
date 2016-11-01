@@ -41,6 +41,7 @@ public class MeasureLine extends View {
     private float mMiddleScreen;
     private float mLineAngle;
     private float mStartX, mStartY, mEndX, mEndY;
+    private float yDelta;
 
     private boolean mCanMove = false;
 
@@ -126,11 +127,13 @@ public class MeasureLine extends View {
 
             case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
+                yDelta = y;
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mCanMove) {
                     if (x <= mMiddleScreen) {
-                        moveVertical(x, y);
+                        moveVertical(x, y - yDelta);
+                        yDelta = y;
                     } else {
                         changeAngle(x, y);
                     }
@@ -176,7 +179,7 @@ public class MeasureLine extends View {
 
         logLine("Move Vertical: Pre ");
 
-        float verticalChange = y - mEndY;
+        float verticalChange = y;// - mEndY;
         mStartY += verticalChange;
         mEndY += verticalChange;
 
