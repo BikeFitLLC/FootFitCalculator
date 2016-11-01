@@ -6,6 +6,7 @@
         <attr name="strokeWidth" format="float" />
         <attr name="touchRadius" format="float" />
         <attr name="strokeColor" format="color" />
+        <attr name="touchMargin" format="integer" />
     </declare-styleable>
 
 </resources>

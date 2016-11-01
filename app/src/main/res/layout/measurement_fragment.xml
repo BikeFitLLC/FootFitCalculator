@@ -15,6 +15,7 @@
             android:id="@+id/measurement_fragment_foot_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             tools:background="@android:color/darker_gray" />
 
         <View
@@ -27,17 +28,17 @@
         <com.bikefit.wedgecalculator.view.MeasureLine
             android:id="@+id/measurement_fragment_draw_line"
             android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="70dp"
-            android:background="@android:color/holo_red_dark"
-            tools:layout_gravity="center" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent" />
+
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_weight="0"
         android:orientation="horizontal">
 
         <LinearLayout

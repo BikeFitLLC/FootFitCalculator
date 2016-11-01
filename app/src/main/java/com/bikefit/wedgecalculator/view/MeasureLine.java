@@ -25,6 +25,7 @@ public class MeasureLine extends View {
     private static final int DEFAULT_COLOR = Color.RED;
     private static final float DEFAULT_STROKE_WIDTH = 5;
     private static final boolean DEFAULT_ANTIALIAS = true;
+    private static final int DEFAULT_TOUCH_MARGIN = 0;
 
     //endregion
 
@@ -41,9 +42,12 @@ public class MeasureLine extends View {
     private float mMiddleScreen;
     private float mLineAngle;
     private float mStartX, mStartY, mEndX, mEndY;
-    private float yDelta;
+    private float mYDelta;
 
     private boolean mCanMove = false;
+
+    private float mScreenHeight;
+    private float mYMargin;
 
     //endregion
 
@@ -69,6 +73,8 @@ public class MeasureLine extends View {
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         mBitmap = Bitmap.createBitmap(dm.widthPixels, dm.heightPixels, Bitmap.Config.ARGB_8888);
 
+        mScreenHeight = dm.heightPixels - getStatusBarHeight();
+
         mMatrix = new Matrix();
         mCanvas = new Canvas(mBitmap);
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
@@ -85,12 +91,14 @@ public class MeasureLine extends View {
             mPaint.setColor(styleValues.getColor(R.styleable.MeasureLine_strokeColor, DEFAULT_COLOR));
             mPaint.setStrokeWidth(styleValues.getFloat(R.styleable.MeasureLine_strokeWidth, DEFAULT_STROKE_WIDTH));
             mTouchRadius = styleValues.getFloat(R.styleable.MeasureLine_touchRadius, DEFAULT_TOUCH_RADIUS);
+            mYMargin = styleValues.getFloat(R.styleable.MeasureLine_touchMargin, DEFAULT_TOUCH_MARGIN);
         } else {
             //default values
             mPaint.setAntiAlias(DEFAULT_ANTIALIAS);
             mPaint.setColor(DEFAULT_COLOR);
             mPaint.setStrokeWidth(DEFAULT_STROKE_WIDTH);
             mTouchRadius = DEFAULT_TOUCH_RADIUS;
+            mYMargin = DEFAULT_TOUCH_MARGIN;
         }
 
         // Setup initial values
@@ -116,7 +124,6 @@ public class MeasureLine extends View {
         canvas.drawBitmap(mBitmap, mMatrix, mBitmapPaint);
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -127,16 +134,17 @@ public class MeasureLine extends View {
 
             case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
-                yDelta = y;
+                mYDelta = y;
                 break;
+
             case MotionEvent.ACTION_MOVE:
                 if (mCanMove) {
                     if (x <= mMiddleScreen) {
-                        moveVertical(x, y - yDelta);
-                        yDelta = y;
+                        moveVertical(x, y);
                     } else {
                         changeAngle(x, y);
                     }
+
                     mLineAngle = calculateLineAngle();
                 }
                 break;
@@ -159,31 +167,28 @@ public class MeasureLine extends View {
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
     void touchStart(float x, float y) {
-
-        Log.i(this.getClass().getSimpleName(), "==Touch-Start=============================================================================");
-        Log.i(this.getClass().getSimpleName(), "Current Line X:" + (int) mStartX + ":" + (int) mEndX + "|| Y:" + (int) mStartY + ":" + (int) mEndY);
-        Log.i(this.getClass().getSimpleName(), "Touch at cords X:" + (int) x + " Y:" + (int) y);
-
         mCanMove = circleLineIntersect(mStartX, mStartY, mEndX, mEndY, x, y, mTouchRadius);
 
         if (mCanMove) {
-            Log.i(this.getClass().getSimpleName(), "MOVE YES");
+            Log.i(this.getClass().getSimpleName(), "Touch: YES");
         } else {
-            Log.i(this.getClass().getSimpleName(), "MOVE NO");
+            Log.i(this.getClass().getSimpleName(), "Touch : NO");
         }
     }
-
 
     void moveVertical(float x, float y) {
         mBitmap.eraseColor(Color.TRANSPARENT);
 
-        logLine("Move Vertical: Pre ");
+        float verticalChange = (y - mYDelta);
 
-        float verticalChange = y;// - mEndY;
-        mStartY += verticalChange;
-        mEndY += verticalChange;
-
-        logLine("Move Vertical: Post ");
+        if (isInViewBounds(mStartY + verticalChange, mEndY + verticalChange)) {
+            mStartY += verticalChange;
+            mEndY += verticalChange;
+            mYDelta = y;
+            logLine("Vertical Move");
+        } else {
+            logLine("Vertical Move: BLOCKED");
+        }
 
         mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
     }
@@ -191,13 +196,27 @@ public class MeasureLine extends View {
     void changeAngle(float x, float y) {
         mBitmap.eraseColor(Color.TRANSPARENT);
 
-        logLine("Change Angle: Pre ");
-        mEndY = y;
-        logLine("Change Angle: Post ");
+        if (isInViewBounds(mStartY, y)) {
+            mEndY = y;
+            logLine("Change Angle");
+        } else {
+            logLine("Change Angle: BLOCKED");
+        }
 
         mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
     }
 
+    boolean isInViewBounds(float startY, float endY) {
+        //Check bottom of screen
+        float checkBottomY = Math.max(startY, endY);
+        boolean bottomInBounds = !(checkBottomY > (mScreenHeight - mYMargin));
+
+        //Check top of screen
+        float checkTopY = Math.min(startY, endY);
+        boolean topInBounds = checkTopY > mYMargin;
+
+        return bottomInBounds && topInBounds;
+    }
 
     boolean circleLineIntersect(float x1, float y1, float x2, float y2, float cx, float cy, float cr) {
         float dx = x2 - x1;
@@ -221,13 +240,20 @@ public class MeasureLine extends View {
     float calculateLineAngle() {
         float angle = (float) Math.toDegrees(Math.atan2(mEndY - mStartY, mEndX - mStartX));
         angle *= -1;
-        Log.i(this.getClass().getSimpleName(), "lineAngle:" + angle);
         return angle;
     }
 
+    private int getStatusBarHeight() {
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
+    }
 
     private void logLine(String message) {
-        Log.i(this.getClass().getSimpleName(), message + "( X:" + (int) mStartX + "-" + (int) mEndX + "|| Y:" + (int) mStartY + "-" + (int) mEndY + ")");
+        Log.i(this.getClass().getSimpleName(), message + "( X:" + (int) mStartX + "-" + (int) mEndX + "|| Y:" + (int) mStartY + "-" + (int) mEndY + ") ANGLE: " + mLineAngle);
     }
 
     //endregion
