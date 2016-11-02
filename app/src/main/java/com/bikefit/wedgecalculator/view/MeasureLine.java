@@ -1,12 +1,13 @@
 package com.bikefit.wedgecalculator.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,12 +32,7 @@ public class MeasureLine extends View {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private Paint mBitmapPaint;
     private Paint mPaint;
-
-    private Matrix mMatrix;
 
     private float mTouchRadius;
     private float mMiddleScreen;
@@ -48,6 +44,11 @@ public class MeasureLine extends View {
 
     private float mScreenHeight;
     private float mYMargin;
+
+    private Matrix mRotateIconMatrix = new Matrix();
+
+    private VectorDrawableCompat mUpDownIcon;
+    private VectorDrawableCompat mRotateIcon;
 
     //endregion
 
@@ -71,13 +72,8 @@ public class MeasureLine extends View {
     private void init(AttributeSet attrs) {
 
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        mBitmap = Bitmap.createBitmap(dm.widthPixels, dm.heightPixels, Bitmap.Config.ARGB_8888);
 
         mScreenHeight = dm.heightPixels - getStatusBarHeight();
-
-        mMatrix = new Matrix();
-        mCanvas = new Canvas(mBitmap);
-        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
         mPaint = new Paint();
 
         mPaint.setStyle(Paint.Style.STROKE);
@@ -111,21 +107,15 @@ public class MeasureLine extends View {
         mStartY = dm.heightPixels / 2;
         mEndY = dm.heightPixels / 2;
 
-        mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
-
-/*
         Resources res = getResources();
-        VectorDrawableCompat vector = VectorDrawableCompat.create(res, R.drawable.up_down_icon, null);
-        vector.setBounds(0, 0, vector.getIntrinsicWidth(), vector.getIntrinsicHeight());
-        mCanvas.translate(0, (dm.heightPixels / 2 - vector.getIntrinsicHeight() /2) );
-        vector.draw(mCanvas);
 
-        VectorDrawableCompat vector2 = VectorDrawableCompat.create(res, R.drawable.rotate_icon, null);
-        vector2.setBounds(0, 0, vector2.getIntrinsicWidth(), vector2.getIntrinsicHeight());
-        mCanvas.translate(dm.widthPixels - 100, 0);
-        //mCanvas.translate(dm.widthPixels, (dm.heightPixels / 2 - vector2.getIntrinsicHeight() /2) );
-        vector2.draw(mCanvas);
-*/
+        mUpDownIcon = VectorDrawableCompat.create(res, R.drawable.up_down_icon, null);
+        mUpDownIcon.setBounds(0, 0, mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
+
+        mRotateIcon = VectorDrawableCompat.create(res, R.drawable.rotate_icon, null);
+        mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
+
+        updateRotateIconMatrix(dm.widthPixels);
 
     }
 
@@ -136,7 +126,29 @@ public class MeasureLine extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawBitmap(mBitmap, mMatrix, mBitmapPaint);
+
+        canvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
+
+        float margin = 50;
+
+        canvas.save();
+        canvas.translate(mStartX + margin, mStartY - mUpDownIcon.getIntrinsicHeight() / 2);
+        mUpDownIcon.draw(canvas);
+        canvas.restore();
+
+        canvas.save();
+        canvas.setMatrix(mRotateIconMatrix);
+        mRotateIcon.draw(canvas);
+        canvas.restore();
+
+    }
+
+    private void updateRotateIconMatrix(float width) {
+        float rotateArrowDistance = width * 0.75f;
+        mRotateIconMatrix.reset();
+        mRotateIconMatrix.postTranslate(mStartX, mStartY);
+        mRotateIconMatrix.preRotate(mLineAngle * -1);
+        mRotateIconMatrix.preTranslate(rotateArrowDistance, (-mRotateIcon.getIntrinsicHeight() / 2) + getStatusBarHeight());
     }
 
     @Override
@@ -159,11 +171,12 @@ public class MeasureLine extends View {
                     } else {
                         changeAngle(x, y);
                     }
-
-                    mLineAngle = calculateLineAngle();
                 }
                 break;
         }
+
+        updateRotateIconMatrix(getWidth());
+
         invalidate();
         return true;
     }
@@ -184,6 +197,8 @@ public class MeasureLine extends View {
     void touchStart(float x, float y) {
         mCanMove = circleLineIntersect(mStartX, mStartY, mEndX, mEndY, x, y, mTouchRadius);
 
+        //todo: detect click inside coachmarks
+
         if (mCanMove) {
             Log.i(this.getClass().getSimpleName(), "Touch: YES");
         } else {
@@ -192,7 +207,6 @@ public class MeasureLine extends View {
     }
 
     void moveVertical(float x, float y) {
-        mBitmap.eraseColor(Color.TRANSPARENT);
 
         float verticalChange = (y - mYDelta);
 
@@ -204,21 +218,12 @@ public class MeasureLine extends View {
         } else {
             logLine("Vertical Move: BLOCKED");
         }
-
-        mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
     }
 
     void changeAngle(float x, float y) {
-        mBitmap.eraseColor(Color.TRANSPARENT);
-
-        if (isInViewBounds(mStartY, y)) {
-            mEndY = y;
-            logLine("Change Angle");
-        } else {
-            logLine("Change Angle: BLOCKED");
-        }
-
-        mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
+        //todo: clamp the view bounds
+        mLineAngle = calculateLineAngle(mStartX, mStartY, x, y);
+        mEndY = mStartY + ((mEndX - mStartX) * (float) Math.tan(Math.toRadians(-mLineAngle)));
     }
 
     boolean isInViewBounds(float startY, float endY) {
@@ -252,8 +257,8 @@ public class MeasureLine extends View {
     }
 
 
-    float calculateLineAngle() {
-        float angle = (float) Math.toDegrees(Math.atan2(mEndY - mStartY, mEndX - mStartX));
+    float calculateLineAngle(float startX, float startY, float endX, float endY) {
+        float angle = (float) Math.toDegrees(Math.atan2(endY - startY, endX - startX));
         angle *= -1;
         return angle;
     }
