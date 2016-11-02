@@ -112,6 +112,21 @@ public class MeasureLine extends View {
         mEndY = dm.heightPixels / 2;
 
         mCanvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
+
+/*
+        Resources res = getResources();
+        VectorDrawableCompat vector = VectorDrawableCompat.create(res, R.drawable.up_down_icon, null);
+        vector.setBounds(0, 0, vector.getIntrinsicWidth(), vector.getIntrinsicHeight());
+        mCanvas.translate(0, (dm.heightPixels / 2 - vector.getIntrinsicHeight() /2) );
+        vector.draw(mCanvas);
+
+        VectorDrawableCompat vector2 = VectorDrawableCompat.create(res, R.drawable.rotate_icon, null);
+        vector2.setBounds(0, 0, vector2.getIntrinsicWidth(), vector2.getIntrinsicHeight());
+        mCanvas.translate(dm.widthPixels - 100, 0);
+        //mCanvas.translate(dm.widthPixels, (dm.heightPixels / 2 - vector2.getIntrinsicHeight() /2) );
+        vector2.draw(mCanvas);
+*/
+
     }
 
     //endregion
