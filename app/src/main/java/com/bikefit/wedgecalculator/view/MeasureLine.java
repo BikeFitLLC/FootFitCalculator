@@ -22,7 +22,7 @@ public class MeasureLine extends View {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
-    private static final float DEFAULT_TOUCH_RADIUS = 25;
+    private static final float DEFAULT_TOUCH_RADIUS = 30;
     private static final int DEFAULT_COLOR = Color.RED;
     private static final float DEFAULT_STROKE_WIDTH = 5;
     private static final boolean DEFAULT_ANTIALIAS = true;
@@ -46,6 +46,7 @@ public class MeasureLine extends View {
     private float mYMargin;
 
     private Matrix mRotateIconMatrix = new Matrix();
+    private Matrix mUpDownIconMatrix = new Matrix();
 
     private VectorDrawableCompat mUpDownIcon;
     private VectorDrawableCompat mRotateIcon;
@@ -116,7 +117,7 @@ public class MeasureLine extends View {
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
 
         updateRotateIconMatrix(dm.widthPixels);
-
+        updateUpDownIconMatrix();
     }
 
     //endregion
@@ -132,7 +133,8 @@ public class MeasureLine extends View {
         float margin = 50;
 
         canvas.save();
-        canvas.translate(mStartX + margin, mStartY - mUpDownIcon.getIntrinsicHeight() / 2);
+        //canvas.translate(mStartX + margin, mStartY - mUpDownIcon.getIntrinsicHeight() / 2);
+        canvas.setMatrix(mUpDownIconMatrix);
         mUpDownIcon.draw(canvas);
         canvas.restore();
 
@@ -141,6 +143,11 @@ public class MeasureLine extends View {
         mRotateIcon.draw(canvas);
         canvas.restore();
 
+    }
+
+    private void updateUpDownIconMatrix() {
+        mUpDownIconMatrix.reset();
+        mUpDownIconMatrix.postTranslate(mStartX + 50, (mStartY - mUpDownIcon.getIntrinsicHeight() / 2) + getStatusBarHeight());
     }
 
     private void updateRotateIconMatrix(float width) {
@@ -176,6 +183,7 @@ public class MeasureLine extends View {
         }
 
         updateRotateIconMatrix(getWidth());
+        updateUpDownIconMatrix();
 
         invalidate();
         return true;
@@ -197,13 +205,41 @@ public class MeasureLine extends View {
     void touchStart(float x, float y) {
         mCanMove = circleLineIntersect(mStartX, mStartY, mEndX, mEndY, x, y, mTouchRadius);
 
-        //todo: detect click inside coachmarks
-
-        if (mCanMove) {
-            Log.i(this.getClass().getSimpleName(), "Touch: YES");
-        } else {
-            Log.i(this.getClass().getSimpleName(), "Touch : NO");
+        if (!mCanMove) {
+            mCanMove = insideRotateIcon(x, y);
         }
+
+        if (!mCanMove) {
+            mCanMove = insideUpDownIcon(x, y);
+        }
+
+        Log.i(this.getClass().getSimpleName(), "Can Move: " + mCanMove);
+    }
+
+    boolean insideRotateIcon(float x, float y) {
+        float[] point = new float[]{x, y};
+
+        Matrix inverse = new Matrix();
+        mRotateIconMatrix.invert(inverse);
+        inverse.mapPoints(point);
+
+        int bitmapX = Math.abs((int) point[0]);
+        int bitmapY = Math.abs((int) point[1]);
+
+        return mRotateIcon.getBounds().contains(bitmapX, bitmapY);
+    }
+
+    boolean insideUpDownIcon(float x, float y) {
+        float[] point = new float[]{x, y};
+
+        Matrix inverse = new Matrix();
+        mUpDownIconMatrix.invert(inverse);
+        inverse.mapPoints(point);
+
+        int bitmapX = Math.abs((int) point[0]);
+        int bitmapY = Math.abs((int) point[1]);
+
+        return mRotateIcon.getBounds().contains(bitmapX, bitmapY);
     }
 
     void moveVertical(float x, float y) {
@@ -224,6 +260,7 @@ public class MeasureLine extends View {
         //todo: clamp the view bounds
         mLineAngle = calculateLineAngle(mStartX, mStartY, x, y);
         mEndY = mStartY + ((mEndX - mStartX) * (float) Math.tan(Math.toRadians(-mLineAngle)));
+        logLine("Change Angle");
     }
 
     boolean isInViewBounds(float startY, float endY) {

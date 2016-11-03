@@ -14,6 +14,6 @@
         app:antiAlias="true"
         app:strokeColor="@android:color/holo_red_dark"
         app:strokeWidth="8"
-        app:touchRadius="20" />
+        app:touchRadius="30" />
 
 </RelativeLayout>
