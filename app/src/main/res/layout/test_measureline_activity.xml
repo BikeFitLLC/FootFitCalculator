@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/test_draw_line_activity"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.bikefit.wedgecalculator.test.TestMeasureLineActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/test_draw_line_activity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.bikefit.wedgecalculator.test.TestMeasureLineActivity">
 
-    <com.bikefit.wedgecalculator.view.MeasureLine
+    <!--<com.bikefit.wedgecalculator.view.MeasureLine-->
+        <!--android:id="@+id/measurement_fragment_draw_line"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:antiAlias="true"-->
+        <!--app:strokeColor="@android:color/holo_red_dark"-->
+        <!--app:strokeWidth="8"-->
+        <!--app:touchRadius="30" />-->
+
+    <com.bikefit.wedgecalculator.view.MeasureWidget
         android:id="@+id/measurement_fragment_draw_line"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:antiAlias="true"
-        app:strokeColor="@android:color/holo_red_dark"
-        app:strokeWidth="8"
-        app:touchRadius="30" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
