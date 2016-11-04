@@ -57,11 +57,15 @@ public class MeasureWidget extends View {
     private Paint mLinePaint;
     private Paint mDebugPaint;
     private float mDistanceToIconsFromCenter;
+    private float mStatusBarHeight;
+    private static final boolean DEBUG_DRAWING = true;
 
     // Transform state
     private Matrix mMainTransform = new Matrix();
+    private Matrix mRotateIconOffsetTransform = new Matrix();
     private Matrix mRotateIconTransform = new Matrix();
     private Matrix mUpDownIconTransform = new Matrix();
+    private Matrix mScratchMatrix = new Matrix();
     private float mAngle;
 
     // Icon Resources
@@ -74,12 +78,10 @@ public class MeasureWidget extends View {
     private PointF mPrevMovePoint = new PointF();
     private PointF mLastTouchPoint = new PointF();
     private MoveMode mMoveMode = MoveMode.NONE;
+    private float mInputTouchRadius;
 
     // Listener
     private AngleListener mAngleListener;
-
-    // Misc
-    private Matrix mDebugScratchMatrix = new Matrix();
 
     //endregion
 
@@ -102,7 +104,7 @@ public class MeasureWidget extends View {
 
     private void init(@Nullable AttributeSet attrs) {
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
-        float screenHeight = dm.heightPixels;   // STATUS_BAR_HEIGHT
+        float screenHeight = dm.heightPixels;
         float screenWidth = dm.widthPixels;
 
         mScreenSize.set(screenWidth, screenHeight);
@@ -115,6 +117,10 @@ public class MeasureWidget extends View {
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
         mRotateIconSize = new PointF(mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
 
+        mInputTouchRadius = 1.33f * (Math.max(mRotateIconSize.y, mUpDownIconSize.y) * 0.5f);
+
+        mStatusBarHeight = getStatusBarHeight();
+
         setupLinePaint();
 
         setupDebugLinePaint();
@@ -122,13 +128,13 @@ public class MeasureWidget extends View {
         // Initial transforms
         mDistanceToIconsFromCenter = screenWidth / 3;
         mMainTransform.setTranslate(screenWidth / 2, screenHeight / 2);
-        mRotateIconTransform.setTranslate(mDistanceToIconsFromCenter + (-mRotateIconSize.x * 0.5f), -mRotateIconSize.y * 0.5f);
+        mRotateIconOffsetTransform.setTranslate(mDistanceToIconsFromCenter, 0);
+        mRotateIconTransform.setTranslate(-mRotateIconSize.x * 0.5f, -mRotateIconSize.y * 0.5f);
         mUpDownIconTransform.setTranslate(-mUpDownIconSize.x * 0.5f, -mUpDownIconSize.y * 0.5f);
 
         // Main left/right transform
         //mMainTransform.preRotate(180);
     }
-
 
     //endregion
 
@@ -138,24 +144,22 @@ public class MeasureWidget extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mDebugScratchMatrix.reset();
+        mScratchMatrix.reset();
 
         drawVerticalCenterLine(canvas);
         drawHorizontalLine(canvas);
-
-
-        drawDebugAxisCanvasTransform(canvas);
-        drawDebugAxisInWorldSpace(canvas, mMainTransform, 200);
-        debugDrawInput(canvas);
-
-        //debugDrawAngle(canvas);
         drawRotateIcon(canvas);
         drawUpDownIcon(canvas);
+
+        if (DEBUG_DRAWING) {
+            drawDebugAxisCanvasTransform(canvas);
+            drawDebugAxisInWorldSpace(canvas, mMainTransform, 200);
+            debugDrawInput(canvas);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
         PointF input = new PointF(event.getX(), event.getY());
 
         switch (event.getAction()) {
@@ -228,6 +232,15 @@ public class MeasureWidget extends View {
         mDebugPaint.setStrokeWidth(3);
     }
 
+    private int getStatusBarHeight() {
+        int statusBarHeight = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
+    }
+
     //endregion
 
     //region DRAW
@@ -247,56 +260,35 @@ public class MeasureWidget extends View {
     }
 
     private void drawRotateIcon(Canvas canvas) {
-        mDebugScratchMatrix.reset();
-        mDebugScratchMatrix.set(mMainTransform);
-        mDebugScratchMatrix.preConcat(mRotateIconTransform);
-
-        drawDebugAxisInWorldSpace(canvas, mDebugScratchMatrix, 100);
+        mScratchMatrix.reset();
+        mScratchMatrix.set(mMainTransform);
+        mScratchMatrix.preConcat(mRotateIconOffsetTransform);
+        mScratchMatrix.preConcat(mRotateIconTransform);
 
         canvas.save();
-        mDebugPaint.setColor(Color.MAGENTA);
-        canvas.setMatrix(mDebugScratchMatrix);
-        canvas.drawRect(mRotateIcon.getBounds(), mDebugPaint);
+        canvas.setMatrix(mScratchMatrix);
+        if (DEBUG_DRAWING) {
+            mDebugPaint.setColor(Color.MAGENTA);
+            canvas.drawRect(mRotateIcon.getBounds(), mDebugPaint);
+        }
         mRotateIcon.draw(canvas);
         canvas.restore();
     }
 
     private void drawUpDownIcon(Canvas canvas) {
-        mDebugScratchMatrix.reset();
-        mDebugScratchMatrix.set(mMainTransform);
+        float[] iconAnchorPoint = getUpDownIconWorldSpaceCenter();
 
-        float[] forwardAxis = {10, 0};
-        mDebugScratchMatrix.mapVectors(forwardAxis);
-        float directionMultiplier = forwardAxis[0] > 0.0f ? -1.0f : 1.0f;
-
-        float distOfIconFromOrigin = mDistanceToIconsFromCenter * directionMultiplier;
-        float distanceAlongRotatedLine = distOfIconFromOrigin / (float) Math.cos(Math.toRadians(mAngle));
-
-        float[] centerWorldSpace = {0, 0};
-        mDebugScratchMatrix.mapPoints(centerWorldSpace);
-
-        mDebugScratchMatrix.reset();
-        mDebugScratchMatrix.setTranslate(distanceAlongRotatedLine, 0);
-        mDebugScratchMatrix.postRotate(-mAngle);
-        mDebugScratchMatrix.postTranslate(centerWorldSpace[0], centerWorldSpace[1]);
-
-        float[] iconAnchorPoint = {0, 0};
-        mDebugScratchMatrix.mapPoints(iconAnchorPoint);
+        mScratchMatrix.reset();
+        mScratchMatrix.setTranslate(iconAnchorPoint[0], iconAnchorPoint[1]);
+        mScratchMatrix.postTranslate(0, mStatusBarHeight);
+        mScratchMatrix.postConcat(mUpDownIconTransform);
 
         canvas.save();
-        canvas.setMatrix(mDebugScratchMatrix);
-        mDebugPaint.setColor(Color.CYAN);
-        canvas.drawCircle(0, 0, 50, mDebugPaint);
-        canvas.restore();
-
-        mDebugScratchMatrix.reset();
-        mDebugScratchMatrix.setTranslate(iconAnchorPoint[0], iconAnchorPoint[1]);
-        mDebugScratchMatrix.postConcat(mUpDownIconTransform);
-
-        canvas.save();
-        mDebugPaint.setColor(Color.MAGENTA);
-        canvas.setMatrix(mDebugScratchMatrix);
-        canvas.drawRect(mUpDownIcon.getBounds(), mDebugPaint);
+        canvas.setMatrix(mScratchMatrix);
+        if (DEBUG_DRAWING) {
+            mDebugPaint.setColor(Color.MAGENTA);
+            canvas.drawRect(mUpDownIcon.getBounds(), mDebugPaint);
+        }
         mUpDownIcon.draw(canvas);
         canvas.restore();
     }
@@ -309,12 +301,22 @@ public class MeasureWidget extends View {
         mLastTouchPoint.set(input);
         mPrevMovePoint.set(input);
 
-        // TODO - TEMP!!
-        if (input.x < mScreenSize.x / 2) {
+        float[] upDownIconCenter = getUpDownIconWorldSpaceCenter();
+        float[] rotateIconCenter = getRotateIconWorldSpaceCenter();
+
+        boolean touchUpDownIcon = touchIconRadiusCheck(input, new PointF(upDownIconCenter[0], upDownIconCenter[1]), mInputTouchRadius);
+        boolean touchRotate = touchIconRadiusCheck(input, new PointF(rotateIconCenter[0], rotateIconCenter[1]), mInputTouchRadius);
+
+        if (touchUpDownIcon) {
             mMoveMode = MoveMode.TRANSLATE;
-        } else {
+        } else if (touchRotate) {
             mMoveMode = MoveMode.ROTATE;
         }
+    }
+
+    private boolean touchIconRadiusCheck(PointF input, PointF iconCenter, float radius) {
+        PointF delta = pointSubtract(input, iconCenter);
+        return delta.length() <= radius;
     }
 
     private void moveVertical(PointF input) {
@@ -356,6 +358,51 @@ public class MeasureWidget extends View {
         return new PointF(a.x - b.x, a.y - b.y);
     }
 
+    /**
+     * @return the rotate icon's center position in the world / input space, relative to the window
+     * without the status bar height.
+     */
+    private float[] getRotateIconWorldSpaceCenter() {
+        // Concatenate the main transform with the offset, accounting for the status bar height
+        mScratchMatrix.reset();
+        mScratchMatrix.set(mMainTransform);
+        mScratchMatrix.preConcat(mRotateIconOffsetTransform);
+        mScratchMatrix.postTranslate(0, -mStatusBarHeight);
+
+        float[] position = {0, 0};
+        mScratchMatrix.mapPoints(position);
+        return position;
+    }
+
+    /**
+     * @return the up-down icon's center position in the world / input space, relative to the window
+     * without the status bar height.
+     */
+    private float[] getUpDownIconWorldSpaceCenter() {
+        mScratchMatrix.reset();
+        mScratchMatrix.set(mMainTransform);
+
+        float[] forwardAxis = {10, 0};
+        mScratchMatrix.mapVectors(forwardAxis);
+        float directionMultiplier = forwardAxis[0] > 0.0f ? -1.0f : 1.0f;
+
+        float distOfIconFromOrigin = mDistanceToIconsFromCenter * directionMultiplier;
+        float distanceAlongRotatedLine = distOfIconFromOrigin / (float) Math.cos(Math.toRadians(mAngle));
+
+        float[] centerWorldSpace = {0, 0};
+        mScratchMatrix.mapPoints(centerWorldSpace);
+
+        mScratchMatrix.reset();
+        mScratchMatrix.setTranslate(distanceAlongRotatedLine, 0);
+        mScratchMatrix.postRotate(-mAngle);
+        mScratchMatrix.postTranslate(centerWorldSpace[0], centerWorldSpace[1]);
+        mScratchMatrix.postTranslate(0, -mStatusBarHeight);
+
+        float[] iconAnchorPoint = {0, 0};
+        mScratchMatrix.mapPoints(iconAnchorPoint);
+        return iconAnchorPoint;
+    }
+
     //endregion
 
     //region DEBUG
@@ -368,20 +415,6 @@ public class MeasureWidget extends View {
         canvas.drawLine(0, 0, axisLength, 0, mDebugPaint);
         mDebugPaint.setColor(Color.GREEN);
         canvas.drawLine(0, 0, 0, axisLength, mDebugPaint);
-        canvas.restore();
-    }
-
-    private void debugDrawAngle(Canvas canvas) {
-        canvas.save();
-
-        mDebugScratchMatrix.reset();
-        mDebugScratchMatrix.setRotate(mAngle);
-        mDebugScratchMatrix.postTranslate(mHalfScreenSize.x, mHalfScreenSize.y);
-        canvas.setMatrix(mDebugScratchMatrix);
-
-        mDebugPaint.setColor(Color.YELLOW);
-        canvas.drawLine(0, 0, 400, 0, mDebugPaint);
-
         canvas.restore();
     }
 
@@ -405,6 +438,14 @@ public class MeasureWidget extends View {
 
         mDebugPaint.setColor(Color.CYAN);
         canvas.drawCircle(mPrevMovePoint.x, mPrevMovePoint.y, radius, mDebugPaint);
+
+        float[] upDownIconPos = getUpDownIconWorldSpaceCenter();
+        mDebugPaint.setColor(Color.GRAY);
+        canvas.drawCircle(upDownIconPos[0], upDownIconPos[1], mInputTouchRadius, mDebugPaint);
+
+        float[] rotateIconPos = getRotateIconWorldSpaceCenter();
+        mDebugPaint.setColor(Color.GRAY);
+        canvas.drawCircle(rotateIconPos[0], rotateIconPos[1], mInputTouchRadius, mDebugPaint);
     }
 
     //endregion
