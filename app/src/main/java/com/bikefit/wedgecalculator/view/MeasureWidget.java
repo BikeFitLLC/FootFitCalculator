@@ -58,7 +58,8 @@ public class MeasureWidget extends View {
     private Paint mDebugPaint;
     private float mDistanceToIconsFromCenter;
     private float mStatusBarHeight;
-    private static final boolean DEBUG_DRAWING = true;
+    private static final boolean DEBUG_DRAWING = false;
+    private static final float MAXIMUM_ANGLE = 30.0f;
 
     // Transform state
     private Matrix mMainTransform = new Matrix();
@@ -333,9 +334,13 @@ public class MeasureWidget extends View {
 
         float anglePrev = getAngleBetweenPoints(center[0], center[1], mPrevMovePoint.x, mPrevMovePoint.y);
         float angleCurrent = getAngleBetweenPoints(center[0], center[1], input.x, input.y);
+        float angleDelta = clampAngle(angleCurrent - anglePrev);
 
-        float angleDelta = angleCurrent - anglePrev;
-        mAngle += angleDelta;
+        float newAngle = clampAngle(mAngle + angleDelta);
+        float clampedAngle = clamp(-MAXIMUM_ANGLE, MAXIMUM_ANGLE, newAngle);
+
+        angleDelta += clampedAngle - newAngle;
+        mAngle = clampedAngle;
 
         mMainTransform.preRotate(-angleDelta);
         mPrevMovePoint.set(input);
@@ -351,7 +356,7 @@ public class MeasureWidget extends View {
     private float getAngleBetweenPoints(float startX, float startY, float endX, float endY) {
         float angle = (float) Math.toDegrees(Math.atan2(endY - startY, endX - startX));
         angle *= -1;
-        return angle;
+        return clampAngle(angle);
     }
 
     private PointF pointSubtract(PointF a, PointF b) {
@@ -401,6 +406,24 @@ public class MeasureWidget extends View {
         float[] iconAnchorPoint = {0, 0};
         mScratchMatrix.mapPoints(iconAnchorPoint);
         return iconAnchorPoint;
+    }
+
+    private float clamp(float min, float max, float value) {
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Clamp a degrees angle value between [-180, 180].
+     *
+     * @param angle an angle in degrees to constrain within the bounds.
+     * @return an angle between [-180, 180].
+     */
+    private float clampAngle(float angle) {
+        while (angle > 180.0f)
+            angle -= 360.0f;
+        while (angle < -180.0f)
+            angle += 360.0f;
+        return angle;
     }
 
     //endregion
