@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.support.annotation.ColorInt;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -26,7 +27,7 @@ public class MeasureLine extends View {
     private static final int DEFAULT_COLOR = Color.RED;
     private static final float DEFAULT_STROKE_WIDTH = 5;
     private static final boolean DEFAULT_ANTIALIAS = true;
-    private static final int DEFAULT_TOUCH_MARGIN = 0;
+    private static final int DEFAULT_TOUCH_MARGIN = 50;
 
     //endregion
 
@@ -135,7 +136,7 @@ public class MeasureLine extends View {
         updateUpDownIconMatrix(dm.widthPixels);
 
         //todo: add to style
-        mShowTouchPoints = false;
+        mShowTouchPoints = true;
     }
 
     //endregion
@@ -146,39 +147,70 @@ public class MeasureLine extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        // The Line
         mPaint.setColor(Color.RED);
         canvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
 
+        // UpDown Coachmark
         canvas.save();
         canvas.setMatrix(mUpDownIconMatrix);
         mUpDownIcon.draw(canvas);
-        if (mShowTouchPoints) {
-            canvas.drawRect(mUpDownIcon.getBounds(), mPaint);
-        }
         canvas.restore();
 
+        // Rotate Coachmark
         canvas.save();
         canvas.setMatrix(mRotateIconMatrix);
         mRotateIcon.draw(canvas);
-        if (mShowTouchPoints) {
-            canvas.drawRect(mRotateIcon.getBounds(), mPaint);
-        }
         canvas.restore();
 
-        mPaint.setColor(Color.YELLOW);
-        canvas.drawCircle(mCurrentInputX, mCurrentInputY, 2, mPaint);
+        // Show touchpoints (debugging)
+        if (mShowTouchPoints) {
+            //show touch as yellow
+            showScreenTouch(canvas, Color.YELLOW);
+
+            showCircleTouchPoint(canvas, mUpDownIcon, mUpDownIconMatrix, Color.GREEN);
+            showRectTouchPoint(canvas, mUpDownIcon, mUpDownIconMatrix, Color.GREEN);
+
+            showCircleTouchPoint(canvas, mRotateIcon, mRotateIconMatrix, Color.GREEN);
+            showRectTouchPoint(canvas, mRotateIcon, mRotateIconMatrix, Color.GREEN);
+        }
+
+    }
+
+    private void showScreenTouch(Canvas canvas, @ColorInt int color) {
+        Paint paint = new Paint(mPaint);
+        paint.setColor(color);
+        canvas.save();
+        canvas.drawCircle(mCurrentInputX, mCurrentInputY, 2, paint);
+        canvas.restore();
+    }
+
+    private void showRectTouchPoint(Canvas canvas, VectorDrawableCompat icon, Matrix iconMatrix, @ColorInt int color) {
+        Paint paint = new Paint(mPaint);
+        paint.setColor(color);
+
+        canvas.save();
+        canvas.setMatrix(iconMatrix);
+        icon.draw(canvas);
+        canvas.drawRect(icon.getBounds(), paint);
+        canvas.restore();
+    }
+
+    private void showCircleTouchPoint(Canvas canvas, VectorDrawableCompat icon, Matrix iconMatrix, @ColorInt int color) {
+        Paint paint = new Paint(mPaint);
+        paint.setColor(color);
 
         // Input area debugging
-//        float cx = mRotateIcon.getIntrinsicWidth()/2;
-//        float cy = mRotateIcon.getIntrinsicHeight()/2;
-//        canvas.save();
-//        float[] center = {cx, cy};
-//        mRotateIconMatrix.mapPoints(center);
-//        mPaint.setColor(Color.GREEN);
-//        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), cy, mPaint);
-//        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), 2, mPaint);
-//        canvas.restore();
+        float cx = icon.getIntrinsicWidth() / 2;
+        float cy = icon.getIntrinsicHeight() / 2;
+        canvas.save();
+        float[] center = {cx, cy};
+        iconMatrix.mapPoints(center);
+        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), cy, paint);
+        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), 2, paint);
+        canvas.restore();
     }
+
 
     private void updateUpDownIconMatrix(float width) {
         float upDownIconDistance = width * 0.20f - (mUpDownIcon.getIntrinsicWidth());
@@ -192,6 +224,7 @@ public class MeasureLine extends View {
         mRotateIconMatrix.postTranslate(rotateArrowDistance, (-mRotateIcon.getIntrinsicHeight() / 2));
         mRotateIconMatrix.postRotate(mLineAngle * -1);
         mRotateIconMatrix.postTranslate(mStartX, mStartY + getStatusBarHeight());
+
     }
 
     @Override
@@ -243,21 +276,16 @@ public class MeasureLine extends View {
 
     void touchStart(float x, float y) {
 
-        if (insideRotateIcon(x, y)) {
-            Log.d(this.getClass().getSimpleName(), "insideRotateIcon! " + x + ", " + y);
-        }
-
         mCanMove = circleLineIntersect(mStartX, mStartY, mEndX, mEndY, x, y, mTouchRadius);
 
         if (!mCanMove) {
-            mCanMove = insideRotateIcon(x, y);
+            mCanMove = insideCoachmarkIcon(mRotateIcon, mRotateIconMatrix, x, y);
         }
 
         if (!mCanMove) {
-            mCanMove = insideUpDownIcon(x, y);
+            mCanMove = insideCoachmarkIcon(mUpDownIcon, mUpDownIconMatrix, x, y);
         }
 
-        //Log.i(this.getClass().getSimpleName(), "Can Move: " + mCanMove);
         if (mCanMove) {
             mYDelta = y;
             float currentAngle = calculateLineAngle(mStartX, mStartY, x, y);
@@ -273,30 +301,17 @@ public class MeasureLine extends View {
         }
     }
 
-    boolean insideRotateIcon(float x, float y) {
-        float cx = mRotateIcon.getIntrinsicWidth() / 2;
-        float cy = mRotateIcon.getIntrinsicHeight() / 2;
+    boolean insideCoachmarkIcon(VectorDrawableCompat icon, Matrix iconMatrix, float x, float y) {
+        float cx = icon.getIntrinsicWidth() / 2;
+        float cy = icon.getIntrinsicHeight() / 2;
         float halfHeight = cy;
         float[] iconCenter = {cx, cy};
-        mRotateIconMatrix.mapPoints(iconCenter);
+        iconMatrix.mapPoints(iconCenter);
         iconCenter[1] -= getStatusBarHeight();
         float distanceBetweenIconAndPoints = getDistanceBetweenPoints(x, y, iconCenter[0], iconCenter[1]);
         return distanceBetweenIconAndPoints < halfHeight;
     }
 
-    boolean insideUpDownIcon(float x, float y) {
-        float[] point = new float[]{x, y};
-
-        Matrix inverse = new Matrix();
-        mUpDownIconMatrix.invert(inverse);
-        inverse.mapPoints(point);
-
-        int bitmapX = Math.abs((int) point[0]);
-        int bitmapY = Math.abs((int) point[1]);
-
-
-        return mRotateIcon.getBounds().contains(bitmapX, bitmapY);
-    }
 
     void moveVertical(float x, float y) {
 
@@ -313,8 +328,7 @@ public class MeasureLine extends View {
     }
 
     void changeAngle(float x, float y) {
-        //todo: clamp the view bounds
-        //logLine("Change Angle : angle : " + mLineAngle);
+
         mLineAngle = calculateLineAngle(mStartX, mStartY, x, y);
         mLineAngle -= mDeltaAngle;
 
@@ -325,14 +339,10 @@ public class MeasureLine extends View {
 
     boolean isInViewBounds(float startY, float endY) {
         //Check bottom of screen
-        //float checkBottomY = Math.max(startY, endY);
-        float checkBottomY = startY;
-        boolean bottomInBounds = !(checkBottomY > (mScreenHeight - mYMargin));
+        boolean bottomInBounds = !(startY > (mScreenHeight - mYMargin));
 
         //Check top of screen
-        //float checkTopY = Math.min(startY, endY);
-        float checkTopY = startY;
-        boolean topInBounds = checkTopY > mYMargin;
+        boolean topInBounds = startY > mYMargin;
 
         return bottomInBounds && topInBounds;
     }
@@ -351,7 +361,7 @@ public class MeasureLine extends View {
         if (bb4ac < 0) {
             return false;    // No collision
         } else {
-            return true;      //Collision
+            return true;     // Collision
         }
     }
 
@@ -378,7 +388,7 @@ public class MeasureLine extends View {
     }
 
     private void logLine(String message) {
-        Log.i(this.getClass().getSimpleName(), message + "( X:" + (int) mStartX + "-" + (int) mEndX + "|| Y:" + (int) mStartY + "-" + (int) mEndY + ") ANGLE: " + mLineAngle);
+        Log.d(this.getClass().getSimpleName(), message + "( X:" + (int) mStartX + "-" + (int) mEndX + "|| Y:" + (int) mStartY + "-" + (int) mEndY + ") ANGLE: " + mLineAngle);
     }
 
     //endregion
