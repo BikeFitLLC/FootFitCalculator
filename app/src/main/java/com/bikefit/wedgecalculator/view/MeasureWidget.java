@@ -15,7 +15,11 @@ import android.view.View;
 
 import com.bikefit.wedgecalculator.R;
 
+/**
+ * Primary angle calculator widget that allows translating and rotating.
+ */
 public class MeasureWidget extends View {
+
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
 
@@ -23,6 +27,14 @@ public class MeasureWidget extends View {
     //endregion
 
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
+
+    /**
+     * Define the side of the foot.
+     */
+    public enum FootSide {
+        LEFT,
+        RIGHT
+    }
 
     /**
      * Listener for the current angle. This emits the absolute value of the angle, so it doesn't
@@ -40,11 +52,6 @@ public class MeasureWidget extends View {
         NONE,
         ROTATE,
         TRANSLATE,
-    }
-
-    private enum FootSide {
-        LEFT,
-        RIGHT
     }
 
     //endregion
@@ -69,6 +76,7 @@ public class MeasureWidget extends View {
     private Matrix mUpDownIconTransform = new Matrix();
     private Matrix mScratchMatrix = new Matrix();
     private float mAngle;
+    private FootSide mFootSide;
 
     // Icon Resources
     private VectorDrawableCompat mUpDownIcon;
@@ -134,8 +142,7 @@ public class MeasureWidget extends View {
         mRotateIconTransform.setTranslate(-mRotateIconSize.x * 0.5f, -mRotateIconSize.y * 0.5f);
         mUpDownIconTransform.setTranslate(-mUpDownIconSize.x * 0.5f, -mUpDownIconSize.y * 0.5f);
 
-        // Main left/right transform
-        //mMainTransform.preRotate(180);
+        mFootSide = FootSide.LEFT;
     }
 
     //endregion
@@ -165,7 +172,6 @@ public class MeasureWidget extends View {
         PointF input = new PointF(event.getX(), event.getY());
 
         switch (event.getAction()) {
-
             case MotionEvent.ACTION_DOWN:
                 touchStart(input);
                 break;
@@ -205,6 +211,25 @@ public class MeasureWidget extends View {
         if (listener != null) {
             listener.onAngleUpdate(0.0f);
         }
+    }
+
+    /**
+     * Set the desired foot for the widget. This swaps the sides that the rotation and translation
+     * widgets are on.
+     *
+     * @param side the new foot side to set.
+     */
+    public void setFootSide(FootSide side) {
+        if (side != mFootSide) {
+            if (side == FootSide.LEFT)
+                mMainTransform.preRotate(-180);
+            else if (side == FootSide.RIGHT)
+                mMainTransform.preRotate(180);
+        }
+
+        mFootSide = side;
+        invalidate();
+        sendAngleToListener();
     }
 
     //endregion
@@ -299,6 +324,16 @@ public class MeasureWidget extends View {
 
     //region INPUT
 
+    private void sendAngleToListener() {
+        if (mAngleListener != null) {
+            float angle = mAngle;
+            if (mFootSide == FootSide.RIGHT)
+                angle = -mAngle;
+
+            mAngleListener.onAngleUpdate(angle);
+        }
+    }
+
     private void touchStart(PointF input) {
         mLastTouchPoint.set(input);
         mPrevMovePoint.set(input);
@@ -359,8 +394,7 @@ public class MeasureWidget extends View {
         mMainTransform.preRotate(-angleDelta);
         mPrevMovePoint.set(input);
 
-        if (mAngleListener != null)
-            mAngleListener.onAngleUpdate(mAngle);
+        sendAngleToListener();
     }
 
     //endregion

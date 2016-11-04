@@ -20,6 +20,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <Button
+        android:id="@+id/test_measureline_togglebutton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        tools:text="Left Foot"/>
+
     <TextView
         android:id="@+id/test_measureline_angle"
         android:layout_width="wrap_content"
