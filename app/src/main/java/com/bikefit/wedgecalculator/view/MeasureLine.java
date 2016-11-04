@@ -32,6 +32,14 @@ public class MeasureLine extends View {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
+    private enum MoveMode {
+        NONE,
+        ROTATE,
+        TRANSLATE,
+    }
+
+    private MoveMode mMoveMode = MoveMode.NONE;
+
     private Paint mPaint;
 
     private float mTouchRadius;
@@ -39,6 +47,7 @@ public class MeasureLine extends View {
     private float mLineAngle;
     private float mStartX, mStartY, mEndX, mEndY;
     private float mYDelta;
+    private float mDeltaAngle;
 
     private boolean mCanMove = false;
 
@@ -51,6 +60,12 @@ public class MeasureLine extends View {
     private VectorDrawableCompat mUpDownIcon;
     private VectorDrawableCompat mRotateIcon;
 
+    private float mCurrentInputX;
+    private float mCurrentInputY;
+    private static float MAXIMUM_ANGLE = 30.0f;
+
+
+    private boolean mShowTouchPoints = false;
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -117,7 +132,10 @@ public class MeasureLine extends View {
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
 
         updateRotateIconMatrix(dm.widthPixels);
-        updateUpDownIconMatrix();
+        updateUpDownIconMatrix(dm.widthPixels);
+
+        //todo: add to style
+        mShowTouchPoints = false;
     }
 
     //endregion
@@ -128,34 +146,52 @@ public class MeasureLine extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        mPaint.setColor(Color.RED);
         canvas.drawLine(mStartX, mStartY, mEndX, mEndY, mPaint);
 
-        float margin = 50;
-
         canvas.save();
-        //canvas.translate(mStartX + margin, mStartY - mUpDownIcon.getIntrinsicHeight() / 2);
         canvas.setMatrix(mUpDownIconMatrix);
         mUpDownIcon.draw(canvas);
+        if (mShowTouchPoints) {
+            canvas.drawRect(mUpDownIcon.getBounds(), mPaint);
+        }
         canvas.restore();
 
         canvas.save();
         canvas.setMatrix(mRotateIconMatrix);
         mRotateIcon.draw(canvas);
+        if (mShowTouchPoints) {
+            canvas.drawRect(mRotateIcon.getBounds(), mPaint);
+        }
         canvas.restore();
 
+        mPaint.setColor(Color.YELLOW);
+        canvas.drawCircle(mCurrentInputX, mCurrentInputY, 2, mPaint);
+
+        // Input area debugging
+//        float cx = mRotateIcon.getIntrinsicWidth()/2;
+//        float cy = mRotateIcon.getIntrinsicHeight()/2;
+//        canvas.save();
+//        float[] center = {cx, cy};
+//        mRotateIconMatrix.mapPoints(center);
+//        mPaint.setColor(Color.GREEN);
+//        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), cy, mPaint);
+//        canvas.drawCircle(center[0], center[1] - getStatusBarHeight(), 2, mPaint);
+//        canvas.restore();
     }
 
-    private void updateUpDownIconMatrix() {
+    private void updateUpDownIconMatrix(float width) {
+        float upDownIconDistance = width * 0.20f - (mUpDownIcon.getIntrinsicWidth());
         mUpDownIconMatrix.reset();
-        mUpDownIconMatrix.postTranslate(mStartX + 50, (mStartY - mUpDownIcon.getIntrinsicHeight() / 2) + getStatusBarHeight());
+        mUpDownIconMatrix.postTranslate(upDownIconDistance, (mStartY - mUpDownIcon.getIntrinsicHeight() / 2) + getStatusBarHeight());
     }
 
     private void updateRotateIconMatrix(float width) {
-        float rotateArrowDistance = width * 0.75f;
+        float rotateArrowDistance = width * 0.80f;
         mRotateIconMatrix.reset();
-        mRotateIconMatrix.postTranslate(mStartX, mStartY);
-        mRotateIconMatrix.preRotate(mLineAngle * -1);
-        mRotateIconMatrix.preTranslate(rotateArrowDistance, (-mRotateIcon.getIntrinsicHeight() / 2) + getStatusBarHeight());
+        mRotateIconMatrix.postTranslate(rotateArrowDistance, (-mRotateIcon.getIntrinsicHeight() / 2));
+        mRotateIconMatrix.postRotate(mLineAngle * -1);
+        mRotateIconMatrix.postTranslate(mStartX, mStartY + getStatusBarHeight());
     }
 
     @Override
@@ -164,26 +200,29 @@ public class MeasureLine extends View {
         float x = event.getX();
         float y = event.getY();
 
+        mCurrentInputX = x;
+        mCurrentInputY = y;
+
         switch (event.getAction()) {
 
             case MotionEvent.ACTION_DOWN:
                 touchStart(x, y);
-                mYDelta = y;
+                break;
+            case MotionEvent.ACTION_UP:
+                mMoveMode = MoveMode.NONE;
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                if (mCanMove) {
-                    if (x <= mMiddleScreen) {
-                        moveVertical(x, y);
-                    } else {
-                        changeAngle(x, y);
-                    }
+                if (mMoveMode == MoveMode.ROTATE) {
+                    changeAngle(x, y);
+                } else if (mMoveMode == MoveMode.TRANSLATE) {
+                    moveVertical(x, y);
                 }
                 break;
         }
 
         updateRotateIconMatrix(getWidth());
-        updateUpDownIconMatrix();
+        updateUpDownIconMatrix(getWidth());
 
         invalidate();
         return true;
@@ -203,6 +242,11 @@ public class MeasureLine extends View {
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
     void touchStart(float x, float y) {
+
+        if (insideRotateIcon(x, y)) {
+            Log.d(this.getClass().getSimpleName(), "insideRotateIcon! " + x + ", " + y);
+        }
+
         mCanMove = circleLineIntersect(mStartX, mStartY, mEndX, mEndY, x, y, mTouchRadius);
 
         if (!mCanMove) {
@@ -213,20 +257,31 @@ public class MeasureLine extends View {
             mCanMove = insideUpDownIcon(x, y);
         }
 
-        Log.i(this.getClass().getSimpleName(), "Can Move: " + mCanMove);
+        //Log.i(this.getClass().getSimpleName(), "Can Move: " + mCanMove);
+        if (mCanMove) {
+            mYDelta = y;
+            float currentAngle = calculateLineAngle(mStartX, mStartY, x, y);
+            mDeltaAngle = currentAngle - mLineAngle;
+
+            if (x <= mMiddleScreen) {
+                mMoveMode = MoveMode.TRANSLATE;
+            } else {
+                mMoveMode = MoveMode.ROTATE;
+            }
+        } else {
+            mMoveMode = MoveMode.NONE;
+        }
     }
 
     boolean insideRotateIcon(float x, float y) {
-        float[] point = new float[]{x, y};
-
-        Matrix inverse = new Matrix();
-        mRotateIconMatrix.invert(inverse);
-        inverse.mapPoints(point);
-
-        int bitmapX = Math.abs((int) point[0]);
-        int bitmapY = Math.abs((int) point[1]);
-
-        return mRotateIcon.getBounds().contains(bitmapX, bitmapY);
+        float cx = mRotateIcon.getIntrinsicWidth() / 2;
+        float cy = mRotateIcon.getIntrinsicHeight() / 2;
+        float halfHeight = cy;
+        float[] iconCenter = {cx, cy};
+        mRotateIconMatrix.mapPoints(iconCenter);
+        iconCenter[1] -= getStatusBarHeight();
+        float distanceBetweenIconAndPoints = getDistanceBetweenPoints(x, y, iconCenter[0], iconCenter[1]);
+        return distanceBetweenIconAndPoints < halfHeight;
     }
 
     boolean insideUpDownIcon(float x, float y) {
@@ -238,6 +293,7 @@ public class MeasureLine extends View {
 
         int bitmapX = Math.abs((int) point[0]);
         int bitmapY = Math.abs((int) point[1]);
+
 
         return mRotateIcon.getBounds().contains(bitmapX, bitmapY);
     }
@@ -258,18 +314,24 @@ public class MeasureLine extends View {
 
     void changeAngle(float x, float y) {
         //todo: clamp the view bounds
+        //logLine("Change Angle : angle : " + mLineAngle);
         mLineAngle = calculateLineAngle(mStartX, mStartY, x, y);
+        mLineAngle -= mDeltaAngle;
+
+        mLineAngle = Math.max(Math.min(mLineAngle, MAXIMUM_ANGLE), -MAXIMUM_ANGLE);
+
         mEndY = mStartY + ((mEndX - mStartX) * (float) Math.tan(Math.toRadians(-mLineAngle)));
-        logLine("Change Angle");
     }
 
     boolean isInViewBounds(float startY, float endY) {
         //Check bottom of screen
-        float checkBottomY = Math.max(startY, endY);
+        //float checkBottomY = Math.max(startY, endY);
+        float checkBottomY = startY;
         boolean bottomInBounds = !(checkBottomY > (mScreenHeight - mYMargin));
 
         //Check top of screen
-        float checkTopY = Math.min(startY, endY);
+        //float checkTopY = Math.min(startY, endY);
+        float checkTopY = startY;
         boolean topInBounds = checkTopY > mYMargin;
 
         return bottomInBounds && topInBounds;
@@ -291,6 +353,12 @@ public class MeasureLine extends View {
         } else {
             return true;      //Collision
         }
+    }
+
+    private float getDistanceBetweenPoints(float x1, float y1, float x2, float y2) {
+        float deltaX = x2 - x1;
+        float deltaY = y2 - y1;
+        return (float) Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
     }
 
 
