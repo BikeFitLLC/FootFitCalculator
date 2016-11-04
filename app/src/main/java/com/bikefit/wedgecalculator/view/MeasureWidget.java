@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -24,6 +23,15 @@ public class MeasureWidget extends View {
     //endregion
 
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
+
+    /**
+     * Listener for the current angle. This emits the absolute value of the angle, so it doesn't
+     * matter about the rotation, it's always an angle relative to the horizontal.
+     */
+    public interface AngleListener {
+        void onAngleUpdate(float angle);
+    }
+
     //endregion
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
@@ -67,6 +75,9 @@ public class MeasureWidget extends View {
     private PointF mLastTouchPoint = new PointF();
     private MoveMode mMoveMode = MoveMode.NONE;
 
+    // Listener
+    private AngleListener mAngleListener;
+
     // Misc
     private Matrix mDebugScratchMatrix = new Matrix();
 
@@ -109,13 +120,13 @@ public class MeasureWidget extends View {
         setupDebugLinePaint();
 
         // Initial transforms
-        mDistanceToIconsFromCenter = screenWidth / 4;
+        mDistanceToIconsFromCenter = screenWidth / 3;
         mMainTransform.setTranslate(screenWidth / 2, screenHeight / 2);
         mRotateIconTransform.setTranslate(mDistanceToIconsFromCenter + (-mRotateIconSize.x * 0.5f), -mRotateIconSize.y * 0.5f);
         mUpDownIconTransform.setTranslate(-mUpDownIconSize.x * 0.5f, -mUpDownIconSize.y * 0.5f);
 
         // Main left/right transform
-        mMainTransform.preRotate(180);
+        //mMainTransform.preRotate(180);
     }
 
 
@@ -177,6 +188,19 @@ public class MeasureWidget extends View {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+
+    /**
+     * Set the current angle listener to receive angle events.
+     *
+     * @param listener listener for receiving the current angle.
+     */
+    public void setAngleListener(@Nullable AngleListener listener) {
+        mAngleListener = listener;
+        if (listener != null) {
+            listener.onAngleUpdate(0.0f);
+        }
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
@@ -246,9 +270,7 @@ public class MeasureWidget extends View {
         float directionMultiplier = forwardAxis[0] > 0.0f ? -1.0f : 1.0f;
 
         float distOfIconFromOrigin = mDistanceToIconsFromCenter * directionMultiplier;
-        float distanceAlongRotatedLine = distOfIconFromOrigin / (float)Math.cos(Math.toRadians(mAngle));
-
-        Log.d("Widget" , "forwardAxis : " + forwardAxis[0] + ", distOfIconFromOrigin : " + distOfIconFromOrigin);
+        float distanceAlongRotatedLine = distOfIconFromOrigin / (float) Math.cos(Math.toRadians(mAngle));
 
         float[] centerWorldSpace = {0, 0};
         mDebugScratchMatrix.mapPoints(centerWorldSpace);
@@ -313,9 +335,11 @@ public class MeasureWidget extends View {
         float angleDelta = angleCurrent - anglePrev;
         mAngle += angleDelta;
 
-        //Log.d("MeasureWidget", "Rotate: prev : " + anglePrev + ", current : " + angleCurrent + ", delta : " + angleDelta + " finalAngle : " + mAngle);
         mMainTransform.preRotate(-angleDelta);
         mPrevMovePoint.set(input);
+
+        if (mAngleListener != null)
+            mAngleListener.onAngleUpdate(mAngle);
     }
 
     //endregion
