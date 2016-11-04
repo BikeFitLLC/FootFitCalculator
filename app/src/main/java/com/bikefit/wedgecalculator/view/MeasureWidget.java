@@ -60,6 +60,7 @@ public class MeasureWidget extends View {
     private float mStatusBarHeight;
     private static final boolean DEBUG_DRAWING = false;
     private static final float MAXIMUM_ANGLE = 30.0f;
+    private static final float MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE = 10.0f;
 
     // Transform state
     private Matrix mMainTransform = new Matrix();
@@ -326,6 +327,19 @@ public class MeasureWidget extends View {
         mPrevMovePoint.set(input);
 
         mMainTransform.postTranslate(0, delta.y);
+
+        // Confine the center position to the screen by undoing any extra delta translation
+        float[] center = {0, 0};
+        mMainTransform.mapPoints(center);
+        float bottomEdge = mScreenSize.y - MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE;
+        float topEdge = mStatusBarHeight + MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE;
+        if (center[1] > bottomEdge) {
+            float deltaY = bottomEdge - center[1];
+            mMainTransform.postTranslate(0, deltaY);
+        } else if (center[1] < topEdge) {
+            float deltaY = topEdge - center[1];
+            mMainTransform.postTranslate(0, deltaY);
+        }
     }
 
     private void moveRotate(PointF input) {
