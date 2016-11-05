@@ -81,8 +81,6 @@ public class MeasureWidget extends View {
     // Icon Resources
     private VectorDrawableCompat mUpDownIcon;
     private VectorDrawableCompat mRotateIcon;
-    private PointF mRotateIconSize;
-    private PointF mUpDownIconSize;
 
     // Input
     private PointF mPrevMovePoint = new PointF();
@@ -122,12 +120,12 @@ public class MeasureWidget extends View {
 
         mUpDownIcon = VectorDrawableCompat.create(getResources(), R.drawable.up_down_icon, null);
         mUpDownIcon.setBounds(0, 0, mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
-        mUpDownIconSize = new PointF(mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
+        PointF upDownIconSize = new PointF(mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
         mRotateIcon = VectorDrawableCompat.create(getResources(), R.drawable.rotate_icon, null);
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
-        mRotateIconSize = new PointF(mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
+        PointF rotateIconSize = new PointF(mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
 
-        mInputTouchRadius = 1.33f * (Math.max(mRotateIconSize.y, mUpDownIconSize.y) * 0.5f);
+        mInputTouchRadius = 1.33f * (Math.max(rotateIconSize.y, upDownIconSize.y) * 0.5f);
 
         mStatusBarHeight = getStatusBarHeight();
 
@@ -139,8 +137,8 @@ public class MeasureWidget extends View {
         mDistanceToIconsFromCenter = screenWidth / 3;
         mMainTransform.setTranslate(screenWidth / 2, screenHeight / 2);
         mRotateIconOffsetTransform.setTranslate(mDistanceToIconsFromCenter, 0);
-        mRotateIconTransform.setTranslate(-mRotateIconSize.x * 0.5f, -mRotateIconSize.y * 0.5f);
-        mUpDownIconTransform.setTranslate(-mUpDownIconSize.x * 0.5f, -mUpDownIconSize.y * 0.5f);
+        mRotateIconTransform.setTranslate(-rotateIconSize.x * 0.5f, -rotateIconSize.y * 0.5f);
+        mUpDownIconTransform.setTranslate(-upDownIconSize.x * 0.5f, -upDownIconSize.y * 0.5f);
 
         mFootSide = FootSide.LEFT;
     }
@@ -358,9 +356,7 @@ public class MeasureWidget extends View {
 
     private void moveVertical(PointF input) {
         PointF delta = pointSubtract(input, mPrevMovePoint);
-
         mPrevMovePoint.set(input);
-
         mMainTransform.postTranslate(0, delta.y);
 
         // Confine the center position to the screen by undoing any extra delta translation
@@ -381,20 +377,25 @@ public class MeasureWidget extends View {
         float[] center = {0, 0};
         mMainTransform.mapPoints(center);
 
+        // Calculate the angles between the previous and current input points to determine a delta
         float anglePrev = getAngleBetweenPoints(center[0], center[1], mPrevMovePoint.x, mPrevMovePoint.y);
         float angleCurrent = getAngleBetweenPoints(center[0], center[1], input.x, input.y);
         float angleDelta = clampAngle(angleCurrent - anglePrev);
 
+        // Apply the delta to the current angle, and calmp
         float newAngle = clampAngle(mAngle + angleDelta);
         float clampedAngle = clamp(-MAXIMUM_ANGLE, MAXIMUM_ANGLE, newAngle);
 
+        // Adjust the delta by the clamped amount, ensuring the angle and delta never go across the boundary
         angleDelta += clampedAngle - newAngle;
-        mAngle = clampedAngle;
 
+        // Store the clamped absolute and delta angles, apply the delta to the main transform
+        mAngle = clampedAngle;
         mMainTransform.preRotate(-angleDelta);
-        mPrevMovePoint.set(input);
 
         sendAngleToListener();
+
+        mPrevMovePoint.set(input);
     }
 
     //endregion
@@ -435,22 +436,28 @@ public class MeasureWidget extends View {
         mScratchMatrix.reset();
         mScratchMatrix.set(mMainTransform);
 
+        // Store the origin of the main transform
+        float[] centerWorldSpace = {0, 0};
+        mScratchMatrix.mapPoints(centerWorldSpace);
+
+        // Determine a forward vector to determine the base angle
         float[] forwardAxis = {10, 0};
         mScratchMatrix.mapVectors(forwardAxis);
         float directionMultiplier = forwardAxis[0] > 0.0f ? -1.0f : 1.0f;
 
+        // Calculate how far along the main rotated line to anchor the icon that matches the
+        // fixed distance from center
         float distOfIconFromOrigin = mDistanceToIconsFromCenter * directionMultiplier;
         float distanceAlongRotatedLine = distOfIconFromOrigin / (float) Math.cos(Math.toRadians(mAngle));
 
-        float[] centerWorldSpace = {0, 0};
-        mScratchMatrix.mapPoints(centerWorldSpace);
-
+        // Create a transform that represents the distance along the main axis at the calculated distance
         mScratchMatrix.reset();
         mScratchMatrix.setTranslate(distanceAlongRotatedLine, 0);
         mScratchMatrix.postRotate(-mAngle);
         mScratchMatrix.postTranslate(centerWorldSpace[0], centerWorldSpace[1]);
         mScratchMatrix.postTranslate(0, -mStatusBarHeight);
 
+        // The transformed origin is the world-space anchor point
         float[] iconAnchorPoint = {0, 0};
         mScratchMatrix.mapPoints(iconAnchorPoint);
         return iconAnchorPoint;
