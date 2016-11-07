@@ -12,20 +12,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TestMeasureLineActivity extends AppCompatActivity {
+public class TestMeasureWidgetActivity extends AppCompatActivity {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
-    @BindView(R.id.measurement_fragment_angle_measure_widget)
+    @BindView(R.id.test_measurewidget_widget)
     MeasureWidget mMeasureWidget;
 
-    @BindView(R.id.test_measureline_angle)
+    @BindView(R.id.test_measurewidget_angle)
     TextView mAngleText;
 
-    @BindView(R.id.test_measureline_togglebutton)
+    @BindView(R.id.test_measurewidget_togglebutton)
     Button mFootToggleButton;
 
     //endregion
@@ -50,7 +50,7 @@ public class TestMeasureLineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_measureline_activity);
+        setContentView(R.layout.test_measurewidget_activity);
 
         ButterKnife.bind(this);
         mMeasureWidget.setFootSide(mFootSide);
@@ -68,7 +68,7 @@ public class TestMeasureLineActivity extends AppCompatActivity {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.test_measureline_togglebutton)
+    @OnClick(R.id.test_measurewidget_togglebutton)
     void clickFootToggle() {
         MeasureWidget.FootSide newSide = mFootSide == MeasureWidget.FootSide.LEFT ? MeasureWidget.FootSide.RIGHT : MeasureWidget.FootSide.LEFT;
         setFootSide(newSide);

@@ -22,13 +22,11 @@
             android:name=".startup.SplashActivity"
             android:clearTaskOnLaunch="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            -->
         </activity>
         <activity android:name=".welcome.WelcomeActivity"/>
         <activity android:name=".welcome.WedgingBenefitsActivity"/>
@@ -56,12 +54,12 @@
             android:name=".test.TestFragmentActivity"
             android:exported="false"/>
 
-        <activity android:name=".test.TestMeasureLineActivity">
-            <intent-filter>
+        <activity android:name=".test.TestMeasureWidgetActivity">
+<!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <!-- EndRegion -->
 

@@ -85,6 +85,10 @@ public class OrientationVideoFragmentAndroidTest {
 
         // THEN the webview is setup with the expected url
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        //todo find a better way to wait for webview
+        Thread.sleep(1000);
+
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -112,6 +116,10 @@ public class OrientationVideoFragmentAndroidTest {
 
         // THEN the webview is setup with the expected url
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        //todo find a better way to wait for webview
+        Thread.sleep(1000);
+
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -138,6 +146,10 @@ public class OrientationVideoFragmentAndroidTest {
 
         // THEN the webview is setup with the expected url
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
+
+        //todo find a better way to wait for webview
+        Thread.sleep(1000);
+
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
