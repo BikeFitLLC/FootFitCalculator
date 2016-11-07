@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.example.TestFragmentActivity;
+import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -50,21 +50,23 @@ public class CameraInstructionsFragmentUITest {
 
     @Test
     public void testButtonsAppear() {
-        //WHEN the activity starts
-        mActivityRule.launchActivity(null);
+
+        // WHEN the Activity with Fragment starts
+        startActivityWithFragment();
+
+        // WHEN the fragment is displayed
 
         // THEN the 2 options appear as buttons
         onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
         onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
-
     }
 
     @Ignore
     @Test
     public void testTellMeMoreButton() {
 
-        //WHEN the activity starts
-        mActivityRule.launchActivity(null);
+        // WHEN the Activity with Fragment starts
+        startActivityWithFragment();
 
         //THEN check the orientation video button appears
         onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
@@ -86,8 +88,8 @@ public class CameraInstructionsFragmentUITest {
 
         //todo find a way to test the camera opens
 
-        //WHEN the activity starts
-        mActivityRule.launchActivity(null);
+        // WHEN the Activity with Fragment starts
+        startActivityWithFragment();
 
         //THEN check the orientation video button appears
         onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
@@ -106,6 +108,13 @@ public class CameraInstructionsFragmentUITest {
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private void startActivityWithFragment() {
+        TestFragmentActivity activity = mActivityRule.launchActivity(null);
+        final CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance();
+        activity.transactToFragment(fragment);
+    }
+
     //endregion
 
 }

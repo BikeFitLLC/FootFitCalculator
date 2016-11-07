@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.example;
+package com.bikefit.wedgecalculator.test;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

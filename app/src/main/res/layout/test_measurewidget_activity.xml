@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test_draw_line_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bikefit.wedgecalculator.test.TestMeasureWidgetActivity">
+
+    <com.bikefit.wedgecalculator.view.MeasureWidget
+        android:id="@+id/test_measurewidget_widget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/test_measurewidget_togglebutton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        tools:text="Left Foot" />
+
+    <TextView
+        android:id="@+id/test_measurewidget_angle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        tools:text="23.5" />
+
+</RelativeLayout>

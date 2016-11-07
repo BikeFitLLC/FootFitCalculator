@@ -28,15 +28,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".example.ExampleActivity"/>
         <activity android:name=".welcome.WelcomeActivity"/>
         <activity android:name=".welcome.WedgingBenefitsActivity"/>
         <activity android:name=".main.OrientationVideoActivity"/>
         <activity android:name=".main.MainMenuActivity"/>
-        <activity
-            android:name=".example.TestFragmentActivity"
-            android:exported="false"/>
 
+
+        <!-- Example Activities -->
+        <activity android:name=".example.ExampleActivity"/>
+        <!-- EndRegion -->
 
         <!-- Register material-camera library Activities -->
         <activity
@@ -47,6 +47,22 @@
             android:name="com.afollestad.materialcamera.CaptureActivity2"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialCamera.CaptureActivity"/>
+        <!-- EndRegion -->
+
+        <!-- Testing Activities -->
+        <activity
+            android:name=".test.TestFragmentActivity"
+            android:exported="false"/>
+
+        <activity android:name=".test.TestMeasureWidgetActivity">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
+        </activity>
+        <!-- EndRegion -->
+
     </application>
 
 </manifest>

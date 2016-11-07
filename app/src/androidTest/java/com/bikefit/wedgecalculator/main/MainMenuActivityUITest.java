@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.main;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -52,7 +53,7 @@ public class MainMenuActivityUITest {
         onView(withId(R.id.main_menu_fragment_get_in_position_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_measure_left_foot_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_measure_right_foot_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.main_menu_fragment_get_results_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_get_results_button)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
 
         onView(withId(R.id.main_menu_fragment_start_button)).check(matches(isDisplayed()));
     }
