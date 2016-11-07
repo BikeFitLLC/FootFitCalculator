@@ -382,7 +382,7 @@ public class MeasureWidget extends View {
         float angleCurrent = getAngleBetweenPoints(center[0], center[1], input.x, input.y);
         float angleDelta = clampAngle(angleCurrent - anglePrev);
 
-        // Apply the delta to the current angle, and calmp
+        // Apply the delta to the current angle, and clamp
         float newAngle = clampAngle(mAngle + angleDelta);
         float clampedAngle = clamp(-MAXIMUM_ANGLE, MAXIMUM_ANGLE, newAngle);
 

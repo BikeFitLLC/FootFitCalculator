@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.example.TestFragmentActivity;
+import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
 import org.junit.Ignore;
