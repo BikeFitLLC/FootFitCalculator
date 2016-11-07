@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="MeasureLine">
-        <attr name="antiAlias" format="boolean" />
+    <declare-styleable name="MeasureWidget">
+        <attr name="debugMode" format="boolean" />
         <attr name="strokeWidth" format="float" />
-        <attr name="touchRadius" format="float" />
-        <attr name="strokeColor" format="color" />
-        <attr name="touchMargin" format="integer" />
+        <attr name="maximumAngle" format="float" />
+        <attr name="maximumDistanceFromEdge" format="float" />
+        <attr name="strokeColor" format="integer" />
     </declare-styleable>
 
 </resources>

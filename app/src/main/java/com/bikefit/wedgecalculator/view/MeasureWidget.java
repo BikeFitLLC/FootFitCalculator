@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.view;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -13,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 
 /**
@@ -54,6 +56,12 @@ public class MeasureWidget extends View {
         TRANSLATE,
     }
 
+    private static final float DEFAULT_STROKE_WIDTH = 5;
+    private static final boolean DEFAULT_DEBUG_MODE = false;
+    private static final float DEFAULT_MAXIMUM_ANGLE = 30.0f;
+    private static final float DEFAULT_MAXIMUM_VERTICAL_DISTANCE = 10.f;
+    private static final int DEFAULT_COLOR = Color.RED;
+
     //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
@@ -62,12 +70,14 @@ public class MeasureWidget extends View {
     private PointF mScreenSize = new PointF();
     private PointF mHalfScreenSize = new PointF();
     private Paint mLinePaint;
-    private Paint mDebugPaint;
     private float mDistanceToIconsFromCenter;
     private float mStatusBarHeight;
-    private static final boolean DEBUG_DRAWING = false;
-    private static final float MAXIMUM_ANGLE = 30.0f;
-    private static final float MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE = 10.0f;
+
+    // Constraints
+    private float mMaxiumAngle = DEFAULT_MAXIMUM_ANGLE;
+    private float mMaximumVerticalDistanceFromEdge = DEFAULT_MAXIMUM_VERTICAL_DISTANCE;
+    private float mPaintStrokeWidth = DEFAULT_STROKE_WIDTH;
+    private int mPaintColor = DEFAULT_COLOR;
 
     // Transform state
     private Matrix mMainTransform = new Matrix();
@@ -91,6 +101,10 @@ public class MeasureWidget extends View {
     // Listener
     private AngleListener mAngleListener;
 
+    // Debugging
+    private boolean mDebugMode = DEFAULT_DEBUG_MODE;
+    private Paint mDebugPaint;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -111,6 +125,22 @@ public class MeasureWidget extends View {
     }
 
     private void init(@Nullable AttributeSet attrs) {
+
+        if (!isInEditMode() && attrs != null) {
+            TypedArray styleValues = BikeFitApplication.getInstance().obtainStyledAttributes(attrs, R.styleable.MeasureWidget);
+            mDebugMode = styleValues.getBoolean(R.styleable.MeasureWidget_debugMode, DEFAULT_DEBUG_MODE);
+            mMaxiumAngle = styleValues.getFloat(R.styleable.MeasureWidget_maximumAngle, DEFAULT_MAXIMUM_ANGLE);
+            mMaximumVerticalDistanceFromEdge = styleValues.getFloat(R.styleable.MeasureWidget_maximumDistanceFromEdge, DEFAULT_MAXIMUM_VERTICAL_DISTANCE);
+            mPaintStrokeWidth = styleValues.getFloat(R.styleable.MeasureWidget_strokeWidth, DEFAULT_STROKE_WIDTH);
+            mPaintColor = styleValues.getInt(R.styleable.MeasureWidget_strokeColor, DEFAULT_COLOR);
+        } else {
+            mDebugMode = DEFAULT_DEBUG_MODE;
+            mMaxiumAngle = DEFAULT_MAXIMUM_ANGLE;
+            mMaximumVerticalDistanceFromEdge = DEFAULT_MAXIMUM_VERTICAL_DISTANCE;
+            mPaintStrokeWidth = DEFAULT_STROKE_WIDTH;
+            mPaintColor = DEFAULT_COLOR;
+        }
+
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
         float screenHeight = dm.heightPixels;
         float screenWidth = dm.widthPixels;
@@ -121,6 +151,7 @@ public class MeasureWidget extends View {
         mUpDownIcon = VectorDrawableCompat.create(getResources(), R.drawable.up_down_icon, null);
         mUpDownIcon.setBounds(0, 0, mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
         PointF upDownIconSize = new PointF(mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
+
         mRotateIcon = VectorDrawableCompat.create(getResources(), R.drawable.rotate_icon, null);
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
         PointF rotateIconSize = new PointF(mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
@@ -130,8 +161,6 @@ public class MeasureWidget extends View {
         mStatusBarHeight = getStatusBarHeight();
 
         setupLinePaint();
-
-        setupDebugLinePaint();
 
         // Initial transforms
         mDistanceToIconsFromCenter = screenWidth / 3;
@@ -158,7 +187,7 @@ public class MeasureWidget extends View {
         drawRotateIcon(canvas);
         drawUpDownIcon(canvas);
 
-        if (DEBUG_DRAWING) {
+        if (mDebugMode) {
             drawDebugAxisCanvasTransform(canvas);
             drawDebugAxisInWorldSpace(canvas, mMainTransform, 200);
             debugDrawInput(canvas);
@@ -241,19 +270,13 @@ public class MeasureWidget extends View {
         mLinePaint.setStyle(Paint.Style.STROKE);
         mLinePaint.setStrokeJoin(Paint.Join.ROUND);
         mLinePaint.setStrokeCap(Paint.Cap.SQUARE);
-        mLinePaint.setColor(Color.RED);
+        mLinePaint.setColor(mPaintColor);
         mLinePaint.setDither(true);
         mLinePaint.setAntiAlias(true);
-        mLinePaint.setStrokeWidth(5);
-    }
+        mLinePaint.setStrokeWidth(mPaintStrokeWidth);
 
-    private void setupDebugLinePaint() {
-        mDebugPaint = new Paint();
-        mDebugPaint.setStyle(Paint.Style.STROKE);
-        mDebugPaint.setStrokeJoin(Paint.Join.ROUND);
-        mDebugPaint.setStrokeCap(Paint.Cap.SQUARE);
-        mDebugPaint.setDither(true);
-        mDebugPaint.setAntiAlias(true);
+        //setup debug paint
+        mDebugPaint = new Paint(mLinePaint);
         mDebugPaint.setStrokeWidth(3);
     }
 
@@ -292,7 +315,7 @@ public class MeasureWidget extends View {
 
         canvas.save();
         canvas.setMatrix(mScratchMatrix);
-        if (DEBUG_DRAWING) {
+        if (mDebugMode) {
             mDebugPaint.setColor(Color.MAGENTA);
             canvas.drawRect(mRotateIcon.getBounds(), mDebugPaint);
         }
@@ -310,7 +333,7 @@ public class MeasureWidget extends View {
 
         canvas.save();
         canvas.setMatrix(mScratchMatrix);
-        if (DEBUG_DRAWING) {
+        if (mDebugMode) {
             mDebugPaint.setColor(Color.MAGENTA);
             canvas.drawRect(mUpDownIcon.getBounds(), mDebugPaint);
         }
@@ -362,8 +385,8 @@ public class MeasureWidget extends View {
         // Confine the center position to the screen by undoing any extra delta translation
         float[] center = {0, 0};
         mMainTransform.mapPoints(center);
-        float bottomEdge = mScreenSize.y - MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE;
-        float topEdge = mStatusBarHeight + MAXIMUM_VERTICAL_DISTANCE_FROM_EDGE;
+        float bottomEdge = mScreenSize.y - mMaximumVerticalDistanceFromEdge;
+        float topEdge = mStatusBarHeight + mMaximumVerticalDistanceFromEdge;
         if (center[1] > bottomEdge) {
             float deltaY = bottomEdge - center[1];
             mMainTransform.postTranslate(0, deltaY);
@@ -384,7 +407,7 @@ public class MeasureWidget extends View {
 
         // Apply the delta to the current angle, and clamp
         float newAngle = clampAngle(mAngle + angleDelta);
-        float clampedAngle = clamp(-MAXIMUM_ANGLE, MAXIMUM_ANGLE, newAngle);
+        float clampedAngle = clamp(-mMaxiumAngle, mMaxiumAngle, newAngle);
 
         // Adjust the delta by the clamped amount, ensuring the angle and delta never go across the boundary
         angleDelta += clampedAngle - newAngle;
