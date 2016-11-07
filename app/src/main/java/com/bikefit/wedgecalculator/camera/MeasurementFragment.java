@@ -20,8 +20,10 @@ import butterknife.Unbinder;
 public class MeasurementFragment extends Fragment {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
+
     private static final String DIALOG_DISPLAYED_KEY = "DIALOG_DISPLAYED_KEY";
     private static final String FILE_PATH = "FILE_PATH";
+
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
@@ -106,15 +108,6 @@ public class MeasurementFragment extends Fragment {
 
     //endregion
 
-    //region WIDGET --------------------------------------------------------------------------------
-    //endregion
-
-    //region LISTENERS -----------------------------------------------------------------------------
-    //endregion
-
-    //region ACCESSORS -----------------------------------------------------------------------------
-    //endregion
-
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
     //endregion
 
@@ -133,10 +126,9 @@ public class MeasurementFragment extends Fragment {
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
-
     private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
 
-        String filePath;
+        final String filePath;
 
         public LayoutListener(String filePath) {
             this.filePath = filePath;

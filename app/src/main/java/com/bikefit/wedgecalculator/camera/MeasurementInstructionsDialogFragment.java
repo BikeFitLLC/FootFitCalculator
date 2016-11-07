@@ -22,11 +22,6 @@ import butterknife.Unbinder;
  */
 public class MeasurementInstructionsDialogFragment extends DialogFragment {
 
-    public interface MeasurementInstructionsDialogFragmentListener {
-        public void onDismissed();
-    }
-
-
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @BindView(R.id.measurement_instructions_dialog_fragment_button)
@@ -95,10 +90,8 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
             displayScreen2();
         } else {
             mDialog.dismiss();
-            getListener().onDismissed();
         }
     }
-
 
     //endregion
 
@@ -112,14 +105,6 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
     private void displayScreen2() {
         mDialogButton.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen2_button_text));
         mDialogText.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen2_description_text));
-    }
-
-    private MeasurementInstructionsDialogFragmentListener getListener() {
-        MeasurementInstructionsDialogFragmentListener listener = (MeasurementInstructionsDialogFragmentListener) getTargetFragment();
-        if (listener == null) {
-            listener = (MeasurementInstructionsDialogFragmentListener) getActivity();
-        }
-        return listener;
     }
 
     //endregion
