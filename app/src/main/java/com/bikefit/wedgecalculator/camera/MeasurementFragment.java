@@ -21,20 +21,23 @@ public class MeasurementFragment extends Fragment {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
-    public static final String FILE_PATH = "FILE_PATH";
+    private static final String DIALOG_DISPLAYED_KEY = "DIALOG_DISPLAYED_KEY";
+    private static final String FILE_PATH = "FILE_PATH";
 
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @BindView(R.id.measurement_fragment_foot_image)
-    ImageView footImage;
+    ImageView mFootImage;
 
     //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private Unbinder viewUnbinder;
+    private Unbinder mViewUnbinder;
+    private MeasurementInstructionsDialogFragment mInstructionsDialog;
+    private boolean mDialogDisplayed = false;
 
     //endregion
 
@@ -47,6 +50,7 @@ public class MeasurementFragment extends Fragment {
 
         MeasurementFragment fragment = new MeasurementFragment();
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -54,12 +58,11 @@ public class MeasurementFragment extends Fragment {
 
     //region LIFECYCLE METHODS ---------------------------------------------------------------------
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
-        viewUnbinder = ButterKnife.bind(this, view);
+        mViewUnbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -72,18 +75,28 @@ public class MeasurementFragment extends Fragment {
             String filePath = args.getString(FILE_PATH);
 
             LayoutListener layoutListener = new LayoutListener(filePath);
-            footImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+            mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
         }
 
+        if (savedInstanceState != null) {
+            mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(DIALOG_DISPLAYED_KEY, mDialogDisplayed);
     }
 
     @Override
     public void onDestroyView() {
-        footImage.setImageBitmap(null);
-        footImage = null;
+        mFootImage.setImageBitmap(null);
+        mFootImage = null;
+        mInstructionsDialog = null;
 
         super.onDestroyView();
-        viewUnbinder.unbind();
+        mViewUnbinder.unbind();
     }
 
     @Override
@@ -95,14 +108,27 @@ public class MeasurementFragment extends Fragment {
 
     //endregion
 
-    //region WIDGET --------------------------------------------------------------------------------
+    //region PUBLIC CLASS METHODS ------------------------------------------------------------------
     //endregion
 
-    //region LISTENERS -----------------------------------------------------------------------------
+    //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private void showDialog() {
+        if (!mDialogDisplayed) {
+            mInstructionsDialog = MeasurementInstructionsDialogFragment.newInstance();
+            mInstructionsDialog.setTargetFragment(this, 1);
+            mInstructionsDialog.show(getFragmentManager(), null);
+            mDialogDisplayed = true;
+        }
+    }
+
+    //endregion
+
+    //region INNER CLASSES -------------------------------------------------------------------------
 
     private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
 
-        String filePath;
+        final String filePath;
 
         public LayoutListener(String filePath) {
             this.filePath = filePath;
@@ -112,26 +138,16 @@ public class MeasurementFragment extends Fragment {
         public void onGlobalLayout() {
             getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
-            int width = footImage.getWidth();
-            int height = footImage.getHeight();
+            int width = mFootImage.getWidth();
+            int height = mFootImage.getHeight();
 
-            BitmapWorkerTask task = new BitmapWorkerTask(filePath, width, height, footImage);
+            BitmapWorkerTask task = new BitmapWorkerTask(filePath, width, height, mFootImage);
             task.execute();
+
+            showDialog();
         }
     }
 
-    //endregion
-
-    //region ACCESSORS -----------------------------------------------------------------------------
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
-    //endregion
-
-    //region PRIVATE METHODS -----------------------------------------------------------------------
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
 
 }

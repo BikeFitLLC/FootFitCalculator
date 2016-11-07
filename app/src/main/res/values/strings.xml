@@ -43,4 +43,10 @@
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
 
+    <!-- measurement_instructions_dialog_fragment -->
+    <string name="measurement_instructions_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
+    <string name="measurement_instructions_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
+    <string name="measurement_instructions_dialog_fragment_screen2_button_text">Done</string>
+    <string name="measurement_instructions_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
+
 </resources>

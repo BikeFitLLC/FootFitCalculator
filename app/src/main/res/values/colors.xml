@@ -10,13 +10,11 @@
     <color name="white">@android:color/white</color>
     <color name="orange">#FF3825</color>
 
-
     <color name="cobaltBlue">#052343</color>
     <color name="mediumBlue">#0A3D6B</color>
     <color name="lightBlue">#C5CAE9</color>
 
     <color name="imageBackgroundColor">@color/mediumBlue</color>
-
 
     <color name="primaryButton">@color/cobaltBlue</color>
     <color name="primaryButtonPressed">@color/mediumBlue</color>
@@ -26,4 +24,10 @@
     <color name="focusButtonPressed">#FF5722</color>
     <color name="focusButtonDisabled">#FFCCBC</color>
 
+    <!-- dialog colors -->
+    <color name="dialogBackground">#023055</color>
+    <color name="dialogButton">#3a546a</color>
+    <color name="dialogButtonRipple">@color/orange</color>
+    <color name="dialogButtonPressed">#32495C</color>
+    <color name="dialogButtonDisabled">#B3E5FC</color>
 </resources>
