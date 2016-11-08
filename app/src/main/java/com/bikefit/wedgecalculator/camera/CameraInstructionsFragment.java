@@ -18,6 +18,7 @@ import com.afollestad.materialcamera.MaterialCamera;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
+import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
@@ -43,14 +44,17 @@ public class CameraInstructionsFragment extends Fragment {
 
     private Unbinder viewUnbinder;
     private MaterialCamera materialCamera;
+    private MeasureWidget.FootSide mFootSide = MeasureWidget.FootSide.LEFT;
 
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static CameraInstructionsFragment newInstance() {
+    public static CameraInstructionsFragment newInstance(MeasureWidget.FootSide footSide) {
         CameraInstructionsFragment fragment = new CameraInstructionsFragment();
         Bundle args = new Bundle();
+        args.putSerializable(MeasureWidget.FOOTSIDE_KEY, footSide);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +79,13 @@ public class CameraInstructionsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            mFootSide = (MeasureWidget.FootSide) args.getSerializable(MeasureWidget.FOOTSIDE_KEY);
+        } else {
+            mFootSide = MeasureWidget.FootSide.LEFT;
+        }
 
         //Shouldn't be needed if we're not using external storage
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -112,7 +123,7 @@ public class CameraInstructionsFragment extends Fragment {
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
                 final File file = new File(data.getData().getPath());
-                MeasurementFragment fragment = MeasurementFragment.newInstance(file.getAbsolutePath());
+                MeasurementFragment fragment = MeasurementFragment.newInstance(mFootSide, file.getAbsolutePath());
                 ((MainMenuActivity) getActivity()).showFragment(fragment, true);
             } else if (data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);

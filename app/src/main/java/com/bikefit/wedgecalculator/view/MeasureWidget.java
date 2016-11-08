@@ -31,6 +31,11 @@ public class MeasureWidget extends View {
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
 
     /**
+     * public key to assist when passing between fragments inside a bundle
+     */
+    public static final String FOOTSIDE_KEY = "FOOTSIDE_KEY";
+
+    /**
      * Define the side of the foot.
      */
     public enum FootSide {

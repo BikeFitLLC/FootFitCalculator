@@ -3,6 +3,7 @@ package com.bikefit.wedgecalculator.camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
@@ -22,7 +24,7 @@ public class MeasurementFragment extends Fragment {
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
     private static final String DIALOG_DISPLAYED_KEY = "DIALOG_DISPLAYED_KEY";
-    private static final String FILE_PATH = "FILE_PATH";
+    private static final String FILE_PATH_KEY = "FILE_PATH_KEY";
 
     //endregion
 
@@ -30,6 +32,9 @@ public class MeasurementFragment extends Fragment {
 
     @BindView(R.id.measurement_fragment_foot_image)
     ImageView mFootImage;
+
+    @BindView(R.id.measurement_fragment_measure_widget)
+    MeasureWidget mMeasureWidget;
 
     //endregion
 
@@ -39,14 +44,19 @@ public class MeasurementFragment extends Fragment {
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
     private boolean mDialogDisplayed = false;
 
+    private float mAngle;
+
+    private MeasureWidget.FootSide mFootSide = MeasureWidget.FootSide.LEFT;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static MeasurementFragment newInstance(String file_path) {
+    public static MeasurementFragment newInstance(MeasureWidget.FootSide footSide, String file_path) {
 
         Bundle args = new Bundle();
-        args.putString(FILE_PATH, file_path);
+        args.putString(FILE_PATH_KEY, file_path);
+        args.putSerializable(MeasureWidget.FOOTSIDE_KEY, footSide);
 
         MeasurementFragment fragment = new MeasurementFragment();
         fragment.setArguments(args);
@@ -63,6 +73,10 @@ public class MeasurementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
         mViewUnbinder = ButterKnife.bind(this, view);
+
+        mMeasureWidget.setFootSide(mFootSide);
+        mMeasureWidget.setAngleListener(mAngleListener);
+
         return view;
     }
 
@@ -72,10 +86,13 @@ public class MeasurementFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            String filePath = args.getString(FILE_PATH);
+            String filePath = args.getString(FILE_PATH_KEY);
+            mFootSide = (MeasureWidget.FootSide) args.getSerializable(MeasureWidget.FOOTSIDE_KEY);
 
             LayoutListener layoutListener = new LayoutListener(filePath);
             mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+        } else {
+            mFootSide = MeasureWidget.FootSide.LEFT;
         }
 
         if (savedInstanceState != null) {
@@ -122,7 +139,24 @@ public class MeasurementFragment extends Fragment {
         }
     }
 
+    private void setAngle(float angle) {
+        Log.d(this.getClass().getSimpleName(), "ANGLE CHANGE: " + angle);
+        mAngle = angle;
+    }
+
     //endregion
+
+    // region listeners ----
+
+    MeasureWidget.AngleListener mAngleListener = new MeasureWidget.AngleListener() {
+        @Override
+        public void onAngleUpdate(float angle) {
+            setAngle(angle);
+        }
+    };
+
+    // endregion
+
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
