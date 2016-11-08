@@ -92,7 +92,7 @@ public class OrientationVideoFragmentAndroidTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                String webviewUrl = fragment.webView.getOriginalUrl();
+                String webviewUrl = fragment.mWebView.getOriginalUrl();
                 assertTrue(webviewUrl.contains(partialUrl));
             }
         });
@@ -123,7 +123,7 @@ public class OrientationVideoFragmentAndroidTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                String webviewUrl = fragment.webView.getOriginalUrl();
+                String webviewUrl = fragment.mWebView.getOriginalUrl();
                 assertTrue(webviewUrl.contains(expectedUrl));
             }
         });
@@ -153,7 +153,7 @@ public class OrientationVideoFragmentAndroidTest {
         InstrumentationRegistry.getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
-                String webviewUrl = fragment.webView.getOriginalUrl();
+                String webviewUrl = fragment.mWebView.getOriginalUrl();
                 assertTrue(webviewUrl.contains(expectedUrl));
             }
         });

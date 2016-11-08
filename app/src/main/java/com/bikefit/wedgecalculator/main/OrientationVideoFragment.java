@@ -3,6 +3,7 @@ package com.bikefit.wedgecalculator.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.bikefit.wedgecalculator.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -28,11 +30,19 @@ public class OrientationVideoFragment extends Fragment {
 
     //endregion
 
-    //region CLASS VARIABLES -----------------------------------------------------------------------
-    @BindView(R.id.webview)
-    WebView webView;
+    //region INJECTED VIEWS ------------------------------------------------------------------------
 
-    private Unbinder viewUnbinder;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @BindView(R.id.webview)
+    WebView mWebView;
+
+    //endregion
+
+    //region CLASS VARIABLES -----------------------------------------------------------------------
+
+    private Unbinder mViewUnBinder;
 
     //endregion
 
@@ -47,6 +57,10 @@ public class OrientationVideoFragment extends Fragment {
         return fragment;
     }
 
+    //endregion
+
+    //region LIFECYCLE METHODS ---------------------------------------------------------------------
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +70,10 @@ public class OrientationVideoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.orientation_video_fragment, container, false);
-        viewUnbinder = ButterKnife.bind(this, view);
+        mViewUnBinder = ButterKnife.bind(this, view);
+
+        mToolbar.setTitle(getResources().getString(R.string.video_orientation_fragment_title));
+
         return view;
     }
 
@@ -64,8 +81,8 @@ public class OrientationVideoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        webView.setWebViewClient(new WebViewClient());
-        webView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
         Bundle args = getArguments();
 
@@ -82,26 +99,22 @@ public class OrientationVideoFragment extends Fragment {
         setUrl(url);
     }
 
-    //endregion
-
-    //region LIFECYCLE METHODS ---------------------------------------------------------------------
+    @Override
+    public void onPause() {
+        mWebView.onPause();
+        super.onPause();
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        webView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        webView.onPause();
-        super.onPause();
+        mWebView.onResume();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        viewUnbinder.unbind();
+        mViewUnBinder.unbind();
     }
 
     //endregion
@@ -112,12 +125,21 @@ public class OrientationVideoFragment extends Fragment {
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
 
     public void setUrl(String url) {
-        webView.loadUrl(url);
+        mWebView.loadUrl(url);
     }
 
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+    //endregion
+
+    //region LISTENERS -----------------------------------------------------------------------------
+
+    @OnClick(R.id.toolbar)
+    public void onToolbarBackPressed() {
+        getActivity().onBackPressed();
+    }
+
     //endregion
 
     //region INNER CLASSES -------------------------------------------------------------------------
