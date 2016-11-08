@@ -12,14 +12,13 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.view.FootSide;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
-
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -184,7 +183,8 @@ public class MeasurementFragment extends Fragment {
     private void setAngle(float angle) {
         mAngle = angle;
         updateWedgeLevelDisplay(mAngle);
-        mAngleDisplay.setText(String.format(Locale.US, "%.2f", mAngle));
+
+        mAngleDisplay.setText(getString(R.string.measurement_fragment_angle_display_format, mAngle));
         Log.d(this.getClass().getSimpleName(), "ANGLE CHANGE: " + angle);
     }
 
@@ -205,7 +205,6 @@ public class MeasurementFragment extends Fragment {
         }
     };
 
-
     @OnClick(R.id.toolbar)
     public void onToolbarBackPressed() {
         getActivity().onBackPressed();
@@ -214,6 +213,12 @@ public class MeasurementFragment extends Fragment {
     @OnClick(R.id.measurement_fragment_undo_button)
     public void onUndoButtonPressed() {
         getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.measurement_fragment_save_button)
+    public void onSaveButtonPressed() {
+        String angleString = getString(R.string.measurement_fragment_angle_display_format, mAngle);
+        Toast.makeText(getActivity(), "Go to next screen with angle: " + angleString, Toast.LENGTH_SHORT).show();
     }
 
     //endregion
