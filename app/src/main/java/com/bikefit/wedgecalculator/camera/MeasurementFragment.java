@@ -36,6 +36,9 @@ public class MeasurementFragment extends Fragment {
     @BindView(R.id.measurement_fragment_measure_widget)
     MeasureWidget mMeasureWidget;
 
+    @BindView(R.id.measurement_fragment_wedge_graphic)
+    ImageView mWedgeGraphic;
+
     //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
@@ -76,6 +79,8 @@ public class MeasurementFragment extends Fragment {
 
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
+
+        mWedgeGraphic.setImageLevel(0);
 
         return view;
     }

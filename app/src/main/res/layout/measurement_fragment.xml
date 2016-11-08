@@ -25,6 +25,14 @@
             android:background="@android:color/transparent"
             app:debugMode="true" />
 
+        <ImageView
+            android:id="@+id/measurement_fragment_wedge_graphic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            tools:background="@android:color/transparent"
+            android:src="@drawable/wedge_graphic_left" />
+
     </FrameLayout>
 
     <LinearLayout
