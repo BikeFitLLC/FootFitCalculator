@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.view.FootSide;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 
 import butterknife.BindView;
@@ -38,7 +39,7 @@ public class TestMeasureWidgetActivity extends AppCompatActivity {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private MeasureWidget.FootSide mFootSide = MeasureWidget.FootSide.LEFT;
+    private FootSide mFootSide = FootSide.LEFT;
 
     //endregion
 
@@ -70,7 +71,7 @@ public class TestMeasureWidgetActivity extends AppCompatActivity {
 
     @OnClick(R.id.test_measurewidget_togglebutton)
     void clickFootToggle() {
-        MeasureWidget.FootSide newSide = mFootSide == MeasureWidget.FootSide.LEFT ? MeasureWidget.FootSide.RIGHT : MeasureWidget.FootSide.LEFT;
+        FootSide newSide = mFootSide == FootSide.LEFT ? FootSide.RIGHT : FootSide.LEFT;
         setFootSide(newSide);
     }
 
@@ -84,7 +85,7 @@ public class TestMeasureWidgetActivity extends AppCompatActivity {
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
-    private void setFootSide(MeasureWidget.FootSide footSide) {
+    private void setFootSide(FootSide footSide) {
         mFootToggleButton.setText(footSide.toString());
         mMeasureWidget.setFootSide(footSide);
         mFootSide = footSide;

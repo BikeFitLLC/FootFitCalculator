@@ -49,4 +49,8 @@
     <string name="measurement_instructions_dialog_fragment_screen2_button_text">Done</string>
     <string name="measurement_instructions_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
 
+    <!-- FootSide enum -->
+    <string name="footSide_left">Left</string>
+    <string name="footSide_right">Right</string>
+
 </resources>

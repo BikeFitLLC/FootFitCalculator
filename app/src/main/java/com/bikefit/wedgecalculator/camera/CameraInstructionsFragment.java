@@ -18,7 +18,7 @@ import com.afollestad.materialcamera.MaterialCamera;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.view.MeasureWidget;
+import com.bikefit.wedgecalculator.view.FootSide;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
@@ -44,16 +44,16 @@ public class CameraInstructionsFragment extends Fragment {
 
     private Unbinder viewUnbinder;
     private MaterialCamera materialCamera;
-    private MeasureWidget.FootSide mFootSide = MeasureWidget.FootSide.LEFT;
+    private FootSide mFootSide = FootSide.LEFT;
 
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static CameraInstructionsFragment newInstance(MeasureWidget.FootSide footSide) {
+    public static CameraInstructionsFragment newInstance(FootSide footSide) {
         CameraInstructionsFragment fragment = new CameraInstructionsFragment();
         Bundle args = new Bundle();
-        args.putSerializable(MeasureWidget.FOOTSIDE_KEY, footSide);
+        args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
 
         fragment.setArguments(args);
         return fragment;
@@ -82,9 +82,9 @@ public class CameraInstructionsFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            mFootSide = (MeasureWidget.FootSide) args.getSerializable(MeasureWidget.FOOTSIDE_KEY);
+            mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
         } else {
-            mFootSide = MeasureWidget.FootSide.LEFT;
+            mFootSide = FootSide.LEFT;
         }
 
         //Shouldn't be needed if we're not using external storage

@@ -23,14 +23,25 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:background="@android:color/transparent"
-            app:debugMode="true" />
+            app:debugMode="false"
+            app:maximumAngle="14" />
+
+        <TextView
+            android:id="@+id/measurement_fragment_foot_display_angle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:textSize="20sp"
+            tools:text="23.5" />
 
         <ImageView
             android:id="@+id/measurement_fragment_wedge_graphic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            tools:background="@android:color/transparent"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/wedge_graphic_left" />
 
     </FrameLayout>

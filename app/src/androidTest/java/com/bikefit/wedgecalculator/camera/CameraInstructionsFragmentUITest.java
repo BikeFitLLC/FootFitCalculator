@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
+import com.bikefit.wedgecalculator.view.FootSide;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -111,7 +112,7 @@ public class CameraInstructionsFragmentUITest {
 
     private void startActivityWithFragment() {
         TestFragmentActivity activity = mActivityRule.launchActivity(null);
-        final CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance();
+        final CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
         activity.transactToFragment(fragment);
     }
 

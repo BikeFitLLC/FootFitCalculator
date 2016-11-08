@@ -9,11 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.view.FootSide;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,27 +43,29 @@ public class MeasurementFragment extends Fragment {
     @BindView(R.id.measurement_fragment_wedge_graphic)
     ImageView mWedgeGraphic;
 
+    @BindView(R.id.measurement_fragment_foot_display_angle)
+    TextView mAngleDisplay;
+
     //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private Unbinder mViewUnbinder;
+    private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
+    private Unbinder mViewUnbinder;
     private boolean mDialogDisplayed = false;
 
     private float mAngle;
-
-    private MeasureWidget.FootSide mFootSide = MeasureWidget.FootSide.LEFT;
 
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static MeasurementFragment newInstance(MeasureWidget.FootSide footSide, String file_path) {
+    public static MeasurementFragment newInstance(FootSide footSide, String file_path) {
 
         Bundle args = new Bundle();
         args.putString(FILE_PATH_KEY, file_path);
-        args.putSerializable(MeasureWidget.FOOTSIDE_KEY, footSide);
+        args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
 
         MeasurementFragment fragment = new MeasurementFragment();
         fragment.setArguments(args);
@@ -80,8 +86,6 @@ public class MeasurementFragment extends Fragment {
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
 
-        mWedgeGraphic.setImageLevel(0);
-
         return view;
     }
 
@@ -92,17 +96,19 @@ public class MeasurementFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             String filePath = args.getString(FILE_PATH_KEY);
-            mFootSide = (MeasureWidget.FootSide) args.getSerializable(MeasureWidget.FOOTSIDE_KEY);
+            mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
 
             LayoutListener layoutListener = new LayoutListener(filePath);
             mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
         } else {
-            mFootSide = MeasureWidget.FootSide.LEFT;
+            mFootSide = FootSide.LEFT;
         }
 
         if (savedInstanceState != null) {
             mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
         }
+
+        setDebugMode(false);
     }
 
     @Override
@@ -131,9 +137,26 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+
+    public float getAngle() {
+        return mAngle;
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private void setDebugMode(boolean debug) {
+
+        if (debug) {
+            mMeasureWidget.setDebugMode(true);
+            mAngleDisplay.setVisibility(View.VISIBLE);
+        } else {
+            mMeasureWidget.setDebugMode(false);
+            mAngleDisplay.setVisibility(View.GONE);
+        }
+
+    }
 
     private void showDialog() {
         if (!mDialogDisplayed) {
@@ -145,8 +168,16 @@ public class MeasurementFragment extends Fragment {
     }
 
     private void setAngle(float angle) {
-        Log.d(this.getClass().getSimpleName(), "ANGLE CHANGE: " + angle);
         mAngle = angle;
+        updateWedgeLevelDisplay(mAngle);
+        mAngleDisplay.setText(String.format(Locale.US, "%.2f", mAngle));
+        Log.d(this.getClass().getSimpleName(), "ANGLE CHANGE: " + angle);
+    }
+
+    private void updateWedgeLevelDisplay(float angle) {
+        int wedgeLevel = FootSide.getWedgeLevel(angle);
+        Log.d(this.getClass().getSimpleName(), "wedge level: " + wedgeLevel);
+        mWedgeGraphic.setImageLevel(wedgeLevel);
     }
 
     //endregion

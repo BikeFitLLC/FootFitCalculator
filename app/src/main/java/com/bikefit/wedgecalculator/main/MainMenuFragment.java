@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.camera.CameraInstructionsFragment;
-import com.bikefit.wedgecalculator.view.MeasureWidget;
+import com.bikefit.wedgecalculator.view.FootSide;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -70,7 +70,7 @@ public class MainMenuFragment extends Fragment {
     @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
     public void onMeasureLeftFootButton() {
 
-        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(MeasureWidget.FootSide.LEFT);
+        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
     }
