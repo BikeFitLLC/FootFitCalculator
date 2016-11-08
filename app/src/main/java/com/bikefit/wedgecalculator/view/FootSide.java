@@ -37,6 +37,10 @@ public enum FootSide {
 
     //region ACCESSORS -----------------------------------------------------------------------------
 
+    public String getLabel() {
+        return footSideLabel;
+    }
+
     public int getFootLevelId() {
         return this.ordinal();
     }
