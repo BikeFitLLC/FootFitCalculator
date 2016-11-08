@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +24,14 @@ import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * Show Instructions on how to use the camera
+ */
 public class CameraInstructionsFragment extends Fragment {
 
 
@@ -37,8 +42,15 @@ public class CameraInstructionsFragment extends Fragment {
 
     //todo parameterize this value when we start creating pictures for right foot
     private final static String SAVE_FOLDER_NAME = "leftfoot";
+
     //endregion
 
+    //region INJECTED VIEWS ------------------------------------------------------------------------
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
@@ -73,6 +85,9 @@ public class CameraInstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         viewUnbinder = ButterKnife.bind(this, view);
+
+        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
+
         return view;
     }
 
@@ -160,6 +175,11 @@ public class CameraInstructionsFragment extends Fragment {
 
         materialCamera.stillShot();
         materialCamera.start(CAMERA_RQ);
+    }
+
+    @OnClick(R.id.toolbar)
+    public void onToolbarBackPressed() {
+        getActivity().onBackPressed();
     }
 
     //endregion

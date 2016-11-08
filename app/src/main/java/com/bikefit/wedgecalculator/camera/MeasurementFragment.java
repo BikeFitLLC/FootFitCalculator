@@ -3,6 +3,8 @@ package com.bikefit.wedgecalculator.camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +23,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * Handles the Measurement of the picture for wedges
+ */
 public class MeasurementFragment extends Fragment {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
@@ -33,6 +39,9 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @BindView(R.id.measurement_fragment_foot_image)
     ImageView mFootImage;
@@ -83,6 +92,8 @@ public class MeasurementFragment extends Fragment {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
         mViewUnbinder = ButterKnife.bind(this, view);
 
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
 
@@ -109,6 +120,7 @@ public class MeasurementFragment extends Fragment {
         }
 
         setDebugMode(false);
+        setWedgeGraphic(mFootSide);
     }
 
     @Override
@@ -146,14 +158,28 @@ public class MeasurementFragment extends Fragment {
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
+    private void setWedgeGraphic(FootSide footSide) {
+
+        switch (footSide) {
+            case LEFT:
+                mWedgeGraphic.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.wedge_graphic_left));
+                break;
+            case RIGHT:
+            default:
+                mWedgeGraphic.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.wedge_graphic_right));
+                break;
+        }
+
+    }
+
     private void setDebugMode(boolean debug) {
 
         if (debug) {
             mMeasureWidget.setDebugMode(true);
-            mAngleDisplay.setVisibility(View.VISIBLE);
+            //mAngleDisplay.setVisibility(View.VISIBLE);
         } else {
             mMeasureWidget.setDebugMode(false);
-            mAngleDisplay.setVisibility(View.GONE);
+            //mAngleDisplay.setVisibility(View.GONE);
         }
 
     }
@@ -182,7 +208,7 @@ public class MeasurementFragment extends Fragment {
 
     //endregion
 
-    // region listeners ----
+    //region LISTENERS -----------------------------------------------------------------------------
 
     MeasureWidget.AngleListener mAngleListener = new MeasureWidget.AngleListener() {
         @Override
@@ -191,7 +217,13 @@ public class MeasurementFragment extends Fragment {
         }
     };
 
-    // endregion
+
+    @OnClick(R.id.toolbar)
+    public void onToolbarBackPressed() {
+        getActivity().onBackPressed();
+    }
+
+    //endregion
 
 
     //region INNER CLASSES -------------------------------------------------------------------------
