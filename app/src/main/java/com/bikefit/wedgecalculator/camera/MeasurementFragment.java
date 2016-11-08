@@ -61,7 +61,7 @@ public class MeasurementFragment extends Fragment {
 
     private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
-    private Unbinder mViewUnbinder;
+    private Unbinder mViewUnBinder;
     private boolean mDialogDisplayed = false;
 
     private float mAngle;
@@ -90,7 +90,7 @@ public class MeasurementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
-        mViewUnbinder = ButterKnife.bind(this, view);
+        mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
 
@@ -119,7 +119,7 @@ public class MeasurementFragment extends Fragment {
             mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
         }
 
-        setDebugMode(false);
+        mMeasureWidget.setDebugMode(false);
         setWedgeGraphic(mFootSide);
     }
 
@@ -136,7 +136,7 @@ public class MeasurementFragment extends Fragment {
         mInstructionsDialog = null;
 
         super.onDestroyView();
-        mViewUnbinder.unbind();
+        mViewUnBinder.unbind();
     }
 
     @Override
@@ -172,18 +172,6 @@ public class MeasurementFragment extends Fragment {
 
     }
 
-    private void setDebugMode(boolean debug) {
-
-        if (debug) {
-            mMeasureWidget.setDebugMode(true);
-            //mAngleDisplay.setVisibility(View.VISIBLE);
-        } else {
-            mMeasureWidget.setDebugMode(false);
-            //mAngleDisplay.setVisibility(View.GONE);
-        }
-
-    }
-
     private void showDialog() {
         if (!mDialogDisplayed) {
             mInstructionsDialog = MeasurementInstructionsDialogFragment.newInstance();
@@ -210,7 +198,7 @@ public class MeasurementFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    MeasureWidget.AngleListener mAngleListener = new MeasureWidget.AngleListener() {
+    private final MeasureWidget.AngleListener mAngleListener = new MeasureWidget.AngleListener() {
         @Override
         public void onAngleUpdate(float angle) {
             setAngle(angle);
@@ -220,6 +208,11 @@ public class MeasurementFragment extends Fragment {
 
     @OnClick(R.id.toolbar)
     public void onToolbarBackPressed() {
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.measurement_fragment_undo_button)
+    public void onUndoButtonPressed() {
         getActivity().onBackPressed();
     }
 

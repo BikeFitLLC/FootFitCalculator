@@ -85,6 +85,7 @@
                 app:srcCompat="@drawable/undo_icon" />
 
             <TextView
+                android:id="@+id/measurement_fragment_undo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -107,6 +108,7 @@
                 app:srcCompat="@drawable/save_icon" />
 
             <TextView
+                android:id="@+id/measurement_fragment_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

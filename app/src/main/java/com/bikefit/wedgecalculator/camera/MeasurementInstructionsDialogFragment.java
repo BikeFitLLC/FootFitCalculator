@@ -35,7 +35,7 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
     private AlertDialog mDialog;
-    private Unbinder mViewUnbinder;
+    private Unbinder mViewUnBinder;
 
     //endregion
 
@@ -56,10 +56,11 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.measurement_instructions_dialog_fragment, null);
-        mViewUnbinder = ButterKnife.bind(this, dialogView);
+        mViewUnBinder = ButterKnife.bind(this, dialogView);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.WedgeDialog);
         dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
         mDialog = dialogBuilder.create();
 
         displayScreen1();
@@ -71,7 +72,7 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
     public void onDestroyView() {
         mDialog = null;
         super.onDestroyView();
-        mViewUnbinder.unbind();
+        mViewUnBinder.unbind();
     }
 
     //endregion
