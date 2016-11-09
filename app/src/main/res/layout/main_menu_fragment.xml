@@ -6,6 +6,8 @@
     android:orientation="vertical"
     tools:context="com.bikefit.wedgecalculator.main.MainMenuActivity">
 
+    <include layout="@layout/toolbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -99,7 +101,7 @@
             style="@style/Button.Focus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Got it" />
+            android:text="@string/main_menu_fragment_start_button_text" />
     </LinearLayout>
 
 </LinearLayout>

@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.bikefit.wedgecalculator.R;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,23 +15,12 @@ import butterknife.ButterKnife;
 public class MainMenuActivity extends AppCompatActivity {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
     //endregion
 
     //region LIFECYCLE METHODS ---------------------------------------------------------------------
-    private View.OnClickListener toolbarBackButtonListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            onBackPressed();
-        }
-    };
-
     //endregion
 
     //region ACCESSORS -----------------------------------------------------------------------------
@@ -47,8 +33,6 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_menu_activity);
         ButterKnife.bind(this);
-
-        toolbar.setNavigationOnClickListener(toolbarBackButtonListener);
 
         if (savedInstanceState == null) {
             MainMenuFragment fragment = MainMenuFragment.newInstance();

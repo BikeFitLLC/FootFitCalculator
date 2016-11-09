@@ -3,50 +3,76 @@ package com.bikefit.wedgecalculator.camera;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
+/**
+ * Handles the Measurement of the picture for wedges
+ */
 public class MeasurementFragment extends Fragment {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
     private static final String DIALOG_DISPLAYED_KEY = "DIALOG_DISPLAYED_KEY";
-    private static final String FILE_PATH = "FILE_PATH";
+    private static final String FILE_PATH_KEY = "FILE_PATH_KEY";
 
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     @BindView(R.id.measurement_fragment_foot_image)
     ImageView mFootImage;
+
+    @BindView(R.id.measurement_fragment_measure_widget)
+    MeasureWidget mMeasureWidget;
+
+    @BindView(R.id.measurement_fragment_wedge_graphic)
+    ImageView mWedgeGraphic;
+
+    @BindView(R.id.measurement_fragment_foot_display_angle)
+    TextView mAngleDisplay;
 
     //endregion
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private Unbinder mViewUnbinder;
+    private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
+    private Unbinder mViewUnBinder;
     private boolean mDialogDisplayed = false;
+
+    private float mAngle;
 
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static MeasurementFragment newInstance(String file_path) {
+    public static MeasurementFragment newInstance(FootSide footSide, String file_path) {
 
         Bundle args = new Bundle();
-        args.putString(FILE_PATH, file_path);
+        args.putString(FILE_PATH_KEY, file_path);
+        args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
 
         MeasurementFragment fragment = new MeasurementFragment();
         fragment.setArguments(args);
@@ -62,7 +88,13 @@ public class MeasurementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
-        mViewUnbinder = ButterKnife.bind(this, view);
+        mViewUnBinder = ButterKnife.bind(this, view);
+
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+
+        mMeasureWidget.setFootSide(mFootSide);
+        mMeasureWidget.setAngleListener(mAngleListener);
+
         return view;
     }
 
@@ -72,15 +104,21 @@ public class MeasurementFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            String filePath = args.getString(FILE_PATH);
+            String filePath = args.getString(FILE_PATH_KEY);
+            mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
 
             LayoutListener layoutListener = new LayoutListener(filePath);
             mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+        } else {
+            mFootSide = FootSide.LEFT;
         }
 
         if (savedInstanceState != null) {
             mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
         }
+
+        mMeasureWidget.setDebugMode(false);
+        setWedgeGraphic(mFootSide);
     }
 
     @Override
@@ -96,7 +134,7 @@ public class MeasurementFragment extends Fragment {
         mInstructionsDialog = null;
 
         super.onDestroyView();
-        mViewUnbinder.unbind();
+        mViewUnBinder.unbind();
     }
 
     @Override
@@ -109,9 +147,28 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+
+    public float getAngle() {
+        return mAngle;
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private void setWedgeGraphic(FootSide footSide) {
+
+        switch (footSide) {
+            case LEFT:
+                mWedgeGraphic.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.wedge_graphic_left));
+                break;
+            case RIGHT:
+            default:
+                mWedgeGraphic.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.wedge_graphic_right));
+                break;
+        }
+
+    }
 
     private void showDialog() {
         if (!mDialogDisplayed) {
@@ -122,7 +179,46 @@ public class MeasurementFragment extends Fragment {
         }
     }
 
+    private void setAngle(float angle) {
+        mAngle = angle;
+        updateWedgeLevelDisplay(mAngle);
+        mAngleDisplay.setText(getString(R.string.measurement_fragment_angle_display_format, mAngle));
+    }
+
+    private void updateWedgeLevelDisplay(float angle) {
+        int wedgeLevel = FootSide.getWedgeLevel(angle);
+        mWedgeGraphic.setImageLevel(wedgeLevel);
+    }
+
     //endregion
+
+    //region LISTENERS -----------------------------------------------------------------------------
+
+    private final MeasureWidget.AngleListener mAngleListener = new MeasureWidget.AngleListener() {
+        @Override
+        public void onAngleUpdate(float angle) {
+            setAngle(angle);
+        }
+    };
+
+    @OnClick(R.id.toolbar)
+    public void onToolbarBackPressed() {
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.measurement_fragment_undo_button)
+    public void onUndoButtonPressed() {
+        getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.measurement_fragment_save_button)
+    public void onSaveButtonPressed() {
+        String angleString = getString(R.string.measurement_fragment_angle_display_format, mAngle);
+        Toast.makeText(getActivity(), "Go to next screen with angle: " + angleString, Toast.LENGTH_SHORT).show();
+    }
+
+    //endregion
+
 
     //region INNER CLASSES -------------------------------------------------------------------------
 

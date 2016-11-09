@@ -31,14 +31,6 @@ public class MeasureWidget extends View {
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
 
     /**
-     * Define the side of the foot.
-     */
-    public enum FootSide {
-        LEFT,
-        RIGHT
-    }
-
-    /**
      * Listener for the current angle. This emits the absolute value of the angle, so it doesn't
      * matter about the rotation, it's always an angle relative to the horizontal.
      */
@@ -224,6 +216,11 @@ public class MeasureWidget extends View {
     //endregion
 
     //region ACCESSORS -----------------------------------------------------------------------------
+
+    public void setDebugMode(boolean debug) {
+        mDebugMode = debug;
+    }
+
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------

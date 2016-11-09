@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbar" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,22 +17,48 @@
             android:id="@+id/measurement_fragment_foot_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             tools:background="@android:color/darker_gray" />
 
-        <View
-            android:id="@+id/measurement_fragment_vertical_guideline"
-            android:layout_width="1dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/holo_red_dark" />
-
-        <com.bikefit.wedgecalculator.view.MeasureLine
-            android:id="@+id/measurement_fragment_draw_line"
+        <com.bikefit.wedgecalculator.view.MeasureWidget
+            android:id="@+id/measurement_fragment_measure_widget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            app:debugMode="false"
+            app:maximumAngle="14" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/titlebar_background" />
+
+            <TextView
+                android:id="@+id/measurement_fragment_foot_display_angle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                tools:text="23.5" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/measurement_fragment_wedge_graphic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/wedge_graphic_left" />
 
     </FrameLayout>
 
@@ -57,6 +85,7 @@
                 app:srcCompat="@drawable/undo_icon" />
 
             <TextView
+                android:id="@+id/measurement_fragment_undo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -79,6 +108,7 @@
                 app:srcCompat="@drawable/save_icon" />
 
             <TextView
+                android:id="@+id/measurement_fragment_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
