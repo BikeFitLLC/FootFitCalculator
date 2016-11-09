@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.view.FootSide;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
@@ -213,8 +213,12 @@ public class MeasurementFragment extends Fragment {
 
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {
-        String angleString = getString(R.string.measurement_fragment_angle_display_format, mAngle);
-        Toast.makeText(getActivity(), "Go to next screen with angle: " + angleString, Toast.LENGTH_SHORT).show();
+
+        //todo: set foot angle in shared preferences
+
+        MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+
     }
 
     //endregion
