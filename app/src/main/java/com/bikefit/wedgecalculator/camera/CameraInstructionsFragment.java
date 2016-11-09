@@ -51,7 +51,7 @@ public class CameraInstructionsFragment extends Fragment {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private Unbinder viewUnBinder;
+    private Unbinder mViewUnBinder;
     private MaterialCamera materialCamera;
     private FootSide mFootSide = FootSide.LEFT;
     private String mFolderName = FootSide.LEFT.toString();
@@ -82,7 +82,7 @@ public class CameraInstructionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
-        viewUnBinder = ButterKnife.bind(this, view);
+        mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
 
@@ -115,7 +115,7 @@ public class CameraInstructionsFragment extends Fragment {
         materialCamera = null;
 
         super.onDestroyView();
-        viewUnBinder.unbind();
+        mViewUnBinder.unbind();
     }
 
 

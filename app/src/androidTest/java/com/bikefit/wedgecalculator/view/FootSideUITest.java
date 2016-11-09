@@ -41,25 +41,25 @@ public class FootSideUITest {
 
     @Test
     public void getFootLevelId_LEFT() throws Exception {
-        //GIVEN an enum for the LEFT FootSide
+        // GIVEN an enum for the LEFT FootSide
         FootSide leftFoot = FootSide.LEFT;
 
-        //WHEN I REQUEST THE Level ID (for drawable resource)
+        // WHEN I REQUEST THE Level ID (for drawable resource)
         int result = leftFoot.getFootLevelId();
 
-        //THEN I get the desired result
+        // THEN I get the desired result
         assertEquals(result, 0);
     }
 
     @Test
     public void getFootLevelId_RIGHT() throws Exception {
-        //GIVEN an enum for the LEFT FootSide
+        // GIVEN an enum for the LEFT FootSide
         FootSide rightFoot = FootSide.RIGHT;
 
-        //WHEN I REQUEST THE Level ID (for drawable resource)
+        // WHEN I REQUEST THE Level ID (for drawable resource)
         int result = rightFoot.getFootLevelId();
 
-        //THEN I get the desired result
+        // THEN I get the desired result
         assertEquals(result, 1);
     }
 
@@ -92,7 +92,6 @@ public class FootSideUITest {
 
         assertEquals(name, expectedString);
     }
-
 
     @Test
     public void getWedgeLevel_NEGATIVE() throws Exception {
@@ -179,7 +178,6 @@ public class FootSideUITest {
         assertEquals(wedgeLevel, 2);
     }
 
-
     @Test
     public void getWedgeLevel_THREE_low() throws Exception {
         float angle = 7f;
@@ -208,7 +206,6 @@ public class FootSideUITest {
         assertEquals(wedgeLevel, 3);
     }
 
-
     @Test
     public void getWedgeLevel_FOUR_low() throws Exception {
         float angle = 8f;
@@ -236,8 +233,7 @@ public class FootSideUITest {
         // THEN I get the desired result
         assertEquals(wedgeLevel, 4);
     }
-
-
+    
     @Test
     public void getWedgeLevel_FIVE_low() throws Exception {
         float angle = 13f;

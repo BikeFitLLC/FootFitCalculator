@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,14 +182,11 @@ public class MeasurementFragment extends Fragment {
     private void setAngle(float angle) {
         mAngle = angle;
         updateWedgeLevelDisplay(mAngle);
-
         mAngleDisplay.setText(getString(R.string.measurement_fragment_angle_display_format, mAngle));
-        Log.d(this.getClass().getSimpleName(), "ANGLE CHANGE: " + angle);
     }
 
     private void updateWedgeLevelDisplay(float angle) {
         int wedgeLevel = FootSide.getWedgeLevel(angle);
-        Log.d(this.getClass().getSimpleName(), "wedge level: " + wedgeLevel);
         mWedgeGraphic.setImageLevel(wedgeLevel);
     }
 
