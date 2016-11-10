@@ -215,8 +215,13 @@ public class MeasurementFragment extends Fragment {
         //Set foot angle in shared preferences
         MeasureModel.setFootData(mFootSide, mAngle, MeasureModel.calculateWedgeCount(mAngle));
 
+        //Business rule: If writing LEFT data, clear the RIGHT data
+        if (mFootSide == FootSide.LEFT) {
+            MeasureModel.setFootData(FootSide.RIGHT, null, null);
+        }
+
         MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
-        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+        ((MainMenuActivity) getActivity()).showFragment(fragment, false);
     }
 
     //endregion

@@ -21,12 +21,6 @@ public class MeasureModel {
     public static void setFootData(FootSide footSide, Float angle, Integer wedgeCount) {
         Settings.setFootAngle(footSide, angle);
         Settings.setWedgeCount(footSide, wedgeCount);
-
-        //Business rule: If writing LEFT data, clear the RIGHT data
-        if (footSide == FootSide.LEFT) {
-            Settings.setFootAngle(FootSide.RIGHT, null);
-            Settings.setWedgeCount(FootSide.RIGHT, null);
-        }
     }
 
     //endregion

@@ -68,6 +68,7 @@
     <string name="measurement_summary_fragment_not_measured_label">\?</string>
     <string name="measurement_summary_fragment_unknown_label">Unknown</string>
     <string name="measurement_summary_fragment_angle_label">%1$.0f° Tilt</string>
+    <string name="measurement_summary_fragment_nofeet_measured_instruction_label">No feet have been measured.</string>
     <string name="measurement_summary_fragment_incomplete_instruction_text">That was the %1$s foot, now let\'s do the %2$s. It\'s going to be exactly the same process just with the other foot.</string>
     <string name="measurement_summary_fragment_left_header_label">Left Foot</string>
     <string name="measurement_summary_fragment_right_header_label">Right Foot</string>
@@ -75,6 +76,5 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
-
 
 </resources>

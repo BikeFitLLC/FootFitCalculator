@@ -243,7 +243,6 @@ public class MeasurementSummaryFragment extends Fragment {
     private void setInstructionTextAndButtons(Float leftAngle, Float rightAngle, Integer leftWedgeCount, Integer rightWedgeCount) {
 
         if (leftAngle != null && rightAngle != null) {
-
             int totalWedgeCount = leftWedgeCount + rightWedgeCount;
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_complete_instruction_text, totalWedgeCount));
 
@@ -252,14 +251,27 @@ public class MeasurementSummaryFragment extends Fragment {
             mProfessionalButton.setVisibility(View.VISIBLE);
             mPurchaseButton.setVisibility(View.VISIBLE);
 
+        } else if (leftAngle == null && rightAngle == null) {
+            // If we are here there have been no measurements, display message to user and make them back out of screen (i.e. no butttons)
+            mInstructionText.setText(getString(R.string.measurement_summary_fragment_nofeet_measured_instruction_label));
+
+            mOkButton.setVisibility(View.GONE);
+            mFullFittingButton.setVisibility(View.GONE);
+            mProfessionalButton.setVisibility(View.GONE);
+            mPurchaseButton.setVisibility(View.GONE);
+
         } else {
-            String finishedSide = FootSide.LEFT.getLabel();
-            String todoSide = FootSide.RIGHT.getLabel();
+            String finishedSide;
+            String todoSide;
 
             if (mRightAngle != null) {
                 finishedSide = FootSide.RIGHT.getLabel();
                 todoSide = FootSide.LEFT.getLabel();
+            } else {
+                finishedSide = FootSide.LEFT.getLabel();
+                todoSide = FootSide.RIGHT.getLabel();
             }
+
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_incomplete_instruction_text, finishedSide, todoSide));
 
             mOkButton.setVisibility(View.VISIBLE);
