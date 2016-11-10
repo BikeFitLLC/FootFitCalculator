@@ -69,7 +69,7 @@ public class MeasureModel {
      * @param angle the angle given from the measurement
      * @return The number of wedges required (max 3)
      */
-    public static int getWedgeCount(float angle) {
+    public static int calculateWedgeCount(float angle) {
 
         angle = Math.abs(angle);
         int wedgeCount;
@@ -78,8 +78,10 @@ public class MeasureModel {
             wedgeCount = 1;
         } else if (angle > 6 && angle <= 12) {
             wedgeCount = 2;
-        } else {
+        } else if (angle > 12) {
             wedgeCount = 3;
+        } else {
+            wedgeCount = 0;
         }
 
         return wedgeCount;

@@ -213,7 +213,7 @@ public class MeasurementFragment extends Fragment {
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {
         //Set foot angle in shared preferences
-        MeasureModel.setFootData(mFootSide, mAngle, MeasureModel.getWedgeCount(mAngle));
+        MeasureModel.setFootData(mFootSide, mAngle, MeasureModel.calculateWedgeCount(mAngle));
 
         MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
@@ -246,5 +246,4 @@ public class MeasurementFragment extends Fragment {
     }
 
     //endregion
-
 }
