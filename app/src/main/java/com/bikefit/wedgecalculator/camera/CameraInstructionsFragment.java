@@ -83,9 +83,6 @@ public class CameraInstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
-
-        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
-
         return view;
     }
 
@@ -100,6 +97,7 @@ public class CameraInstructionsFragment extends Fragment {
             mFootSide = FootSide.LEFT;
         }
 
+        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
         mFolderName = mFootSide.toString();
 
         //Shouldn't be needed if we're not using external storage

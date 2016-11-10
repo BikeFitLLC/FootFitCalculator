@@ -16,6 +16,9 @@
 
     <color name="imageBackgroundColor">@color/mediumBlue</color>
 
+    <color name="enabledText">#FFFFFF</color>
+    <color name="disabledText">#77FFFFFF</color>
+
     <color name="primaryButton">@color/cobaltBlue</color>
     <color name="primaryButtonPressed">@color/mediumBlue</color>
     <color name="primaryButtonDisabled">@color/lightBlue</color>

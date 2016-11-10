@@ -156,6 +156,16 @@
                 android:visibility="gone" />
 
             <Button
+                android:id="@+id/measurement_summary_fragment_purchase_button"
+                style="@style/Button.Focus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:text="@string/measurement_summary_fragment_purchase_button_label"
+                android:visibility="gone" />
+
+            <Button
                 android:id="@+id/measurement_summary_fragment_ok_button"
                 style="@style/Button.Focus"
                 android:layout_width="wrap_content"

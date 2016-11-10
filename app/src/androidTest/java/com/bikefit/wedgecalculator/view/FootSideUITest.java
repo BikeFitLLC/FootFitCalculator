@@ -92,6 +92,7 @@ public class FootSideUITest {
 
         assertEquals(name, expectedString);
     }
+/*
 
     @Test
     public void getWedgeLevel_NEGATIVE() throws Exception {
@@ -276,6 +277,7 @@ public class FootSideUITest {
         // THEN I get the desired result
         assertEquals(wedgeLevel, 6);
     }
+*/
 
     //endregion
 

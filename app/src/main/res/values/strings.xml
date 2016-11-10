@@ -37,7 +37,7 @@
     <string name="main_menu_fragment_start_button_text">Got it</string>
 
     <!-- Camera Fragment -->
-    <string name="camera_fragment_instruction_text">Center the red line with the back of the heal and tap the screen to take a screenshot</string>
+    <string name="camera_fragment_instruction_text">Center the red line with the back of the heel and tap the screen to take a screenshot</string>
     <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
     <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
 
@@ -74,6 +74,7 @@
     <string name="measurement_summary_fragment_complete_instruction_text">According to these measurements, you\'ll need a total of %1$d wedges. \n\nA properly fitted bike reduces the risk of injury, decreases fatigue, and provides you with more power on each cycle.</string>
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
+    <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
 
 
 </resources>
