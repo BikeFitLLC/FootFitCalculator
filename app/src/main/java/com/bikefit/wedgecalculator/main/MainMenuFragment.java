@@ -40,8 +40,6 @@ public class MainMenuFragment extends Fragment {
     @BindView(R.id.main_menu_fragment_get_results_button)
     Button mResultsButton;
 
-    @BindView(R.id.main_menu_fragment_what_you_need_button)
-    Button mWhatYouNeedButton;
 
     @BindView(R.id.main_menu_fragment_get_in_position_button)
     Button mGetInPositionButton;
@@ -71,8 +69,6 @@ public class MainMenuFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
 
-        mWhatYouNeedButton.setEnabled(true);
-        mGetInPositionButton.setEnabled(true);
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
 
         mStartButton.setEnabled(false);
@@ -96,7 +92,7 @@ public class MainMenuFragment extends Fragment {
     @OnClick(R.id.main_menu_fragment_orientation_video_button)
     public void onOrientationVideoButton() {
 
-        OrientationVideoFragment fragment = new OrientationVideoFragment().newInstance("");
+        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance("");
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
 
     }
@@ -104,8 +100,19 @@ public class MainMenuFragment extends Fragment {
     @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
     public void onMeasureLeftFootButton() {
 
-        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(FootSide.LEFT);
+        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+
+    }
+
+    @OnClick(R.id.main_menu_fragment_what_you_need_button)
+    public void onWhatYouNeedButton() {
+        WhatYouNeedFragment fragment = WhatYouNeedFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+    }
+
+    @OnClick(R.id.main_menu_fragment_get_in_position_button)
+    public void onGetInPositionButton() {
 
     }
 

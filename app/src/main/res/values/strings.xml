@@ -77,4 +77,11 @@
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
 
+    <!-- what you need fragment -->
+    <string name="what_you_need_fragment_title_label">What You\'ll Need</string>
+    <string name="what_you_need_fragment_ok_button_label">OK, we\'re ready to start</string>
+    <string name="what_you_need_fragment_couch_text">A sofa or chair to dangle \nyour feet over</string>
+    <string name="what_you_need_fragment_lightbulb_text">Good lighting</string>
+    <string name="what_you_need_fragment_highfive_text">A friend to help you</string>
+
 </resources>
