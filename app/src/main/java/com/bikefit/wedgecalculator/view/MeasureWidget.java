@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 /**
  * Primary angle calculator widget that allows translating and rotating.

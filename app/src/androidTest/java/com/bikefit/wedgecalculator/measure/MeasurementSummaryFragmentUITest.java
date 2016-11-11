@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.support.annotation.ColorInt;
 import android.support.test.InstrumentationRegistry;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.model.MeasureModel;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
-import com.bikefit.wedgecalculator.view.FootSide;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

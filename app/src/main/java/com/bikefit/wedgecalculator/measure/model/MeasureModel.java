@@ -1,7 +1,6 @@
-package com.bikefit.wedgecalculator.model;
+package com.bikefit.wedgecalculator.measure.model;
 
 import com.bikefit.wedgecalculator.settings.Settings;
-import com.bikefit.wedgecalculator.view.FootSide;
 
 /**
  * A simple model for storing values (angle & wedge count) from measuring the Right and Left foot
@@ -21,6 +20,12 @@ public class MeasureModel {
     public static void setFootData(FootSide footSide, Float angle, Integer wedgeCount) {
         Settings.setFootAngle(footSide, angle);
         Settings.setWedgeCount(footSide, wedgeCount);
+    }
+
+    public static boolean areBothFeetMeasured() {
+        boolean leftFoot = (getAngle(FootSide.LEFT) != null) && (getWedgeCount(FootSide.LEFT) != null);
+        boolean rightFoot = (getAngle(FootSide.RIGHT) != null) && (getWedgeCount(FootSide.RIGHT) != null);
+        return leftFoot && rightFoot;
     }
 
     //endregion

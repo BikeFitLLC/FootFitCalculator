@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.model.MeasureModel;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;

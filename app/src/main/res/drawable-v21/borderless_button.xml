@@ -3,16 +3,16 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="2dp" />
-            <solid android:color="@color/primaryButtonDisabled" />
+            <solid android:color="@color/borderlessButtonBackground" />
         </shape>
     </item>
 
     <item>
-        <ripple android:color="@color/primaryButtonRipple">
+        <ripple android:color="@color/borderlessButtonRipple">
             <item>
                 <shape android:shape="rectangle">
                     <corners android:radius="2dp" />
-                    <solid android:color="@color/primaryButton" />
+                    <solid android:color="@color/borderlessButtonBackground" />
                 </shape>
             </item>
         </ripple>

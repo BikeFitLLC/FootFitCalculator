@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 /**
  * Class that encapsulates the default application settings

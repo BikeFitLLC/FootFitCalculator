@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 import org.junit.Before;
 import org.junit.Test;

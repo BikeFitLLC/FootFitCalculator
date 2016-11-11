@@ -1,6 +1,8 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.graphics.BitmapFactory;
+
+import com.bikefit.wedgecalculator.measure.bitmap.BitmapUtil;
 
 import org.junit.Test;
 

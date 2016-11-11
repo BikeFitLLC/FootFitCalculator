@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.view;
+package com.bikefit.wedgecalculator.measure.model;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;

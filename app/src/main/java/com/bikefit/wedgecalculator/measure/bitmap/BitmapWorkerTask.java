@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure.bitmap;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
-
 
 /**
  * Loads the given image located in the filePath into the given ImageView,
@@ -41,7 +40,6 @@ public class BitmapWorkerTask extends AsyncTask<Void, Void, Bitmap> {
 
         return myBitmap;
     }
-
 
     @Override
     protected void onPostExecute(Bitmap bitmap) {

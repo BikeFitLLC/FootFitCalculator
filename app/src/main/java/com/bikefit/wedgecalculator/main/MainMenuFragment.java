@@ -7,10 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.camera.CameraInstructionsFragment;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
+import com.bikefit.wedgecalculator.measure.MeasurementSummaryFragment;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +37,19 @@ public class MainMenuFragment extends Fragment {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.main_menu_fragment_get_results_button)
+    Button mResultsButton;
+
+    @BindView(R.id.main_menu_fragment_what_you_need_button)
+    Button mWhatYouNeedButton;
+
+    @BindView(R.id.main_menu_fragment_get_in_position_button)
+    Button mGetInPositionButton;
+
+    @BindView(R.id.main_menu_fragment_start_button)
+    Button mStartButton;
+
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -54,6 +70,12 @@ public class MainMenuFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
+
+        mWhatYouNeedButton.setEnabled(false);
+        mGetInPositionButton.setEnabled(false);
+        mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
+
+        mStartButton.setEnabled(false);
 
         return view;
     }
@@ -79,7 +101,7 @@ public class MainMenuFragment extends Fragment {
 
     }
 
-    @OnClick(R.id.main_menu_fragment_measure_left_foot_button)
+    @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
     public void onMeasureLeftFootButton() {
 
         CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(FootSide.LEFT);
@@ -92,12 +114,17 @@ public class MainMenuFragment extends Fragment {
     //region PRIVATE METHODS -----------------------------------------------------------------------
     //endregion
 
-
     //region LISTENERS -----------------------------------------------------------------------------
 
     @OnClick(R.id.toolbar)
     public void onToolbarBackPressed() {
         getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.main_menu_fragment_get_results_button)
+    public void onResultsClicked() {
+        MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     //endregion

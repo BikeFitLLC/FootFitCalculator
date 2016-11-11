@@ -1,10 +1,9 @@
-package com.bikefit.wedgecalculator.model;
+package com.bikefit.wedgecalculator.measure.model;
 
 import android.support.test.InstrumentationRegistry;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.settings.Settings;
-import com.bikefit.wedgecalculator.view.FootSide;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 /**
- * Created by johnny5 on 11/9/16.
+ * Test MeasureModel
  */
 public class MeasureModelUITest {
 

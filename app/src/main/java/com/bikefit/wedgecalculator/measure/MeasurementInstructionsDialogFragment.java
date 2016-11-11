@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

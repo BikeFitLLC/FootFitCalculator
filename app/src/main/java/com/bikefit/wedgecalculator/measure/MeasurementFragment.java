@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,8 +15,9 @@ import android.widget.TextView;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.model.MeasureModel;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.bitmap.BitmapWorkerTask;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -209,6 +210,7 @@ public class MeasurementFragment extends Fragment {
     public void onUndoButtonPressed() {
         getActivity().onBackPressed();
     }
+
 
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {

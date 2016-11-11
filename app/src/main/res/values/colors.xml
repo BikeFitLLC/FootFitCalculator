@@ -19,13 +19,22 @@
     <color name="enabledText">#FFFFFF</color>
     <color name="disabledText">#77FFFFFF</color>
 
+    <!-- Primary Button colors -->
     <color name="primaryButton">@color/cobaltBlue</color>
-    <color name="primaryButtonPressed">@color/mediumBlue</color>
-    <color name="primaryButtonDisabled">@color/lightBlue</color>
+    <color name="primaryButtonPressed">#031C37</color>
+    <color name="primaryButtonDisabled">#807e7e</color>
+    <color name="primaryButtonRipple">#031C37</color>
 
+    <!-- Focus Button colors (orange) -->
     <color name="focusButton">@color/orange</color>
-    <color name="focusButtonPressed">#FF5722</color>
-    <color name="focusButtonDisabled">#FFCCBC</color>
+    <color name="focusButtonPressed">#AE1507</color>
+    <color name="focusButtonDisabled">@color/orange</color>
+    <color name="focusButtonRipple">#AE1507</color>
+
+    <!-- borderless button colors -->
+    <color name="borderlessButtonRipple">#031C37</color>
+    <color name="borderlessButtonBackground">#043054</color>
+    <color name="borderlessButtonPressed">#031C37</color>
 
     <!-- dialog colors -->
     <color name="dialogBackground">#023055</color>
@@ -33,4 +42,5 @@
     <color name="dialogButtonRipple">@color/orange</color>
     <color name="dialogButtonPressed">#32495C</color>
     <color name="dialogButtonDisabled">#B3E5FC</color>
+
 </resources>
