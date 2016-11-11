@@ -4,6 +4,7 @@ import android.support.annotation.ColorInt;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.rule.ActivityTestRule;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,8 +36,7 @@ public class MeasurementSummaryFragmentUITest {
     //region CLASS UNDER TEST ----------------------------------------------------------------------
 
     @Rule
-    public ActivityTestRule<TestFragmentActivity> mActivityRule = new ActivityTestRule<>(
-            TestFragmentActivity.class, false, false);
+    public ActivityTestRule<TestFragmentActivity> mActivityRule = new ActivityTestRule<>(TestFragmentActivity.class, false, false);
 
     //endregion
 
@@ -81,10 +81,7 @@ public class MeasurementSummaryFragmentUITest {
         int totalWedges = MeasureModel.getWedgeCount(FootSide.LEFT) + MeasureModel.getWedgeCount(FootSide.RIGHT);
 
         // WHEN the page loads
-        TestFragmentActivity activity = mActivityRule.launchActivity(null);
-        final MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
-        activity.transactToFragment(fragment);
-
+        TestFragmentActivity activity = getTestActivity();
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         // THEN I get the desired results:
@@ -109,16 +106,12 @@ public class MeasurementSummaryFragmentUITest {
 
     @Test
     public void noFeetMeasured() {
-        // this shouldn't be possible but test anyway
-
         // GIVEN I have measured NO FEET
         MeasureModel.setFootData(FootSide.LEFT, null, null);
         MeasureModel.setFootData(FootSide.RIGHT, null, null);
 
         // WHEN the page loads
-        TestFragmentActivity activity = mActivityRule.launchActivity(null);
-        final MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
-        activity.transactToFragment(fragment);
+        TestFragmentActivity activity = getTestActivity();
 
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
@@ -147,6 +140,14 @@ public class MeasurementSummaryFragmentUITest {
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
+
+    private TestFragmentActivity getTestActivity() {
+        TestFragmentActivity activity = mActivityRule.launchActivity(null);
+        final MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
+        activity.transactToFragment(fragment);
+        return activity;
+    }
+
     /**
      * VERIFY that one foot has been measured.  The foot passed in will be the assumed measured foot
      *
@@ -169,9 +170,7 @@ public class MeasurementSummaryFragmentUITest {
         MeasureModel.setFootData(inactiveFoot, null, null);
 
         // WHEN the page loads
-        TestFragmentActivity activity = mActivityRule.launchActivity(null);
-        final MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
-        activity.transactToFragment(fragment);
+        TestFragmentActivity activity = getTestActivity();
 
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
@@ -210,16 +209,16 @@ public class MeasurementSummaryFragmentUITest {
                     R.id.measurement_summary_fragment_left_wedge_graphic,
                     R.id.measurement_summary_fragment_left_not_measured,
                     R.id.measurement_summary_fragment_left_angle,
-                    activity.getResources().getColor(R.color.enabledText),
-                    activity.getResources().getColor(R.color.disabledText));
+                    ContextCompat.getColor(activity.getApplicationContext(), R.color.enabledText),
+                    ContextCompat.getColor(activity.getApplicationContext(), R.color.disabledText));
         } else {
             verifyHeaderSection(enabled,
                     R.id.measurement_summary_fragment_right_header,
                     R.id.measurement_summary_fragment_right_wedge_graphic,
                     R.id.measurement_summary_fragment_right_not_measured,
                     R.id.measurement_summary_fragment_right_angle,
-                    activity.getResources().getColor(R.color.enabledText),
-                    activity.getResources().getColor(R.color.disabledText));
+                    ContextCompat.getColor(activity.getApplicationContext(), R.color.enabledText),
+                    ContextCompat.getColor(activity.getApplicationContext(), R.color.disabledText));
         }
     }
 

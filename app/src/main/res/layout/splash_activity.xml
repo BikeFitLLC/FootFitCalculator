@@ -33,7 +33,7 @@
             android:text="@string/splash_screen_name"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
-            android:textSize="50dp" />
+            android:textSize="50sp" />
 
     </LinearLayout>
 

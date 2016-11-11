@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
@@ -172,23 +172,23 @@ public class MeasurementSummaryFragment extends Fragment {
         FootSide newFoot = (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
 
         //Measure the next foot
-        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(newFoot);
+        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(newFoot);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     @OnClick(R.id.measurement_summary_fragment_full_fitting_button)
     public void onFullFittingButton() {
-        Toast.makeText(getContext(), "Full Fitting button pressed", Toast.LENGTH_LONG).show();
+        Log.d(getClass().getSimpleName(), "Full Fitting button pressed");
     }
 
     @OnClick(R.id.measurement_summary_fragment_professional_button)
     public void onProfessionalButton() {
-        Toast.makeText(getContext(), "Professional button pressed", Toast.LENGTH_LONG).show();
+        Log.d(getClass().getSimpleName(), "Professional button pressed");
     }
 
     @OnClick(R.id.measurement_summary_fragment_purchase_button)
     public void onPurchaseButton() {
-        Toast.makeText(getContext(), "Purchase button pressed", Toast.LENGTH_LONG).show();
+        Log.d(getClass().getSimpleName(), "Purchase button pressed");
     }
 
     //endregion
@@ -204,7 +204,7 @@ public class MeasurementSummaryFragment extends Fragment {
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
-    String getPageTitle(Float leftAngle, Float rightAngle) {
+    private String getPageTitle(Float leftAngle, Float rightAngle) {
         String title;
         if (leftAngle != null && rightAngle != null) {
             title = getString(R.string.measurement_summary_fragment_title_label);
@@ -250,7 +250,7 @@ public class MeasurementSummaryFragment extends Fragment {
             mPurchaseButton.setVisibility(View.VISIBLE);
 
         } else if (leftAngle == null && rightAngle == null) {
-            // If we are here there have been no measurements, display message to user and make them back out of screen (i.e. no butttons)
+            // If we are here there have been no measurements, display message to user and make them back out of screen (i.e. no buttons)
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_nofeet_measured_instruction_label));
 
             mOkButton.setVisibility(View.GONE);
@@ -286,7 +286,7 @@ public class MeasurementSummaryFragment extends Fragment {
         // header label
         headerLabel.setTextColor(enabledColor);
 
-        // middle graphic/label (framelayout)
+        // middle graphic/label (frameLayout)
         notMeasuredLabel.setVisibility(View.INVISIBLE);
         wedgeGraphic.setVisibility(View.VISIBLE);
         wedgeGraphic.setImageLevel(wedgeImageLevel);
@@ -303,7 +303,7 @@ public class MeasurementSummaryFragment extends Fragment {
         // header label
         headerLabel.setTextColor(disabledColor);
 
-        // middle graphic/label (framelayout)
+        // middle graphic/label (frameLayout)
         notMeasuredLabel.setVisibility(View.VISIBLE);
         notMeasuredLabel.setTextColor(disabledColor);
         wedgeGraphic.setVisibility(View.INVISIBLE);
