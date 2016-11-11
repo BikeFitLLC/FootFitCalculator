@@ -130,13 +130,7 @@ public class MeasurementSummaryFragment extends Fragment {
         mRightAngle = MeasureModel.getAngle(FootSide.RIGHT);
         mRightWedgeCount = MeasureModel.getWedgeCount(FootSide.RIGHT);
 
-        //todo: switch this to -1 instead of null (this is coming from the MeasureModel)
-        String title = getString(R.string.measurement_summary_fragment_title_label);
-        if (mLeftAngle == null || mRightAngle == null) {
-            String foot = mLeftAngle != null ? "Left" : "Right";
-            title = getString(R.string.measurement_summary_fragment_title_onefoot_label, foot);
-        }
-        mToolbar.setTitle(title);
+        mToolbar.setTitle(getPageTitle(mLeftAngle, mRightAngle));
 
         return view;
     }
@@ -144,9 +138,6 @@ public class MeasurementSummaryFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //todo: get stored left & right angles out of preferences
-
         refreshViewState();
     }
 
@@ -178,13 +169,7 @@ public class MeasurementSummaryFragment extends Fragment {
 
     @OnClick(R.id.measurement_summary_fragment_ok_button)
     public void onOkButton() {
-        FootSide newFoot;
-
-        if (mLeftAngle == null) {
-            newFoot = FootSide.LEFT;
-        } else {
-            newFoot = FootSide.RIGHT;
-        }
+        FootSide newFoot = (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
 
         //Measure the next foot
         CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(newFoot);
@@ -218,6 +203,19 @@ public class MeasurementSummaryFragment extends Fragment {
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    String getPageTitle(Float leftAngle, Float rightAngle) {
+        String title;
+        if (leftAngle != null && rightAngle != null) {
+            title = getString(R.string.measurement_summary_fragment_title_label);
+        } else if (leftAngle == null && rightAngle == null) {
+            title = getString(R.string.measurement_summary_fragment_title_nofeet_label);
+        } else {
+            String foot = leftAngle != null ? FootSide.LEFT.getLabel() : FootSide.RIGHT.getLabel();
+            title = getString(R.string.measurement_summary_fragment_title_onefoot_label, foot);
+        }
+        return title;
+    }
 
     private void refreshViewState() {
 

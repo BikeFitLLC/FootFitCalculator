@@ -63,6 +63,7 @@
     <!-- measurement_summary_fragment -->
     <string name="measurement_summary_fragment_title_label">Measurement Complete</string>
     <string name="measurement_summary_fragment_title_onefoot_label">%1$s Foot Complete</string>
+    <string name="measurement_summary_fragment_title_nofeet_label">Nothing Measured</string>
     <string name="measurement_summary_fragment_ok_button_label">OK, let\'s do it</string>
     <string name="measurement_summary_fragment_not_measured_label">\?</string>
     <string name="measurement_summary_fragment_unknown_label">Unknown</string>

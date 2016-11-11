@@ -1,10 +1,9 @@
-package com.bikefit.wedgecalculator.view;
+package com.bikefit.wedgecalculator.measure.model;
 
 import android.support.test.InstrumentationRegistry;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +33,6 @@ public class FootSideUITest {
     public void setUp() throws Exception {
         mApplication = (BikeFitApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
     }
-
 
     //endregion
 

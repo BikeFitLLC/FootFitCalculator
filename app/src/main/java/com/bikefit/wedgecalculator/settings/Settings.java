@@ -13,14 +13,14 @@ public final class Settings {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private static final String SETTINGS = "SETTINGS";
-    private static final String EXAMPLE_PREF = "EXAMPLE_PREF";
+    static final String SETTINGS = "SETTINGS";
+    static final String EXAMPLE_PREF = "EXAMPLE_PREF";
 
-    private static final String LEFT_FOOT_ANGLE_PREFERENCE = "LEFT_FOOT_ANGLE_PREFERENCE";
-    private static final String LEFT_FOOT_WEDGE_COUNT_PREFERENCE = "LEFT_FOOT_WEDGE_COUNT_PREFERENCE";
+    static final String LEFT_FOOT_ANGLE_PREFERENCE = "LEFT_FOOT_ANGLE_PREFERENCE";
+    static final String LEFT_FOOT_WEDGE_COUNT_PREFERENCE = "LEFT_FOOT_WEDGE_COUNT_PREFERENCE";
 
-    private static final String RIGHT_FOOT_ANGLE_PREFERENCE = "RIGHT_FOOT_ANGLE_PREFERENCE";
-    private static final String RIGHT_FOOT_WEDGE_COUNT_PREFERENCE = "RIGHT_FOOT_WEDGE_COUNT_PREFERENCE";
+    static final String RIGHT_FOOT_ANGLE_PREFERENCE = "RIGHT_FOOT_ANGLE_PREFERENCE";
+    static final String RIGHT_FOOT_WEDGE_COUNT_PREFERENCE = "RIGHT_FOOT_WEDGE_COUNT_PREFERENCE";
 
     //endregion
 
@@ -31,23 +31,28 @@ public final class Settings {
 
     //endregion
 
+    //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private static SharedPreferences getSharedPreferences() {
+        return BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+    }
+
+    //endregion
+
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
 
     public static String getExamplePref() {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        return preferences.getString(EXAMPLE_PREF, "");
+        return getSharedPreferences().getString(EXAMPLE_PREF, "");
     }
 
     public static void setExamplePref(String test) {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(EXAMPLE_PREF, test);
         editor.apply();
     }
 
     public static void setFootAngle(FootSide footSide, Float angle) {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
 
         if (angle == null) {
             if (footSide == FootSide.RIGHT) {
@@ -66,7 +71,7 @@ public final class Settings {
     }
 
     public static Float getFootAngle(FootSide footSide) {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences();
         float angle;
         if (footSide == FootSide.RIGHT) {
             angle = preferences.getFloat(RIGHT_FOOT_ANGLE_PREFERENCE, -1);
@@ -77,8 +82,7 @@ public final class Settings {
     }
 
     public static void setWedgeCount(FootSide footSide, Integer wedgeCount) {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
 
         if (wedgeCount == null) {
             if (footSide == FootSide.RIGHT) {
@@ -96,7 +100,7 @@ public final class Settings {
     }
 
     public static Integer getWedgeCount(FootSide footSide) {
-        SharedPreferences preferences = BikeFitApplication.getInstance().getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences();
 
         int wedgeCount;
         if (footSide == FootSide.RIGHT) {

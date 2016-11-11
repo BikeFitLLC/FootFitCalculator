@@ -89,6 +89,10 @@ public class MeasurementSummaryFragmentUITest {
 
         // THEN I get the desired results:
 
+        // THEN I get the expected title
+        String expectedTitle = activity.getResources().getString(R.string.measurement_summary_fragment_title_label);
+        onView(withText(expectedTitle)).check(matches(isDisplayed()));
+
         // THEN the active header section is enabled
         verifyFootHeaderSection(FootSide.LEFT, true, activity);
 
@@ -119,6 +123,10 @@ public class MeasurementSummaryFragmentUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         // THEN I get the desired results:
+
+        // THEN I get the expected title
+        String expectedTitle = activity.getResources().getString(R.string.measurement_summary_fragment_title_nofeet_label);
+        onView(withText(expectedTitle)).check(matches(isDisplayed()));
 
         // THEN the active header section is enabled
         verifyFootHeaderSection(FootSide.LEFT, false, activity);
@@ -168,6 +176,10 @@ public class MeasurementSummaryFragmentUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         // THEN I get the desired results:
+
+        // THEN I get the expected title
+        String expectedTitle = activity.getResources().getString(R.string.measurement_summary_fragment_title_onefoot_label, activeFoot.getLabel());
+        onView(withText(expectedTitle)).check(matches(isDisplayed()));
 
         // THEN the active header section is enabled
         verifyFootHeaderSection(activeFoot, true, activity);
