@@ -91,18 +91,14 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_orientation_video_button)
     public void onOrientationVideoButton() {
-
         OrientationVideoFragment fragment = OrientationVideoFragment.newInstance("");
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
-
     }
 
     @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
-    public void onMeasureLeftFootButton() {
-
+    public void onMeasureFeetButton() {
         CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
-
     }
 
     @OnClick(R.id.main_menu_fragment_what_you_need_button)
@@ -113,7 +109,8 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_get_in_position_button)
     public void onGetInPositionButton() {
-
+        GetInPositionFragment fragment = GetInPositionFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     //endregion
@@ -135,6 +132,4 @@ public class MainMenuFragment extends Fragment {
     }
 
     //endregion
-
-
 }

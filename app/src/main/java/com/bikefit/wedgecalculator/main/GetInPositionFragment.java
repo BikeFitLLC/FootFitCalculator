@@ -10,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class WhatYouNeedFragment extends Fragment {
+public class GetInPositionFragment extends Fragment {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
@@ -30,9 +32,9 @@ public class WhatYouNeedFragment extends Fragment {
 
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
 
-    public static WhatYouNeedFragment newInstance() {
+    public static GetInPositionFragment newInstance() {
         Bundle args = new Bundle();
-        WhatYouNeedFragment fragment = new WhatYouNeedFragment();
+        GetInPositionFragment fragment = new GetInPositionFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,10 +58,10 @@ public class WhatYouNeedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.what_you_need_fragment, container, false);
+        View view = inflater.inflate(R.layout.get_in_position_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
 
-        mToolbar.setTitle(getResources().getString(R.string.what_you_need_fragment_title_label));
+        mToolbar.setTitle(getResources().getString(R.string.get_in_position_fragment_title_label));
         return view;
     }
 
@@ -81,9 +83,9 @@ public class WhatYouNeedFragment extends Fragment {
         getActivity().onBackPressed();
     }
 
-    @OnClick(R.id.what_you_need_fragment_ok_button)
+    @OnClick(R.id.get_in_position_fragment_measure_button)
     public void okButtonClicked() {
-        GetInPositionFragment fragment = GetInPositionFragment.newInstance();
+        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
@@ -92,23 +94,10 @@ public class WhatYouNeedFragment extends Fragment {
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
-    //region TEST ACCESSORS ------------------------------------------------------------------------
-    //endregion
-
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
     //endregion
 
-    //-- Optional! --
-    //region INTERFACE METHODS (InterfaceName) -----------------------------------------------------
-    //endregion
-
     //region PRIVATE METHODS -----------------------------------------------------------------------
-    //endregion
-
-    //region OBSERVERS -----------------------------------------------------------------------------
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
 
 }
