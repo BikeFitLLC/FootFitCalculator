@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
@@ -47,9 +46,6 @@ public class CameraInstructionsFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-
-    @BindView(R.id.camera_instructions_fragment_more_button)
-    Button mTellMeMoreButton;
 
     //endregion
 
@@ -87,9 +83,6 @@ public class CameraInstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
-
-        mTellMeMoreButton.setEnabled(false);
-
         return view;
     }
 
@@ -185,6 +178,11 @@ public class CameraInstructionsFragment extends Fragment {
     @OnClick(R.id.toolbar)
     public void onToolbarBackPressed() {
         getActivity().onBackPressed();
+    }
+
+    @OnClick(R.id.camera_instructions_fragment_more_button)
+    public void onTellMeMoreButton() {
+
     }
 
     //endregion
