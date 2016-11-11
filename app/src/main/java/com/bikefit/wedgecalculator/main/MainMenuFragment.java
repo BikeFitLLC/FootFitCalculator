@@ -71,8 +71,8 @@ public class MainMenuFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
 
-        mWhatYouNeedButton.setEnabled(false);
-        mGetInPositionButton.setEnabled(false);
+        mWhatYouNeedButton.setEnabled(true);
+        mGetInPositionButton.setEnabled(true);
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
 
         mStartButton.setEnabled(false);
