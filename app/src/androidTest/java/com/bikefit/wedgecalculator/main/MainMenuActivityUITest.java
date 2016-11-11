@@ -51,8 +51,7 @@ public class MainMenuActivityUITest {
         onView(withId(R.id.main_menu_fragment_orientation_video_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_what_you_need_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_get_in_position_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.main_menu_fragment_measure_left_foot_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.main_menu_fragment_measure_right_foot_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_measure_your_feet_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_get_results_button)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
 
         onView(withId(R.id.main_menu_fragment_start_button)).check(matches(isDisplayed()));
@@ -122,37 +121,16 @@ public class MainMenuActivityUITest {
 
     @Ignore
     @Test
-    public void testMeasureLeftFootButton() {
+    public void testMeasureYourFeetButton() {
 
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
         //THEN check the orientation video button appears
-        onView(withId(R.id.main_menu_fragment_measure_left_foot_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_measure_your_feet_button)).check(matches(isDisplayed()));
 
         //WHEN the button is clicked
-        onView(withId(R.id.main_menu_fragment_measure_left_foot_button)).perform(click());
-
-        //FIRST wait for screen to load
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync();
-
-        //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
-    }
-
-    @Ignore
-    @Test
-    public void testMeasureRightFootButton() {
-
-        //WHEN the activity starts
-        mActivityRule.launchActivity(null);
-
-        //THEN check the orientation video button appears
-        onView(withId(R.id.main_menu_fragment_measure_right_foot_button)).check(matches(isDisplayed()));
-
-        //WHEN the button is clicked
-        onView(withId(R.id.main_menu_fragment_measure_right_foot_button)).perform(click());
+        onView(withId(R.id.main_menu_fragment_measure_your_feet_button)).perform(click());
 
         //FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();

@@ -1,12 +1,12 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
-import com.bikefit.wedgecalculator.view.FootSide;
 
 import org.junit.Before;
 import org.junit.Ignore;

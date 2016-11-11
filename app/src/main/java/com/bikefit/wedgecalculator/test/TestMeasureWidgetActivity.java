@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 
 import butterknife.BindView;

@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 
 /**
  * Primary angle calculator widget that allows translating and rotating.
@@ -125,6 +126,7 @@ public class MeasureWidget extends View {
             mMaximumVerticalDistanceFromEdge = styleValues.getFloat(R.styleable.MeasureWidget_maximumDistanceFromEdge, DEFAULT_MAXIMUM_VERTICAL_DISTANCE);
             mPaintStrokeWidth = styleValues.getFloat(R.styleable.MeasureWidget_strokeWidth, DEFAULT_STROKE_WIDTH);
             mPaintColor = styleValues.getInt(R.styleable.MeasureWidget_strokeColor, DEFAULT_COLOR);
+            styleValues.recycle();
         } else {
             mDebugMode = DEFAULT_DEBUG_MODE;
             mMaxiumAngle = DEFAULT_MAXIMUM_ANGLE;

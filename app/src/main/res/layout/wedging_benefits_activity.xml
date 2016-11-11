@@ -7,70 +7,80 @@
     <include layout="@layout/toolbar" />
 
     <LinearLayout
-        android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/app_margins"
+        android:layout_marginRight="@dimen/app_margins"
         android:orientation="vertical">
 
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/app_margins"
-                android:orientation="vertical">
-
-                <include layout="@layout/bikefit_banner" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/activity_wedging_benefits_top_text" />
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/imageBackgroundColor"
-                    android:gravity="center_horizontal"
-                    android:padding="8dp">
+                    android:layout_marginBottom="@dimen/app_margins"
+                    android:layout_marginTop="@dimen/app_margins"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <include layout="@layout/bikefit_banner" />
+
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/activity_wedging_benefits_top_text" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/imageBackgroundColor"
+                        android:gravity="center_horizontal"
+                        android:padding="8dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_launcher" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/activity_wedging_benefits_bottom_text" />
                 </LinearLayout>
+            </ScrollView>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/activity_wedging_benefits_bottom_text" />
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/panelBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="0"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/activity_wedging_benefits_start_button"
-            style="@style/Button.Focus"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/panelBottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_screen_start_button" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/activity_wedging_benefits_start_button"
+                style="@style/Button.Focus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_screen_start_button" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

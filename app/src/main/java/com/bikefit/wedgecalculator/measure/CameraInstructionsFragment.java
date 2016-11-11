@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,13 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
@@ -46,6 +47,9 @@ public class CameraInstructionsFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.camera_instructions_fragment_more_button)
+    Button mTellMeMoreButton;
 
     //endregion
 
@@ -84,7 +88,7 @@ public class CameraInstructionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
 
-        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
+        mTellMeMoreButton.setEnabled(false);
 
         return view;
     }
@@ -100,6 +104,7 @@ public class CameraInstructionsFragment extends Fragment {
             mFootSide = FootSide.LEFT;
         }
 
+        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
         mFolderName = mFootSide.toString();
 
         //Shouldn't be needed if we're not using external storage

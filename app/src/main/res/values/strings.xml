@@ -31,13 +31,12 @@
     <string name="main_menu_fragment_orientation_video">Orientation Video</string>
     <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
     <string name="main_menu_fragment_get_in_position">Get in Position</string>
-    <string name="main_menu_fragment_measure_left_foot">Measure Left Foot</string>
-    <string name="main_menu_fragment_measure_right_foot">Measure Right Foot</string>
+    <string name="main_menu_fragment_measure_your_feet_button_label">Measure Your Feet</string>
     <string name="main_menu_fragment_get_results">Results</string>
     <string name="main_menu_fragment_start_button_text">Got it</string>
 
     <!-- Camera Fragment -->
-    <string name="camera_fragment_instruction_text">Center the red line with the back of the heal and tap the screen to take a screenshot</string>
+    <string name="camera_fragment_instruction_text">Center the red line with the back of the heel and tap the screen to take a screenshot</string>
     <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
     <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
 
@@ -60,5 +59,22 @@
     <string name="measurement_instructions_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
     <string name="measurement_instructions_dialog_fragment_screen2_button_text">Done</string>
     <string name="measurement_instructions_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
+
+    <!-- measurement_summary_fragment -->
+    <string name="measurement_summary_fragment_title_label">Measurement Complete</string>
+    <string name="measurement_summary_fragment_title_onefoot_label">%1$s Foot Complete</string>
+    <string name="measurement_summary_fragment_title_nofeet_label">Nothing Measured</string>
+    <string name="measurement_summary_fragment_ok_button_label">OK, let\'s do it</string>
+    <string name="measurement_summary_fragment_not_measured_label">\?</string>
+    <string name="measurement_summary_fragment_unknown_label">Unknown</string>
+    <string name="measurement_summary_fragment_angle_label">%1$.0f° Tilt</string>
+    <string name="measurement_summary_fragment_nofeet_measured_instruction_label">No feet have been measured.</string>
+    <string name="measurement_summary_fragment_incomplete_instruction_text">That was the %1$s foot, now let\'s do the %2$s. It\'s going to be exactly the same process just with the other foot.</string>
+    <string name="measurement_summary_fragment_left_header_label">Left Foot</string>
+    <string name="measurement_summary_fragment_right_header_label">Right Foot</string>
+    <string name="measurement_summary_fragment_complete_instruction_text">According to these measurements, you\'ll need a total of %1$d wedges. \n\nA properly fitted bike reduces the risk of injury, decreases fatigue, and provides you with more power on each cycle.</string>
+    <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
+    <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
+    <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
 
 </resources>

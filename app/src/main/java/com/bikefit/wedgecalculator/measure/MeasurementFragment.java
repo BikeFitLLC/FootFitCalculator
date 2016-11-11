@@ -1,4 +1,4 @@
-package com.bikefit.wedgecalculator.camera;
+package com.bikefit.wedgecalculator.measure;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.view.FootSide;
+import com.bikefit.wedgecalculator.main.MainMenuActivity;
+import com.bikefit.wedgecalculator.measure.bitmap.BitmapWorkerTask;
+import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -89,12 +91,6 @@ public class MeasurementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.measurement_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
-
-        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
-
-        mMeasureWidget.setFootSide(mFootSide);
-        mMeasureWidget.setAngleListener(mAngleListener);
-
         return view;
     }
 
@@ -112,6 +108,10 @@ public class MeasurementFragment extends Fragment {
         } else {
             mFootSide = FootSide.LEFT;
         }
+
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+        mMeasureWidget.setFootSide(mFootSide);
+        mMeasureWidget.setAngleListener(mAngleListener);
 
         if (savedInstanceState != null) {
             mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
@@ -186,7 +186,7 @@ public class MeasurementFragment extends Fragment {
     }
 
     private void updateWedgeLevelDisplay(float angle) {
-        int wedgeLevel = FootSide.getWedgeLevel(angle);
+        int wedgeLevel = MeasureModel.getWedgeImageLevel(angle);
         mWedgeGraphic.setImageLevel(wedgeLevel);
     }
 
@@ -211,14 +211,22 @@ public class MeasurementFragment extends Fragment {
         getActivity().onBackPressed();
     }
 
+
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {
-        String angleString = getString(R.string.measurement_fragment_angle_display_format, mAngle);
-        Toast.makeText(getActivity(), "Go to next screen with angle: " + angleString, Toast.LENGTH_SHORT).show();
+        //Set foot angle in shared preferences
+        MeasureModel.setFootData(mFootSide, mAngle, MeasureModel.calculateWedgeCount(mAngle));
+
+        //Business rule: If writing LEFT data, clear the RIGHT data
+        if (mFootSide == FootSide.LEFT) {
+            MeasureModel.setFootData(FootSide.RIGHT, null, null);
+        }
+
+        MeasurementSummaryFragment fragment = MeasurementSummaryFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, false);
     }
 
     //endregion
-
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
@@ -245,5 +253,4 @@ public class MeasurementFragment extends Fragment {
     }
 
     //endregion
-
 }
