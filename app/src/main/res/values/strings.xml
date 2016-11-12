@@ -50,7 +50,7 @@
 
     <!-- Measurement Fragment -->
     <string name="measurement_fragment_title_text">%1$s Foot</string>
-    <string name="measurement_fragment_angle_display_format">%.2f</string>
+    <string name="measurement_fragment_angle_display_format">%.2f°</string>
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
 
