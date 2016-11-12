@@ -165,11 +165,14 @@ public class CameraInstructionsFragment extends Fragment {
 
         File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
 
+        int color = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.materialCameraBottomBarColor);
+
         materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
                 .showPortraitWarning(true)
                 .allowRetry(true)
-                .defaultToFrontFacing(false);
+                .defaultToFrontFacing(false)
+                .primaryColor(color);
 
         materialCamera.stillShot();
         materialCamera.start(CAMERA_RQ);

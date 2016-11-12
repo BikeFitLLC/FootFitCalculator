@@ -16,6 +16,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,12 @@ import static com.afollestad.materialcamera.internal.BaseCaptureActivity.FLASH_M
  * @author Aidan Follestad (afollestad)
  */
 abstract class BaseCameraFragment extends Fragment implements CameraUriInterface, View.OnClickListener {
+
+    /**
+     * WedgeCalculator
+     * - Added a toolbar to fragment layout to allow the back button
+     */
+    protected Toolbar mToolbar;
 
     protected ImageButton mButtonVideo;
     protected ImageButton mButtonStillshot;
@@ -106,6 +113,17 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        /**
+         * WedgeCalculator Additions
+         */
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         mDelayStartCountdown = (TextView) view.findViewById(R.id.delayStartCountdown);
         mButtonVideo = (ImageButton) view.findViewById(R.id.video);

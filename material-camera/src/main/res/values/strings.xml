@@ -17,6 +17,6 @@
     <string name="mcam_image_preview_error_message">Could not decode bitmap</string>
 
     <!-- WedgeCamera changes -->
-    <string name="mcam_fragment_videocapture_camera_instructions_label">Center the red line with the back of the heal and take the picture.</string>
+    <string name="mcam_fragment_videocapture_camera_instructions_label">Center the red line with the back of the heel \nand take the picture.</string>
 
 </resources>

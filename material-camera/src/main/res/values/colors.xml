@@ -4,4 +4,5 @@
     <color name="mcam_color_light">#FAFAFA</color>
     <color name="mcam_color_dark">#424242</color>
 
+    <color name="titlebarBackground">#aa1C4364</color>
 </resources>

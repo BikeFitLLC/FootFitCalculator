@@ -58,7 +58,6 @@ public class MainMenuActivityUITest {
 
     @Test
     public void testOrientationVideoButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -73,7 +72,6 @@ public class MainMenuActivityUITest {
 
         //THEN check for test on the resulting screen
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
     }
 
     @Test
@@ -111,7 +109,6 @@ public class MainMenuActivityUITest {
         //THEN check for test on the resulting screen
         onView(withId(R.id.get_in_position_fragment_measure_button)).check(matches(isDisplayed()));
     }
-
 
     @Test
     public void testMeasureYourFeetButton() {
