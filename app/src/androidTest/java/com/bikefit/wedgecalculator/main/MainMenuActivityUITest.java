@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,10 +76,8 @@ public class MainMenuActivityUITest {
 
     }
 
-    @Ignore
     @Test
     public void testWhatYouNeedButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -94,14 +91,11 @@ public class MainMenuActivityUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
+        onView(withId(R.id.what_you_need_fragment_ok_button)).check(matches(isDisplayed()));
     }
 
-    @Ignore
     @Test
     public void testGetInPositionButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -115,14 +109,12 @@ public class MainMenuActivityUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
+        onView(withId(R.id.get_in_position_fragment_measure_button)).check(matches(isDisplayed()));
     }
 
-    @Ignore
+
     @Test
     public void testMeasureYourFeetButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -136,14 +128,11 @@ public class MainMenuActivityUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
+        onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
     }
 
-    @Ignore
     @Test
     public void testMeasureGetResultsButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -158,13 +147,10 @@ public class MainMenuActivityUITest {
 
         //THEN check for test on the resulting screen
         onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
     }
 
-    @Ignore
     @Test
     public void testStartButton() {
-
         //WHEN the activity starts
         mActivityRule.launchActivity(null);
 
@@ -177,9 +163,8 @@ public class MainMenuActivityUITest {
         //FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
-        //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
+        //THEN check for test on the resulting screen (What you'll need)
+        onView(withId(R.id.what_you_need_fragment_ok_button)).check(matches(isDisplayed()));
     }
 
     //endregion
