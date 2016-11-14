@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Wedge Calculator</string>
 
-    <!-- Splash Screen -->
+    <!-- splash_activity Screen -->
     <string name="splash_screen_name">Bikefit</string>
 
     <!-- Welcome Activity -->

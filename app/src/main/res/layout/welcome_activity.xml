@@ -1,57 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/app_margins"
+    android:background="@drawable/welcome_activity_background"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context=".welcome.WelcomeActivity">
 
-    <!-- example include -->
-    <!--<include layout="@layout/toolbar" />-->
-
-    <include layout="@layout/bikefit_banner" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight="4"
-        android:text="@string/activity_welcome_message"
-        android:textSize="18sp"
-        tools:text="@string/activity_welcome_message" />
-
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:gravity="bottom|center_horizontal"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/app_margins"
+        android:layout_marginRight="@dimen/app_margins"
+        android:background="@android:color/transparent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/activity_welcome_more_button"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/welcome_screen_more_button" />
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/bikefit_logo" />
 
-        <Button
-            android:id="@+id/activity_welcome_orientation_button"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="@string/welcome_screen_orientation_button" />
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@android:color/transparent"
+            android:text="@string/activity_welcome_message"
+            android:textSize="18sp"
+            tools:text="@string/activity_welcome_message" />
 
-        <Button
-            android:id="@+id/activity_welcome_start_button"
-            style="@style/Button.Focus"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_screen_start_button" />
+            android:layout_marginBottom="@dimen/app_margins"
+            android:layout_weight="0"
+            android:background="@android:color/transparent"
+            android:gravity="bottom|center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/activity_welcome_more_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/welcome_screen_more_button" />
+
+            <Button
+                android:id="@+id/activity_welcome_orientation_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/welcome_screen_orientation_button" />
+
+            <Button
+                android:id="@+id/activity_welcome_start_button"
+                style="@style/Button.Focus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_screen_start_button" />
+        </LinearLayout>
+
     </LinearLayout>
-
 </LinearLayout>

@@ -19,7 +19,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.splash_activity);
 
         Handler handler = new Handler();
-
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -27,7 +26,6 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             }
         };
-
         handler.postDelayed(runnable, getResources().getInteger(R.integer.splash_screen_pause));
     }
 }
