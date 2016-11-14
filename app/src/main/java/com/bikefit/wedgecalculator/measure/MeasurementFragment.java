@@ -62,8 +62,8 @@ public class MeasurementFragment extends Fragment {
     private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
     private Unbinder mViewUnBinder;
-    private boolean mDialogDisplayed = false;
 
+    private boolean mDialogDisplayed = false;
     private float mAngle;
 
     //endregion
@@ -110,6 +110,8 @@ public class MeasurementFragment extends Fragment {
         }
 
         mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
 
@@ -131,6 +133,9 @@ public class MeasurementFragment extends Fragment {
     public void onDestroyView() {
         mFootImage.setImageBitmap(null);
         mFootImage = null;
+        mInstructionsDialog = null;
+        mToolbar = null;
+        mFootSide = null;
         mInstructionsDialog = null;
 
         super.onDestroyView();
@@ -201,10 +206,12 @@ public class MeasurementFragment extends Fragment {
         }
     };
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     @OnClick(R.id.measurement_fragment_undo_button)
     public void onUndoButtonPressed() {

@@ -66,12 +66,15 @@ public class MainMenuFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
         return view;
     }
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -89,10 +92,12 @@ public class MainMenuFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     @OnClick(R.id.main_menu_fragment_get_results_button)
     public void onResultsClicked() {
@@ -102,7 +107,7 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_orientation_video_button)
     public void onOrientationVideoButton() {
-        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance("");
+        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(getResources().getString(R.string.orientation_video_url));
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 

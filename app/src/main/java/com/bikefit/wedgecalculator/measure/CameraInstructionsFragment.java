@@ -98,6 +98,8 @@ public class CameraInstructionsFragment extends Fragment {
         }
 
         mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         mFolderName = mFootSide.toString();
 
         //Shouldn't be needed if we're not using external storage
@@ -111,6 +113,9 @@ public class CameraInstructionsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         materialCamera = null;
+        mToolbar = null;
+        mFootSide = null;
+        mFolderName = null;
 
         super.onDestroyView();
         mViewUnBinder.unbind();
@@ -178,15 +183,19 @@ public class CameraInstructionsFragment extends Fragment {
         materialCamera.start(CAMERA_RQ);
     }
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
 
     @OnClick(R.id.camera_instructions_fragment_more_button)
     public void onTellMeMoreButton() {
-
+        //todo If we don't get copy for this screen then we should remove it.
     }
+
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
+
 
     //endregion
 

@@ -29,14 +29,6 @@ public class WhatYouNeedFragment extends Fragment {
     //endregion
 
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
-
-    public static WhatYouNeedFragment newInstance() {
-        Bundle args = new Bundle();
-        WhatYouNeedFragment fragment = new WhatYouNeedFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     //endregion
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
@@ -49,6 +41,14 @@ public class WhatYouNeedFragment extends Fragment {
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
+
+    public static WhatYouNeedFragment newInstance() {
+        Bundle args = new Bundle();
+        WhatYouNeedFragment fragment = new WhatYouNeedFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     //endregion
 
     //region LIFECYCLE METHODS ---------------------------------------------------------------------
@@ -60,11 +60,15 @@ public class WhatYouNeedFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.what_you_need_fragment_title_label));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         return view;
     }
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -76,10 +80,12 @@ public class WhatYouNeedFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     @OnClick(R.id.what_you_need_fragment_ok_button)
     public void okButtonClicked() {

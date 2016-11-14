@@ -38,7 +38,7 @@
                 app:navigationIcon="?homeAsUpIndicator"
                 app:popupTheme="@style/TitleBar.PopupThemeOverlay"
                 app:theme="@style/TitleBar.ThemeOverlay"
-                app:title="Measure Foot" />
+                app:title="@string/mcam_fragment_videocapture_title" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -54,13 +54,13 @@
                     app:srcCompat="@drawable/titlebar_background" />
 
                 <TextView
-                    android:id="@+id/measurement_fragment_foot_display_angle"
+                    android:id="@+id/mcam_fragment_videocapture_measurement_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|top"
                     android:background="@android:color/transparent"
                     android:gravity="center_horizontal"
-                    android:text="No Measurement" />
+                    android:text="@string/mcam_fragment_videocapture_measurement_display_text" />
             </FrameLayout>
 
         </LinearLayout>

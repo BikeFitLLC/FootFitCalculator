@@ -31,14 +31,6 @@ public class GetInPositionFragment extends Fragment {
     //endregion
 
     //region PUBLIC INTERFACES ---------------------------------------------------------------------
-
-    public static GetInPositionFragment newInstance() {
-        Bundle args = new Bundle();
-        GetInPositionFragment fragment = new GetInPositionFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     //endregion
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
@@ -51,6 +43,14 @@ public class GetInPositionFragment extends Fragment {
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
+
+    public static GetInPositionFragment newInstance() {
+        Bundle args = new Bundle();
+        GetInPositionFragment fragment = new GetInPositionFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     //endregion
 
     //region LIFECYCLE METHODS ---------------------------------------------------------------------
@@ -62,11 +62,14 @@ public class GetInPositionFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.get_in_position_fragment_title_label));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
         return view;
     }
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -78,10 +81,13 @@ public class GetInPositionFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     @OnClick(R.id.get_in_position_fragment_measure_button)
     public void okButtonClicked() {
