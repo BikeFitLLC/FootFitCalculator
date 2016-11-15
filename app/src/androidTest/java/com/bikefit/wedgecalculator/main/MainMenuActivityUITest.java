@@ -134,7 +134,7 @@ public class MainMenuActivityUITest {
         mActivityRule.launchActivity(null);
 
         //THEN check the orientation video button appears
-        onView(withId(R.id.main_menu_fragment_get_results_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_get_results_button)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
 
         //WHEN the button is clicked
         onView(withId(R.id.main_menu_fragment_get_results_button)).perform(click());
