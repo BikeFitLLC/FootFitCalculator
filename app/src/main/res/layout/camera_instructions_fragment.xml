@@ -61,12 +61,14 @@
         android:layout_weight="0"
         android:orientation="vertical">
 
+        <!-- Client feature that is not ready yet -->
         <Button
             android:id="@+id/camera_instructions_fragment_more_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/camera_instructions_fragment_more_button_text" />
+            android:text="@string/camera_instructions_fragment_more_button_text"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/camera_instructions_fragment_snapshot_button"

@@ -183,7 +183,7 @@ public class CameraInstructionsFragment extends Fragment {
 
     @OnClick(R.id.camera_instructions_fragment_more_button)
     public void onTellMeMoreButton() {
-        //todo If we don't get copy for this screen then we should remove it.
+        // "Tell me more" button - not implemented yet
     }
 
     View.OnClickListener mNavigationListener = new View.OnClickListener() {

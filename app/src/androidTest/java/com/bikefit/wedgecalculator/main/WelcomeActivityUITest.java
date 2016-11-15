@@ -28,8 +28,7 @@ public class WelcomeActivityUITest {
     //region CLASS UNDER TEST ----------------------------------------------------------------------
 
     @Rule
-    public ActivityTestRule<WelcomeActivity> mActivityRule = new ActivityTestRule<>(
-            WelcomeActivity.class, false, false);
+    public ActivityTestRule<WelcomeActivity> mActivityRule = new ActivityTestRule<>(WelcomeActivity.class, false, false);
 
     //endregion
 
@@ -49,16 +48,19 @@ public class WelcomeActivityUITest {
         // WHEN the activity starts
         mActivityRule.launchActivity(null);
 
-        // THEN the 3 options appear as buttons
-        onView(withId(R.id.activity_welcome_more_button)).check(matches(isDisplayed()));
+        // THEN the 2 options appear as buttons
+        //onView(withId(R.id.activity_welcome_more_button)).check(matches(isDisplayed()));
         onView(withId(R.id.activity_welcome_orientation_button)).check(matches(isDisplayed()));
         onView(withId(R.id.activity_welcome_start_button)).check(matches(isDisplayed()));
-
     }
 
+
+    /**
+     * Test is ignroe until client activates this button
+     */
     @Ignore
     @Test
-    public void testMoreButton() {
+    public void testTellMeMoreButton() {
 
         // WHEN the activity starts
         mActivityRule.launchActivity(null);

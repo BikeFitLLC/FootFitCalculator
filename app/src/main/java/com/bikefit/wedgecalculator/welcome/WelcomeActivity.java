@@ -11,9 +11,10 @@ import com.bikefit.wedgecalculator.main.OrientationVideoActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * The main entry point for the app, after the Splash screen has been displayed.
+ */
 public class WelcomeActivity extends AppCompatActivity {
-
-    public static final String TAG = "WelcomeActivity";
 
     // region LIFECYCLE METHODS --------------------------------------------------------------------
 
@@ -27,8 +28,6 @@ public class WelcomeActivity extends AppCompatActivity {
     // endregion
 
     // region WIDGETS ------------------------------------------------------------------------------
-
-
     // endregion
 
     // region LISTENER METHODS ---------------------------------------------------------------------
@@ -49,6 +48,5 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     // endregion
-
 
 }
