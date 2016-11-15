@@ -140,8 +140,8 @@ public class CameraInstructionsFragment extends Fragment {
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
-                final File file = new File(data.getData().getPath());
-                MeasurementFragment fragment = MeasurementFragment.newInstance(mFootSide, file.getAbsolutePath());
+                String path = data.getData().getPath();
+                MeasurementFragment fragment = MeasurementFragment.newInstance(mFootSide, path);
                 ((MainMenuActivity) getActivity()).showFragment(fragment, true);
             } else if (data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
@@ -162,14 +162,12 @@ public class CameraInstructionsFragment extends Fragment {
 
     //endregion
 
-
     //region LISTENERS -----------------------------------------------------------------------------
 
     @OnClick(R.id.camera_instructions_fragment_snapshot_button)
     public void onLaunchCameraButton() {
 
-        File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
-
+        final File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
         int color = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.materialCameraBottomBarColor);
 
         materialCamera = new MaterialCamera(this)
@@ -182,7 +180,6 @@ public class CameraInstructionsFragment extends Fragment {
         materialCamera.stillShot();
         materialCamera.start(CAMERA_RQ);
     }
-
 
     @OnClick(R.id.camera_instructions_fragment_more_button)
     public void onTellMeMoreButton() {
