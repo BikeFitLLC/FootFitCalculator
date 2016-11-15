@@ -19,6 +19,7 @@ import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.InternetUtil;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
@@ -98,6 +99,8 @@ public class MeasurementSummaryFragment extends Fragment {
     private Float mRightAngle;
     private Integer mRightWedgeCount;
 
+    InternetUtil mInternetUtil = new InternetUtil();
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -147,6 +150,7 @@ public class MeasurementSummaryFragment extends Fragment {
         mLeftWedgeCount = null;
         mRightAngle = null;
         mRightWedgeCount = null;
+        mInternetUtil = null;
 
         super.onDestroyView();
         mViewUnBinder.unbind();
@@ -191,7 +195,10 @@ public class MeasurementSummaryFragment extends Fragment {
 
     @OnClick(R.id.measurement_summary_fragment_professional_button)
     public void onProfessionalButton() {
-        Log.d(getClass().getSimpleName(), "Professional button pressed");
+        String url = getString(R.string.measurement_summary_fragment_professional_fitting_url);
+        if (mInternetUtil.checkInternet()) {
+            mInternetUtil.openExternalWebPage(url);
+        }
     }
 
     @OnClick(R.id.measurement_summary_fragment_purchase_button)

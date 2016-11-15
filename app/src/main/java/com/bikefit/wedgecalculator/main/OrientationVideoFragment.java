@@ -120,6 +120,7 @@ public class OrientationVideoFragment extends Fragment {
     public void onDestroyView() {
         mToolbar = null;
         mWebView = null;
+        mInternetUtil = null;
 
         super.onDestroyView();
         mViewUnBinder.unbind();
