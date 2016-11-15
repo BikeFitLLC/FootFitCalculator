@@ -19,6 +19,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -92,7 +93,9 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         super.onCreate(savedInstanceState);
+
         if (!CameraUtil.hasCamera(this)) {
             new MaterialDialog.Builder(this)
                     .title(R.string.mcam_error)
@@ -152,7 +155,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
         }
         final boolean cameraGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
         final boolean audioGranted = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
-        final boolean audioNeeded = !useStillshot();
+        final boolean audioNeeded = !useStillshot() && !audioDisabled();
 
         String[] perms = null;
         if (cameraGranted) {
@@ -328,7 +331,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
                 finish();
                 return;
             }
-            useVideo(outputUri);
+            useMedia(outputUri);
         } else {
             if (!hasLengthLimit() || !continueTimerInPlayback()) {
                 // No countdown or countdown should not continue through playback, reset timer to 0
@@ -344,11 +347,15 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
 
     @Override
     public void onShowStillshot(String outputUri) {
-        Fragment frag = StillshotPreviewFragment.newInstance(outputUri, allowRetry(),
-                getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, frag)
-                .commit();
+        if (shouldAutoSubmit()) {
+            useMedia(outputUri);
+        } else {
+            Fragment frag = StillshotPreviewFragment.newInstance(outputUri, allowRetry(),
+                    getIntent().getIntExtra(CameraIntentKey.PRIMARY_COLOR, 0));
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, frag)
+                    .commit();
+        }
     }
 
     @Override
@@ -394,7 +401,7 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     }
 
     @Override
-    public final void useVideo(String uri) {
+    public final void useMedia(String uri) {
         if (uri != null) {
             setResult(Activity.RESULT_OK, getIntent()
                     .putExtra(MaterialCamera.STATUS_EXTRA, MaterialCamera.STATUS_RECORDED)
@@ -573,5 +580,10 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements B
     @Override
     public long autoRecordDelay() {
         return getIntent().getLongExtra(CameraIntentKey.AUTO_RECORD, -1);
+    }
+
+    @Override
+    public boolean audioDisabled() {
+        return getIntent().getBooleanExtra(CameraIntentKey.AUDIO_DISABLED, false);
     }
 }

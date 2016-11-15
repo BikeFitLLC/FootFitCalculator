@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:foreground="?selectableItemBackground">
 
+    <!-- Lots of changes for wedge calculator -->
+
     <FrameLayout
         android:id="@+id/camera_fragment_screen"
         android:layout_width="match_parent"
