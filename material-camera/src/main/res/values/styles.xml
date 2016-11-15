@@ -7,6 +7,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
+    <!-- Wedge calculator -->
     <style name="TitleBar">
         <item name="android:background">@color/titlebarBackground</item>
     </style>

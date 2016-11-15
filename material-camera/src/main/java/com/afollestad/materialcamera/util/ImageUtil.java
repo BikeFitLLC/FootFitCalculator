@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.afollestad.materialcamera.util.Degrees.DEGREES_270;
+import static com.afollestad.materialcamera.util.Degrees.DEGREES_90;
+
 /**
  * Created by tomiurankar on 06/03/16.
  */
@@ -55,17 +58,6 @@ public class ImageUtil {
     }
 
     /**
-     * Helper function for getRotatedBitmap(String, int, int, int)
-     *
-     * @param inputFile inputFile Expects an JPEG file if corrected orientation wants to be set.
-     * @return rotated bitmap or null
-     */
-    public static Bitmap getRotatedBitmap(String inputFile, int reqWidth, int reqHeight) {
-        final int IN_SAMPLE_SIZE_DEFAULT_VAL = 1;
-        return getRotatedBitmap(inputFile, reqWidth, reqHeight, IN_SAMPLE_SIZE_DEFAULT_VAL);
-    }
-
-    /**
      * Rotates the bitmap per their EXIF flag. This is a recursive function that will
      * be called again if the image needs to be downsized more.
      *
@@ -73,17 +65,13 @@ public class ImageUtil {
      * @return rotated bitmap or null
      */
     @Nullable
-    private static Bitmap getRotatedBitmap(String inputFile, int reqWidth, int reqHeight, int inSampleSize) {
+    public static Bitmap getRotatedBitmap(String inputFile, int reqWidth, int reqHeight) {
         final int rotationInDegrees = getExifDegreesFromJpeg(inputFile);
 
         final BitmapFactory.Options opts = new BitmapFactory.Options();
         opts.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(inputFile, opts);
-
-        // Code for com.bikefit.wedgecalculator
-        //opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight, inSampleSize);
-        opts.inSampleSize = calculateInSampleSize2(opts, reqWidth, reqHeight);
-
+        opts.inSampleSize = calculateInSampleSize(opts, reqWidth, reqHeight, rotationInDegrees);
         opts.inJustDecodeBounds = false;
 
         final Bitmap origBitmap = BitmapFactory.decodeFile(inputFile, opts);
@@ -95,29 +83,23 @@ public class ImageUtil {
         matrix.preRotate(rotationInDegrees);
         // we need not check if the rotation is not needed, since the below function will then return the same bitmap. Thus no memory loss occurs.
 
-        try {
-            return Bitmap.createBitmap(origBitmap, 0, 0, origBitmap.getWidth(), origBitmap.getHeight(), matrix, true);
-        } catch (OutOfMemoryError e) {
-            return getRotatedBitmap(inputFile, reqWidth, reqHeight, opts.inSampleSize + 1);
-        }
+        return Bitmap.createBitmap(origBitmap, 0, 0, origBitmap.getWidth(), origBitmap.getHeight(), matrix, true);
     }
 
-    /**
-     * Code for com.bikefit.wedgecalculator
-     */
-    public static int calculateInSampleSize2(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight, int rotationInDegrees) {
 
         // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
+        final int height;
+        final int width;
         int inSampleSize = 1;
 
-        if (reqWidth <= 0) {
-            reqWidth = width;
-        }
-
-        if (reqHeight <= 0) {
-            reqHeight = height;
+        // Check for rotation
+        if(rotationInDegrees == DEGREES_90 || rotationInDegrees == DEGREES_270){
+            width = options.outHeight;
+            height = options.outWidth;
+        } else {
+            height = options.outHeight;
+            width = options.outWidth;
         }
 
         if (height > reqHeight || width > reqWidth) {
@@ -130,30 +112,6 @@ public class ImageUtil {
             // requested height and width.
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
         }
-
-        return inSampleSize;
-    }
-
-
-    private static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight, int inSampleSize) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
         return inSampleSize;
     }
 

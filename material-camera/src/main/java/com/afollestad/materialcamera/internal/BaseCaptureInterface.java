@@ -48,7 +48,7 @@ public interface BaseCaptureInterface {
 
     Object getBackCamera();
 
-    void useVideo(String uri);
+    void useMedia(String uri);
 
     boolean shouldAutoSubmit();
 
@@ -134,4 +134,6 @@ public interface BaseCaptureInterface {
     boolean shouldHideFlash();
 
     long autoRecordDelay();
+
+    boolean audioDisabled();
 }

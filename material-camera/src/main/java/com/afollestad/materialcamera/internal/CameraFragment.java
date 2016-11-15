@@ -174,30 +174,40 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
                     }
                 }
             }
-            if (getCurrentCameraPosition() == CAMERA_POSITION_UNKNOWN) {
-                if (getArguments().getBoolean(CameraIntentKey.DEFAULT_TO_FRONT_FACING, false)) {
-                    // Check front facing first
-                    if (mInterface.getFrontCamera() != null && (Integer) mInterface.getFrontCamera() != -1) {
-                        setImageRes(mButtonFacing, mInterface.iconRearCamera());
-                        mInterface.setCameraPosition(CAMERA_POSITION_FRONT);
-                    } else {
-                        setImageRes(mButtonFacing, mInterface.iconFrontCamera());
-                        if (mInterface.getBackCamera() != null && (Integer) mInterface.getBackCamera() != -1)
-                            mInterface.setCameraPosition(CAMERA_POSITION_BACK);
-                        else mInterface.setCameraPosition(CAMERA_POSITION_UNKNOWN);
-                    }
-                } else {
-                    // Check back facing first
-                    if (mInterface.getBackCamera() != null && (Integer) mInterface.getBackCamera() != -1) {
-                        setImageRes(mButtonFacing, mInterface.iconFrontCamera());
-                        mInterface.setCameraPosition(CAMERA_POSITION_BACK);
-                    } else {
-                        setImageRes(mButtonFacing, mInterface.iconRearCamera());
-                        if (mInterface.getFrontCamera() != null && (Integer) mInterface.getFrontCamera() != -1)
+
+            switch (getCurrentCameraPosition()) {
+                case CAMERA_POSITION_FRONT:
+                    setImageRes(mButtonFacing, mInterface.iconRearCamera());
+                    break;
+                case CAMERA_POSITION_BACK:
+                    setImageRes(mButtonFacing, mInterface.iconFrontCamera());
+                    break;
+                case CAMERA_POSITION_UNKNOWN:
+                default:
+                    if (getArguments().getBoolean(CameraIntentKey.DEFAULT_TO_FRONT_FACING, false)) {
+                        // Check front facing first
+                        if (mInterface.getFrontCamera() != null && (Integer) mInterface.getFrontCamera() != -1) {
+                            setImageRes(mButtonFacing, mInterface.iconRearCamera());
                             mInterface.setCameraPosition(CAMERA_POSITION_FRONT);
-                        else mInterface.setCameraPosition(CAMERA_POSITION_UNKNOWN);
+                        } else {
+                            setImageRes(mButtonFacing, mInterface.iconFrontCamera());
+                            if (mInterface.getBackCamera() != null && (Integer) mInterface.getBackCamera() != -1)
+                                mInterface.setCameraPosition(CAMERA_POSITION_BACK);
+                            else mInterface.setCameraPosition(CAMERA_POSITION_UNKNOWN);
+                        }
+                    } else {
+                        // Check back facing first
+                        if (mInterface.getBackCamera() != null && (Integer) mInterface.getBackCamera() != -1) {
+                            setImageRes(mButtonFacing, mInterface.iconFrontCamera());
+                            mInterface.setCameraPosition(CAMERA_POSITION_BACK);
+                        } else {
+                            setImageRes(mButtonFacing, mInterface.iconRearCamera());
+                            if (mInterface.getFrontCamera() != null && (Integer) mInterface.getFrontCamera() != -1)
+                                mInterface.setCameraPosition(CAMERA_POSITION_FRONT);
+                            else mInterface.setCameraPosition(CAMERA_POSITION_UNKNOWN);
+                        }
                     }
-                }
+                    break;
             }
 
             if (mWindowSize == null)
@@ -222,16 +232,18 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
                     parameters.setRecordingHint(true);
             }
 
-
-            mFlashModes = CameraUtil.getSupportedFlashModes(this.getActivity(), parameters);
-            mInterface.setFlashModes(mFlashModes);
-            onFlashModesLoaded();
-
             Camera.Size mStillShotSize = getHighestSupportedStillShotSize(parameters.getSupportedPictureSizes());
             parameters.setPictureSize(mStillShotSize.width, mStillShotSize.height);
 
             setCameraDisplayOrientation(parameters);
             mCamera.setParameters(parameters);
+
+            // NOTE: onFlashModesLoaded should not be called while modifying camera parameters as
+            //       the flash parameters set in setupFlashMode will then be overwritten
+            mFlashModes = CameraUtil.getSupportedFlashModes(this.getActivity(), parameters);
+            mInterface.setFlashModes(mFlashModes);
+            onFlashModesLoaded();
+
             createPreview();
             mMediaRecorder = new MediaRecorder();
 
@@ -327,12 +339,13 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             mMediaRecorder.setCamera(mCamera);
 
             boolean canUseAudio = true;
+            boolean audioEnabled = !mInterface.audioDisabled();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 canUseAudio = ContextCompat.checkSelfPermission(activity, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
 
-            if (canUseAudio) {
+            if (canUseAudio && audioEnabled) {
                 mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-            } else {
+            } else if (audioEnabled) {
                 Toast.makeText(getActivity(), R.string.mcam_no_audio_access, Toast.LENGTH_LONG).show();
             }
             mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.DEFAULT);
@@ -344,7 +357,7 @@ public class CameraFragment extends BaseCameraFragment implements View.OnClickLi
             mMediaRecorder.setVideoEncodingBitRate(mInterface.videoEncodingBitRate(profile.videoBitRate));
             mMediaRecorder.setVideoEncoder(profile.videoCodec);
 
-            if (canUseAudio) {
+            if (canUseAudio && audioEnabled) {
                 mMediaRecorder.setAudioEncodingBitRate(mInterface.audioEncodingBitRate(profile.audioBitRate));
                 mMediaRecorder.setAudioChannels(profile.audioChannels);
                 mMediaRecorder.setAudioSamplingRate(profile.audioSampleRate);

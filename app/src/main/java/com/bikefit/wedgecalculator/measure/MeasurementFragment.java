@@ -1,5 +1,7 @@
 package com.bikefit.wedgecalculator.measure;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +14,10 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialcamera.util.ImageUtil;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.measure.bitmap.BitmapWorkerTask;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
@@ -27,7 +29,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Handles the Measurement of the picture for wedges
+ * Displays picture that was taken, and shows the Measure Widget for measuring the angles, and a wedge graphic.
  */
 public class MeasurementFragment extends Fragment {
 
@@ -59,6 +61,7 @@ public class MeasurementFragment extends Fragment {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
+    private String mFilePath;
     private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
     private Unbinder mViewUnBinder;
@@ -66,12 +69,14 @@ public class MeasurementFragment extends Fragment {
     private boolean mDialogDisplayed = false;
     private float mAngle;
 
+    // Reference to the bitmap, in case 'onConfigurationChange' event comes, so we do not recreate the bitmap
+    private static Bitmap mBitmap;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
     public static MeasurementFragment newInstance(FootSide footSide, String file_path) {
-
         Bundle args = new Bundle();
         args.putString(FILE_PATH_KEY, file_path);
         args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
@@ -98,19 +103,19 @@ public class MeasurementFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         Bundle args = getArguments();
         if (args != null) {
-            String filePath = args.getString(FILE_PATH_KEY);
+            mFilePath = args.getString(FILE_PATH_KEY);
             mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
 
-            LayoutListener layoutListener = new LayoutListener(filePath);
-            mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+            //Set bitmap image after view is ready
+            mFootImage.getViewTreeObserver().addOnPreDrawListener(mBitmapListener);
         } else {
             mFootSide = FootSide.LEFT;
         }
-
-        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
-        mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
@@ -120,7 +125,11 @@ public class MeasurementFragment extends Fragment {
         }
 
         mMeasureWidget.setDebugMode(false);
-        setWedgeGraphic(mFootSide);
+        setWedgeGraphicSide(mFootSide);
+
+        if (!mDialogDisplayed) {
+            showDialog();
+        }
     }
 
     @Override
@@ -129,8 +138,21 @@ public class MeasurementFragment extends Fragment {
         outState.putBoolean(DIALOG_DISPLAYED_KEY, mDialogDisplayed);
     }
 
+    /**
+     * Ensure memory is cleaned and encourage GC to reclaim memory.
+     */
     @Override
     public void onDestroyView() {
+
+        if (mBitmap != null && !mBitmap.isRecycled()) {
+            try {
+                mBitmap.recycle();
+                mBitmap = null;
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
+
         mFootImage.setImageBitmap(null);
         mFootImage = null;
         mInstructionsDialog = null;
@@ -152,16 +174,16 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
-
-    public float getAngle() {
-        return mAngle;
-    }
-
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
-    private void setWedgeGraphic(FootSide footSide) {
+    /**
+     * Display the wedge graphic for either the LEFT or RIGHT foot.
+     *
+     * @param footSide The foot side to use for the wedge graphic
+     */
+    private void setWedgeGraphicSide(FootSide footSide) {
 
         switch (footSide) {
             case LEFT:
@@ -195,6 +217,23 @@ public class MeasurementFragment extends Fragment {
         mWedgeGraphic.setImageLevel(wedgeLevel);
     }
 
+    /**
+     * Sets bitmap to ImageView widget
+     * Take advantage of material-camera's bitmap code
+     */
+    private void setImageBitmap() {
+        final int width = mFootImage.getMeasuredWidth();
+        final int height = mFootImage.getMeasuredHeight();
+
+        if (mBitmap == null) {
+            mBitmap = ImageUtil.getRotatedBitmap(Uri.parse(mFilePath).getPath(), width, height);
+        }
+
+        if (mBitmap != null) {
+            mFootImage.setImageBitmap(mBitmap);
+        }
+    }
+
     //endregion
 
     //region LISTENERS -----------------------------------------------------------------------------
@@ -218,7 +257,6 @@ public class MeasurementFragment extends Fragment {
         getActivity().onBackPressed();
     }
 
-
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {
         //Set foot angle in shared preferences
@@ -237,27 +275,17 @@ public class MeasurementFragment extends Fragment {
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
-    private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-
-        final String filePath;
-
-        public LayoutListener(String filePath) {
-            this.filePath = filePath;
-        }
-
+    /**
+     * Use same listener that the material-camera's preview image fragment uses
+     */
+    private ViewTreeObserver.OnPreDrawListener mBitmapListener = new ViewTreeObserver.OnPreDrawListener() {
         @Override
-        public void onGlobalLayout() {
-            getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-            int width = mFootImage.getWidth();
-            int height = mFootImage.getHeight();
-
-            BitmapWorkerTask task = new BitmapWorkerTask(filePath, width, height, mFootImage);
-            task.execute();
-
-            showDialog();
+        public boolean onPreDraw() {
+            setImageBitmap();
+            mFootImage.getViewTreeObserver().removeOnPreDrawListener(this);
+            return false;
         }
-    }
+    };
 
     //endregion
 }

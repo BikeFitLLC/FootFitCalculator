@@ -4,6 +4,7 @@
     <color name="mcam_color_light">#FAFAFA</color>
     <color name="mcam_color_dark">#424242</color>
 
+    <!-- Wedge Calculator -->
     <color name="titlebarBackground">#1C4364</color>
     <color name="white">#FFFFFF</color>
 </resources>
