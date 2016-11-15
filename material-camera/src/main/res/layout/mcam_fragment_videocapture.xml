@@ -43,22 +43,19 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@android:color/transparent">
+                android:layout_gravity="center_horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/titlebar_background" />
+                    app:srcCompat="@drawable/mcam_fragment_videocapture_measurement_space" />
 
                 <TextView
                     android:id="@+id/mcam_fragment_videocapture_measurement_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|top"
-                    android:background="@android:color/transparent"
                     android:gravity="center_horizontal"
                     android:text="@string/mcam_fragment_videocapture_measurement_display_text" />
             </FrameLayout>
@@ -85,7 +82,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
             android:elevation="@dimen/mcam_toolbar_elevation"
             android:gravity="center_horizontal"
             android:text="@string/mcam_fragment_videocapture_camera_instructions_label"

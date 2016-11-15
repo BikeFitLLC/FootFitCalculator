@@ -118,7 +118,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
          * WedgeCalculator Additions
          */
         mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

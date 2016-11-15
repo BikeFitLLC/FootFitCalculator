@@ -5,7 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="titlebarBackground">#1C4364</color>
-    <color name="materialCameraBottomBarColor">#661C4364</color>
+    <color name="materialCameraBottomBarColor">#1C4364</color>
 
     <color name="backgroundColor">#043054</color>
     <color name="white">@android:color/white</color>
