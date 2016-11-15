@@ -23,7 +23,7 @@ public class OrientationVideoActivity extends AppCompatActivity {
         setContentView(R.layout.orientation_video_activity);
 
         if (savedInstanceState == null) {
-            String url = getResources().getString(R.string.orientation_video_url);
+            String url = getResources().getString(R.string.orientation_video_default_url);
             OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(url);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);

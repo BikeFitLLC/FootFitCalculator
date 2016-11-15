@@ -107,7 +107,7 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_orientation_video_button)
     public void onOrientationVideoButton() {
-        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(getResources().getString(R.string.orientation_video_url));
+        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(getResources().getString(R.string.orientation_video_default_url));
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 

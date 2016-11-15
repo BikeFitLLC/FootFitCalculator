@@ -11,9 +11,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.InternetUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -34,7 +36,7 @@ public class OrientationVideoFragment extends Fragment {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.webview)
+    @BindView(R.id.orientation_video_fragment_webview)
     WebView mWebView;
 
     //endregion
@@ -42,6 +44,9 @@ public class OrientationVideoFragment extends Fragment {
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
     private Unbinder mViewUnBinder;
+    boolean mInternetAvailable = false;
+    String mUrl = null;
+    InternetUtil mInternetUtil = new InternetUtil();
 
     //endregion
 
@@ -71,7 +76,7 @@ public class OrientationVideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.orientation_video_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
 
-        mToolbar.setTitle(getResources().getString(R.string.video_orientation_fragment_title));
+        mToolbar.setTitle(getResources().getString(R.string.orientation_video_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         return view;
@@ -86,17 +91,17 @@ public class OrientationVideoFragment extends Fragment {
 
         Bundle args = getArguments();
 
-        String url = "";
         if (args != null) {
-            url = args.getString(URL_KEY);
+            mUrl = args.getString(URL_KEY);
         }
 
-        if (url == null || url.isEmpty()) {
+        if (mUrl == null || mUrl.isEmpty()) {
             //default to known video url
-            url = getActivity().getResources().getString(R.string.orientation_video_url);
+            mUrl = getActivity().getResources().getString(R.string.orientation_video_default_url);
         }
 
-        setUrl(url);
+        mInternetAvailable = mInternetUtil.checkInternet();
+        loadWebView();
     }
 
     @Override
@@ -127,8 +132,17 @@ public class OrientationVideoFragment extends Fragment {
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
 
+    public void loadWebView() {
+        if (mInternetAvailable) {
+            mWebView.loadUrl(mUrl);
+        } else {
+            String noConnectionMessage = getString(R.string.orientation_video_no_connection);
+            mWebView.loadData(noConnectionMessage, "text/html; charset=utf-8", "UTF-8");
+        }
+    }
+
     public void setUrl(String url) {
-        mWebView.loadUrl(url);
+        mUrl = url;
     }
 
     //endregion
@@ -145,10 +159,14 @@ public class OrientationVideoFragment extends Fragment {
         }
     };
 
+    @OnClick(R.id.orientation_video_fragment_done_button)
+    public void onDoneButton() {
+        getActivity().onBackPressed();
+    }
+
     //endregion
 
     //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
-
 
 }
