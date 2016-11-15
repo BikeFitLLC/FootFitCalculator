@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
@@ -47,9 +46,6 @@ public class CameraInstructionsFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-
-    @BindView(R.id.camera_instructions_fragment_more_button)
-    Button mTellMeMoreButton;
 
     //endregion
 
@@ -87,9 +83,6 @@ public class CameraInstructionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
-
-        mTellMeMoreButton.setEnabled(false);
-
         return view;
     }
 
@@ -105,6 +98,8 @@ public class CameraInstructionsFragment extends Fragment {
         }
 
         mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         mFolderName = mFootSide.toString();
 
         //Shouldn't be needed if we're not using external storage
@@ -118,6 +113,9 @@ public class CameraInstructionsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         materialCamera = null;
+        mToolbar = null;
+        mFootSide = null;
+        mFolderName = null;
 
         super.onDestroyView();
         mViewUnBinder.unbind();
@@ -142,8 +140,8 @@ public class CameraInstructionsFragment extends Fragment {
         // Received recording or error from MaterialCamera
         if (requestCode == CAMERA_RQ) {
             if (resultCode == Activity.RESULT_OK) {
-                final File file = new File(data.getData().getPath());
-                MeasurementFragment fragment = MeasurementFragment.newInstance(mFootSide, file.getAbsolutePath());
+                String path = data.getData().getPath();
+                MeasurementFragment fragment = MeasurementFragment.newInstance(mFootSide, path);
                 ((MainMenuActivity) getActivity()).showFragment(fragment, true);
             } else if (data != null) {
                 Exception e = (Exception) data.getSerializableExtra(MaterialCamera.ERROR_EXTRA);
@@ -164,28 +162,37 @@ public class CameraInstructionsFragment extends Fragment {
 
     //endregion
 
-
     //region LISTENERS -----------------------------------------------------------------------------
 
     @OnClick(R.id.camera_instructions_fragment_snapshot_button)
     public void onLaunchCameraButton() {
 
-        File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
+        final File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
+        int color = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.materialCameraBottomBarColor);
 
         materialCamera = new MaterialCamera(this)
                 .saveDir(saveDir)
                 .showPortraitWarning(true)
                 .allowRetry(true)
-                .defaultToFrontFacing(false);
+                .defaultToFrontFacing(false)
+                .primaryColor(color);
 
         materialCamera.stillShot();
         materialCamera.start(CAMERA_RQ);
     }
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
+    @OnClick(R.id.camera_instructions_fragment_more_button)
+    public void onTellMeMoreButton() {
+        //todo If we don't get copy for this screen then we should remove it.
     }
+
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
+
 
     //endregion
 

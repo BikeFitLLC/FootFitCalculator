@@ -14,7 +14,6 @@ import com.bikefit.wedgecalculator.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -73,6 +72,7 @@ public class OrientationVideoFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.video_orientation_fragment_title));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         return view;
     }
@@ -113,6 +113,9 @@ public class OrientationVideoFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+        mWebView = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -135,10 +138,12 @@ public class OrientationVideoFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     //endregion
 

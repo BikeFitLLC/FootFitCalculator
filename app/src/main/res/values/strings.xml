@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Wedge Calculator</string>
 
-    <!-- Splash Screen -->
+    <!-- splash_activity Screen -->
     <string name="splash_screen_name">Bikefit</string>
 
     <!-- Welcome Activity -->
@@ -50,7 +50,7 @@
 
     <!-- Measurement Fragment -->
     <string name="measurement_fragment_title_text">%1$s Foot</string>
-    <string name="measurement_fragment_angle_display_format">%.2f</string>
+    <string name="measurement_fragment_angle_display_format">%.2f°</string>
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
 
@@ -76,5 +76,20 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
+
+    <!-- what_you_need_fragment -->
+    <string name="what_you_need_fragment_title_label">What You\'ll Need</string>
+    <string name="what_you_need_fragment_ok_button_label">OK, we\'re ready to start</string>
+    <string name="what_you_need_fragment_couch_text">A sofa or chair to dangle \nyour feet over</string>
+    <string name="what_you_need_fragment_lightbulb_text">Good lighting</string>
+    <string name="what_you_need_fragment_highfive_text">A friend to help you</string>
+
+    <!-- get_in_position_fragment -->
+    <string name="get_in_position_fragment_title_label">Get in Position</string>
+    <string name="get_in_position_fragment_measure_button_label">Measure my feet</string>
+    <string name="get_in_position_fragment_instruction_text_label"><![CDATA[<html>tests<br/><ol><li>Remove your shoes</li><li>Kneel backwards on a chair or couch, feet facing outward</li><li>Hand the phone to your friend</li></ol></html>]]></string>
+    <string name="get_in_position_fragment_instruction_text_one_label">1. Remove your shoes</string>
+    <string name="get_in_position_fragment_instruction_text_two_label">2. Kneel backwards on a chair or couch, feet facing outward</string>
+    <string name="get_in_position_fragment_instruction_text_three_label">3. Hand the phone to your friend</string>
 
 </resources>

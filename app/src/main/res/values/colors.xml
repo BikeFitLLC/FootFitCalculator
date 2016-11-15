@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="titlebarBackground">#1C4364</color>
+    <color name="materialCameraBottomBarColor">#1C4364</color>
 
     <color name="backgroundColor">#043054</color>
     <color name="white">@android:color/white</color>
@@ -33,7 +34,7 @@
 
     <!-- borderless button colors -->
     <color name="borderlessButtonRipple">#031C37</color>
-    <color name="borderlessButtonBackground">#043054</color>
+    <color name="borderlessButtonBackground">@android:color/transparent</color>
     <color name="borderlessButtonPressed">#031C37</color>
 
     <!-- dialog colors -->

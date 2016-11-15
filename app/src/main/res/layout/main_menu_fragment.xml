@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_menu_background"
     android:orientation="vertical"
     tools:context="com.bikefit.wedgecalculator.main.MainMenuActivity">
 
@@ -13,34 +15,42 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/app_margins"
         android:layout_marginRight="@dimen/app_margins"
+        android:background="@android:color/transparent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
                     android:orientation="vertical">
 
-                    <include
-                        layout="@layout/bikefit_banner"
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp" />
+                        android:layout_marginTop="22dp"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/bikefit_logo" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="22dp"
+                        android:background="@android:color/transparent"
                         android:gravity="center_horizontal"
                         android:text="@string/main_menu_fragment_instruction_text" />
 

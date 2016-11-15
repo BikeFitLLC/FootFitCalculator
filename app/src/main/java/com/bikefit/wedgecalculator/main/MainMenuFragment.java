@@ -40,15 +40,11 @@ public class MainMenuFragment extends Fragment {
     @BindView(R.id.main_menu_fragment_get_results_button)
     Button mResultsButton;
 
-    @BindView(R.id.main_menu_fragment_what_you_need_button)
-    Button mWhatYouNeedButton;
-
     @BindView(R.id.main_menu_fragment_get_in_position_button)
     Button mGetInPositionButton;
 
     @BindView(R.id.main_menu_fragment_start_button)
     Button mStartButton;
-
 
     //endregion
 
@@ -70,18 +66,15 @@ public class MainMenuFragment extends Fragment {
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
-
-        mWhatYouNeedButton.setEnabled(true);
-        mGetInPositionButton.setEnabled(true);
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
-
-        mStartButton.setEnabled(false);
-
         return view;
     }
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -92,23 +85,6 @@ public class MainMenuFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
-
-    @OnClick(R.id.main_menu_fragment_orientation_video_button)
-    public void onOrientationVideoButton() {
-
-        OrientationVideoFragment fragment = new OrientationVideoFragment().newInstance("");
-        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
-
-    }
-
-    @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
-    public void onMeasureLeftFootButton() {
-
-        CameraInstructionsFragment fragment = new CameraInstructionsFragment().newInstance(FootSide.LEFT);
-        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
-
-    }
-
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
@@ -116,10 +92,12 @@ public class MainMenuFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            getActivity().onBackPressed();
+        }
+    };
 
     @OnClick(R.id.main_menu_fragment_get_results_button)
     public void onResultsClicked() {
@@ -127,7 +105,34 @@ public class MainMenuFragment extends Fragment {
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
+    @OnClick(R.id.main_menu_fragment_orientation_video_button)
+    public void onOrientationVideoButton() {
+        OrientationVideoFragment fragment = OrientationVideoFragment.newInstance(getResources().getString(R.string.orientation_video_url));
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+    }
+
+    @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
+    public void onMeasureFeetButton() {
+        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+    }
+
+    @OnClick(R.id.main_menu_fragment_what_you_need_button)
+    public void onWhatYouNeedButton() {
+        WhatYouNeedFragment fragment = WhatYouNeedFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+    }
+
+    @OnClick(R.id.main_menu_fragment_get_in_position_button)
+    public void onGetInPositionButton() {
+        GetInPositionFragment fragment = GetInPositionFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
+    }
+
+    @OnClick(R.id.main_menu_fragment_start_button)
+    public void onOKButton() {
+        onWhatYouNeedButton();
+    }
+
     //endregion
-
-
 }

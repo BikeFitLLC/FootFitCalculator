@@ -21,12 +21,6 @@ public class MainMenuActivity extends AppCompatActivity {
     //endregion
 
     //region LIFECYCLE METHODS ---------------------------------------------------------------------
-    //endregion
-
-    //region ACCESSORS -----------------------------------------------------------------------------
-    //endregion
-
-    //region PUBLIC CLASS METHODS ------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +36,10 @@ public class MainMenuActivity extends AppCompatActivity {
 
     //endregion
 
-    //region PRIVATE METHODS -----------------------------------------------------------------------
+    //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
-    //region LISTENERS -----------------------------------------------------------------------------
+    //region PUBLIC CLASS METHODS ------------------------------------------------------------------
 
     public void showFragment(Fragment fragment, boolean addToBackstack) {
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
@@ -56,6 +50,19 @@ public class MainMenuActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    public void clearBackStack() {
+        while (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+            getSupportFragmentManager().executePendingTransactions();
+        }
+    }
+
+    //endregion
+
+    //region PRIVATE METHODS -----------------------------------------------------------------------
+    //endregion
+
+    //region LISTENERS -----------------------------------------------------------------------------
     //endregion
 
 }

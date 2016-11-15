@@ -1,5 +1,6 @@
 package com.bikefit.wedgecalculator.measure;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -131,6 +132,7 @@ public class MeasurementSummaryFragment extends Fragment {
         mRightWedgeCount = MeasureModel.getWedgeCount(FootSide.RIGHT);
 
         mToolbar.setTitle(getPageTitle(mLeftAngle, mRightAngle));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         return view;
     }
@@ -143,6 +145,12 @@ public class MeasurementSummaryFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        mToolbar = null;
+        mLeftAngle = null;
+        mLeftWedgeCount = null;
+        mRightAngle = null;
+        mRightWedgeCount = null;
+
         super.onDestroyView();
         mViewUnBinder.unbind();
     }
@@ -162,10 +170,18 @@ public class MeasurementSummaryFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.toolbar)
-    public void onToolbarBackPressed() {
-        getActivity().onBackPressed();
-    }
+    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (mLeftAngle != null && mRightAngle != null) {
+                startActivity(new Intent(getContext(), MainMenuActivity.class));
+                getActivity().finish();
+            } else {
+                getActivity().onBackPressed();
+            }
+        }
+    };
 
     @OnClick(R.id.measurement_summary_fragment_ok_button)
     public void onOkButton() {

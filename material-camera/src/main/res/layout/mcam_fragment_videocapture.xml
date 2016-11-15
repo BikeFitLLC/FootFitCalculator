@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootFrame"
     android:layout_width="match_parent"
@@ -24,8 +25,44 @@
             android:layout_gravity="center"
             android:background="@android:color/holo_red_dark" />
 
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/TitleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:navigationIcon="?homeAsUpIndicator"
+                app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+                app:theme="@style/TitleBar.ThemeOverlay"
+                app:title="@string/mcam_fragment_videocapture_title" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/mcam_fragment_videocapture_measurement_space" />
+
+                <TextView
+                    android:id="@+id/mcam_fragment_videocapture_measurement_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:gravity="center_horizontal"
+                    android:text="@string/mcam_fragment_videocapture_measurement_display_text" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/controlsFrame"
@@ -39,24 +76,16 @@
         android:paddingLeft="@dimen/mcam_content_inset"
         android:paddingRight="@dimen/mcam_content_inset"
         android:paddingTop="@dimen/mcam_content_inset_less"
-        tools:background="@android:color/holo_blue_light"
+        tools:background="@color/titlebarBackground"
         tools:ignore="UnusedAttribute">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:elevation="@dimen/mcam_toolbar_elevation"
-                android:gravity="center_horizontal"
-                android:text="@string/mcam_fragment_videocapture_camera_instructions_label"
-                android:textColor="#fff" />
-        </LinearLayout>
+            android:elevation="@dimen/mcam_toolbar_elevation"
+            android:gravity="center_horizontal"
+            android:text="@string/mcam_fragment_videocapture_camera_instructions_label"
+            android:textColor="#fff" />
 
         <RelativeLayout
             android:layout_width="match_parent"
