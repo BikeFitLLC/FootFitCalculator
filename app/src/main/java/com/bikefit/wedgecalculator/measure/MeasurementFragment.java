@@ -29,7 +29,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Handles the Measurement of the picture for wedges
+ * Displays picture that was taken, and shows the Measure Widget for measuring the angles, and a wedge graphic.
  */
 public class MeasurementFragment extends Fragment {
 
@@ -61,6 +61,7 @@ public class MeasurementFragment extends Fragment {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
+    private String mFilePath;
     private FootSide mFootSide = FootSide.LEFT;
     private MeasurementInstructionsDialogFragment mInstructionsDialog;
     private Unbinder mViewUnBinder;
@@ -68,10 +69,7 @@ public class MeasurementFragment extends Fragment {
     private boolean mDialogDisplayed = false;
     private float mAngle;
 
-    private String mFilePath;
-    /**
-     * Reference to the bitmap, in case 'onConfigurationChange' event comes, so we do not recreate the bitmap
-     */
+    // Reference to the bitmap, in case 'onConfigurationChange' event comes, so we do not recreate the bitmap
     private static Bitmap mBitmap;
 
     //endregion
@@ -79,7 +77,6 @@ public class MeasurementFragment extends Fragment {
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
     public static MeasurementFragment newInstance(FootSide footSide, String file_path) {
-
         Bundle args = new Bundle();
         args.putString(FILE_PATH_KEY, file_path);
         args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
@@ -114,18 +111,8 @@ public class MeasurementFragment extends Fragment {
             mFilePath = args.getString(FILE_PATH_KEY);
             mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
 
-            mFootImage.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    setImageBitmap();
-                    mFootImage.getViewTreeObserver().removeOnPreDrawListener(this);
-                    return false;
-                }
-            });
-
-            //LayoutListener layoutListener = new LayoutListener(filePath);
-            //mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
-
+            //Set bitmap image after view is ready
+            mFootImage.getViewTreeObserver().addOnPreDrawListener(mBitmapListener);
         } else {
             mFootSide = FootSide.LEFT;
         }
@@ -138,30 +125,12 @@ public class MeasurementFragment extends Fragment {
         }
 
         mMeasureWidget.setDebugMode(false);
-        setWedgeGraphic(mFootSide);
+        setWedgeGraphicSide(mFootSide);
 
         if (!mDialogDisplayed) {
             showDialog();
         }
     }
-
-    /**
-     * Sets bitmap to ImageView widget
-     */
-    private void setImageBitmap() {
-        final int width = mFootImage.getMeasuredWidth();
-        final int height = mFootImage.getMeasuredHeight();
-
-        // TODO IMPROVE MEMORY USAGE HERE, ESPECIALLY ON LOW-END DEVICES.
-        if (mBitmap == null) {
-            mBitmap = ImageUtil.getRotatedBitmap(Uri.parse(mFilePath).getPath(), width, height);
-        }
-
-        if (mBitmap != null) {
-            mFootImage.setImageBitmap(mBitmap);
-        }
-    }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -169,6 +138,9 @@ public class MeasurementFragment extends Fragment {
         outState.putBoolean(DIALOG_DISPLAYED_KEY, mDialogDisplayed);
     }
 
+    /**
+     * Ensure memory is cleaned and encourage GC to reclaim memory.
+     */
     @Override
     public void onDestroyView() {
 
@@ -202,16 +174,16 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
-
-    public float getAngle() {
-        return mAngle;
-    }
-
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
-    private void setWedgeGraphic(FootSide footSide) {
+    /**
+     * Display the wedge graphic for either the LEFT or RIGHT foot.
+     *
+     * @param footSide The foot side to use for the wedge graphic
+     */
+    private void setWedgeGraphicSide(FootSide footSide) {
 
         switch (footSide) {
             case LEFT:
@@ -245,6 +217,23 @@ public class MeasurementFragment extends Fragment {
         mWedgeGraphic.setImageLevel(wedgeLevel);
     }
 
+    /**
+     * Sets bitmap to ImageView widget
+     * Take advantage of material-camera's bitmap code
+     */
+    private void setImageBitmap() {
+        final int width = mFootImage.getMeasuredWidth();
+        final int height = mFootImage.getMeasuredHeight();
+
+        if (mBitmap == null) {
+            mBitmap = ImageUtil.getRotatedBitmap(Uri.parse(mFilePath).getPath(), width, height);
+        }
+
+        if (mBitmap != null) {
+            mFootImage.setImageBitmap(mBitmap);
+        }
+    }
+
     //endregion
 
     //region LISTENERS -----------------------------------------------------------------------------
@@ -268,7 +257,6 @@ public class MeasurementFragment extends Fragment {
         getActivity().onBackPressed();
     }
 
-
     @OnClick(R.id.measurement_fragment_save_button)
     public void onSaveButtonPressed() {
         //Set foot angle in shared preferences
@@ -287,27 +275,17 @@ public class MeasurementFragment extends Fragment {
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
-/*    private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
-
-        final String filePath;
-
-        public LayoutListener(String filePath) {
-            this.filePath = filePath;
-        }
-
+    /**
+     * Use same listener that the material-camera's preview image fragment uses
+     */
+    private ViewTreeObserver.OnPreDrawListener mBitmapListener = new ViewTreeObserver.OnPreDrawListener() {
         @Override
-        public void onGlobalLayout() {
-            getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-            int width = mFootImage.getWidth();
-            int height = mFootImage.getHeight();
-
-            BitmapWorkerTask task = new BitmapWorkerTask(filePath, width, height, mFootImage);
-            task.execute();
-
-            showDialog();
+        public boolean onPreDraw() {
+            setImageBitmap();
+            mFootImage.getViewTreeObserver().removeOnPreDrawListener(this);
+            return false;
         }
-    }*/
+    };
 
     //endregion
 }
