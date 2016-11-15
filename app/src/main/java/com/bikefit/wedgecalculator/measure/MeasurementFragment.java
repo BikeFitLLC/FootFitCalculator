@@ -1,5 +1,7 @@
 package com.bikefit.wedgecalculator.measure;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,10 +14,10 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialcamera.util.ImageUtil;
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.measure.bitmap.BitmapWorkerTask;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
@@ -66,6 +68,12 @@ public class MeasurementFragment extends Fragment {
     private boolean mDialogDisplayed = false;
     private float mAngle;
 
+    private String mFilePath;
+    /**
+     * Reference to the bitmap, in case 'onConfigurationChange' event comes, so we do not recreate the bitmap
+     */
+    private static Bitmap mBitmap;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -98,19 +106,29 @@ public class MeasurementFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         Bundle args = getArguments();
         if (args != null) {
-            String filePath = args.getString(FILE_PATH_KEY);
+            mFilePath = args.getString(FILE_PATH_KEY);
             mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
 
-            LayoutListener layoutListener = new LayoutListener(filePath);
-            mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+            mFootImage.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    setImageBitmap();
+                    mFootImage.getViewTreeObserver().removeOnPreDrawListener(this);
+                    return false;
+                }
+            });
+
+            //LayoutListener layoutListener = new LayoutListener(filePath);
+            //mFootImage.getViewTreeObserver().addOnGlobalLayoutListener(layoutListener);
+
         } else {
             mFootSide = FootSide.LEFT;
         }
-
-        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
-        mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
@@ -121,7 +139,29 @@ public class MeasurementFragment extends Fragment {
 
         mMeasureWidget.setDebugMode(false);
         setWedgeGraphic(mFootSide);
+
+        if (!mDialogDisplayed) {
+            showDialog();
+        }
     }
+
+    /**
+     * Sets bitmap to ImageView widget
+     */
+    private void setImageBitmap() {
+        final int width = mFootImage.getMeasuredWidth();
+        final int height = mFootImage.getMeasuredHeight();
+
+        // TODO IMPROVE MEMORY USAGE HERE, ESPECIALLY ON LOW-END DEVICES.
+        if (mBitmap == null) {
+            mBitmap = ImageUtil.getRotatedBitmap(Uri.parse(mFilePath).getPath(), width, height);
+        }
+
+        if (mBitmap != null) {
+            mFootImage.setImageBitmap(mBitmap);
+        }
+    }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -131,6 +171,16 @@ public class MeasurementFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+
+        if (mBitmap != null && !mBitmap.isRecycled()) {
+            try {
+                mBitmap.recycle();
+                mBitmap = null;
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
+
         mFootImage.setImageBitmap(null);
         mFootImage = null;
         mInstructionsDialog = null;
@@ -237,7 +287,7 @@ public class MeasurementFragment extends Fragment {
 
     //region INNER CLASSES -------------------------------------------------------------------------
 
-    private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
+/*    private class LayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
 
         final String filePath;
 
@@ -257,7 +307,7 @@ public class MeasurementFragment extends Fragment {
 
             showDialog();
         }
-    }
+    }*/
 
     //endregion
 }
