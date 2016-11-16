@@ -267,14 +267,12 @@ public class MeasurementSummaryFragmentUITest {
         onView(withId(R.id.measurement_summary_fragment_ok_button)).check(matches(isDisplayed()));
 
         // THEN other buttons not displayed
-        onView(withId(R.id.measurement_summary_fragment_full_fitting_button)).check(matches(not(isDisplayed())));
         onView(withId(R.id.measurement_summary_fragment_professional_button)).check(matches(not(isDisplayed())));
         onView(withId(R.id.measurement_summary_fragment_purchase_button)).check(matches(not(isDisplayed())));
     }
 
     private void verifyBothFeetButtons() {
         // THEN 3 buttons are displayed
-        onView(withId(R.id.measurement_summary_fragment_full_fitting_button)).check(matches(isDisplayed()));
         onView(withId(R.id.measurement_summary_fragment_professional_button)).check(matches(isDisplayed()));
         onView(withId(R.id.measurement_summary_fragment_purchase_button)).check(matches(isDisplayed()));
 
@@ -285,7 +283,6 @@ public class MeasurementSummaryFragmentUITest {
     private void verifyNoFeetButtons() {
         // THEN no buttons not displayed
         onView(withId(R.id.measurement_summary_fragment_ok_button)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.measurement_summary_fragment_full_fitting_button)).check(matches(not(isDisplayed())));
         onView(withId(R.id.measurement_summary_fragment_professional_button)).check(matches(not(isDisplayed())));
         onView(withId(R.id.measurement_summary_fragment_purchase_button)).check(matches(not(isDisplayed())));
     }

@@ -57,8 +57,8 @@ public class CameraInstructionsFragmentUITest {
 
         // WHEN the fragment is displayed
 
-        // THEN the 2 options appear as buttons
-        onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
+        // THEN the 1 options appear as buttons
+        //onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
         onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
     }
 

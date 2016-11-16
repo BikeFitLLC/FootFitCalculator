@@ -15,15 +15,15 @@
     <string name="activity_wedging_benefits_top_text">Placeholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
     <string name="activity_wedging_benefits_bottom_text">Placeholder text, please replace with real copy. A misalignment may not always be visible while the cyclist is pedaling but that does not mean a misalighment does not exist. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
 
-    <!-- Video Orientation -->
-    <string name="orientation_video_url">https://www.youtube.com/embed/C0DPdy98e4c</string>
-
     <!-- FootSide enum -->
     <string name="footSide_left">Left</string>
     <string name="footSide_right">Right</string>
 
     <!-- video_orientation_fragment -->
-    <string name="video_orientation_fragment_title">Orientation Video</string>
+    <string name="orientation_video_default_url">https://www.youtube.com/embed/C0DPdy98e4c</string>
+    <string name="orientation_video_fragment_title_label">Orientation Video</string>
+    <string name="orientation_video_no_connection"><![CDATA[<html>Your Network Connection is NOT Available.<br/><br/>Please check your network settings and try again.</html>]]></string>
+    <string name="orientation_video_fragment_done_button_label">Done</string>
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_title">Overview</string>
@@ -76,6 +76,7 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
+    <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro/</string>
 
     <!-- what_you_need_fragment -->
     <string name="what_you_need_fragment_title_label">What You\'ll Need</string>

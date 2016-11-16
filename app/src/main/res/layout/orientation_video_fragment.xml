@@ -7,8 +7,22 @@
     <include layout="@layout/toolbar" />
 
     <WebView
-        android:id="@+id/webview"
+        android:id="@+id/orientation_video_fragment_webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/dialogBackground" />
+
+    <Button
+        android:id="@+id/orientation_video_fragment_done_button"
+        style="@style/Button.Focus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margins"
+        android:layout_marginLeft="@dimen/app_margins"
+        android:layout_marginRight="@dimen/app_margins"
+        android:layout_marginTop="8dp"
+        android:layout_weight="0"
+        android:text="@string/orientation_video_fragment_done_button_label" />
 
 </LinearLayout>

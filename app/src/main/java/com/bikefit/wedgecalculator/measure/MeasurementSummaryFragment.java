@@ -19,6 +19,7 @@ import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.InternetUtil;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
@@ -70,9 +71,6 @@ public class MeasurementSummaryFragment extends Fragment {
     @BindView(R.id.measurement_summary_fragment_instruction_text)
     TextView mInstructionText;
 
-    @BindView(R.id.measurement_summary_fragment_full_fitting_button)
-    Button mFullFittingButton;
-
     @BindView(R.id.measurement_summary_fragment_professional_button)
     Button mProfessionalButton;
 
@@ -100,6 +98,8 @@ public class MeasurementSummaryFragment extends Fragment {
     private Integer mLeftWedgeCount;
     private Float mRightAngle;
     private Integer mRightWedgeCount;
+
+    InternetUtil mInternetUtil = new InternetUtil();
 
     //endregion
 
@@ -150,6 +150,7 @@ public class MeasurementSummaryFragment extends Fragment {
         mLeftWedgeCount = null;
         mRightAngle = null;
         mRightWedgeCount = null;
+        mInternetUtil = null;
 
         super.onDestroyView();
         mViewUnBinder.unbind();
@@ -192,14 +193,12 @@ public class MeasurementSummaryFragment extends Fragment {
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
-    @OnClick(R.id.measurement_summary_fragment_full_fitting_button)
-    public void onFullFittingButton() {
-        Log.d(getClass().getSimpleName(), "Full Fitting button pressed");
-    }
-
     @OnClick(R.id.measurement_summary_fragment_professional_button)
     public void onProfessionalButton() {
-        Log.d(getClass().getSimpleName(), "Professional button pressed");
+        String url = getString(R.string.measurement_summary_fragment_professional_fitting_url);
+        if (mInternetUtil.checkInternet()) {
+            mInternetUtil.openExternalWebPage(url);
+        }
     }
 
     @OnClick(R.id.measurement_summary_fragment_purchase_button)
@@ -261,7 +260,6 @@ public class MeasurementSummaryFragment extends Fragment {
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_complete_instruction_text, totalWedgeCount));
 
             mOkButton.setVisibility(View.GONE);
-            mFullFittingButton.setVisibility(View.VISIBLE);
             mProfessionalButton.setVisibility(View.VISIBLE);
             mPurchaseButton.setVisibility(View.VISIBLE);
 
@@ -270,7 +268,6 @@ public class MeasurementSummaryFragment extends Fragment {
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_nofeet_measured_instruction_label));
 
             mOkButton.setVisibility(View.GONE);
-            mFullFittingButton.setVisibility(View.GONE);
             mProfessionalButton.setVisibility(View.GONE);
             mPurchaseButton.setVisibility(View.GONE);
 
@@ -289,7 +286,6 @@ public class MeasurementSummaryFragment extends Fragment {
             mInstructionText.setText(getString(R.string.measurement_summary_fragment_incomplete_instruction_text, finishedSide, todoSide));
 
             mOkButton.setVisibility(View.VISIBLE);
-            mFullFittingButton.setVisibility(View.GONE);
             mProfessionalButton.setVisibility(View.GONE);
             mPurchaseButton.setVisibility(View.GONE);
         }

@@ -9,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.InternetUtil;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
@@ -18,6 +19,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -50,6 +56,9 @@ public class OrientationVideoFragmentAndroidTest {
     @Mock
     FragmentActivity mMockActivity;
 
+    @Mock
+    InternetUtil mMockInternetUtil;
+
     //endregion
 
     //region NON-MOCKS -----------------------------------------------------------------------------
@@ -69,6 +78,22 @@ public class OrientationVideoFragmentAndroidTest {
     //endregion
 
     //region TESTS ---------------------------------------------------------------------------------
+
+    @Test
+    public void testViewsAppear() throws Exception {
+
+        // GIVEN an activity to load the fragment
+        TestFragmentActivity activity = mActivityRule.launchActivity(null);
+
+        // WHEN the fragment is loaded with default options
+        final OrientationVideoFragment fragment = OrientationVideoFragment.newInstance("");
+        activity.transactToFragment(fragment);
+
+        // THEN the expected view elements are displayed
+        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
+        onView(withId(R.id.orientation_video_fragment_webview)).check(matches(isDisplayed()));
+        onView(withId(R.id.orientation_video_fragment_done_button)).check(matches(isDisplayed()));
+    }
 
     @Test
     public void testNewInstance_uiTest() throws Exception {
@@ -105,7 +130,7 @@ public class OrientationVideoFragmentAndroidTest {
 
         TestFragmentActivity activity = mActivityRule.launchActivity(null);
 
-        final String expectedUrl = activity.getString(R.string.orientation_video_url);
+        final String expectedUrl = activity.getString(R.string.orientation_video_default_url);
 
         // GIVEN an empty url
         final String url = "";
@@ -135,7 +160,7 @@ public class OrientationVideoFragmentAndroidTest {
 
         TestFragmentActivity activity = mActivityRule.launchActivity(null);
 
-        final String expectedUrl = activity.getString(R.string.orientation_video_url);
+        final String expectedUrl = activity.getString(R.string.orientation_video_default_url);
 
         // GIVEN a null url
         final String url = null;
@@ -160,6 +185,25 @@ public class OrientationVideoFragmentAndroidTest {
 
     }
 
+    @Test
+    public void webView_NoInternet() throws Exception {
+
+        //NOTE: it's too difficult to determine the text displayed in a webview, so we just
+        // test on a boolean member variable in the fragment called mInternetAvailable
+
+        TestFragmentActivity activity = mActivityRule.launchActivity(null);
+
+        // GIVEN the app is set to NOT have an active internet connection
+        when(mMockInternetUtil.checkInternet()).thenReturn(false);
+
+        // WHEN the fragment is loaded (and we "inject" the Mock)
+        final OrientationVideoFragment fragment = OrientationVideoFragment.newInstance("");
+        fragment.mInternetUtil = mMockInternetUtil;
+        activity.transactToFragment(fragment);
+
+        // THEN the fragment reports there is no internet available
+        assertFalse(fragment.mInternetAvailable);
+    }
 
     //endregion
 

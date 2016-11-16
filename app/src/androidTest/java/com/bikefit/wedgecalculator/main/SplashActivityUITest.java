@@ -38,7 +38,7 @@ public class SplashActivityUITest {
     //region TESTS ---------------------------------------------------------------------------------
 
     @Test
-    public void testHelloWorldText() {
+    public void splashScreenDisplayed() {
         // WHEN the activity starts
         mActivityRule.launchActivity(null);
 
