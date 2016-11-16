@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,24 +16,28 @@
         app:popupTheme="@style/TitleBar.PopupThemeOverlay"
         app:theme="@style/TitleBar.ThemeOverlay" />
 
-    <WebView
-        android:id="@+id/orientation_video_fragment_webview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/dialogBackground" />
-
-    <Button
-        android:id="@+id/orientation_video_fragment_done_button"
-        style="@style/Button.Focus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/app_margins"
         android:layout_marginLeft="@dimen/app_margins"
         android:layout_marginRight="@dimen/app_margins"
-        android:layout_marginTop="8dp"
-        android:layout_weight="0"
-        android:focusable="true"
-        android:text="@string/orientation_video_fragment_done_button_label" />
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/app_margins"
+            android:layout_weight="1"
+            android:text="@string/cleat_selection_help_fragment_instruction_label" />
+
+        <Button
+            android:id="@+id/cleat_selection_help_fragment_get_fitted_button"
+            style="@style/Button.Focus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cleat_selection_help_fragment_get_fitted_button_label" />
+
+    </LinearLayout>
 
 </LinearLayout>

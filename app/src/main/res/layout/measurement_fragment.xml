@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/TitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationContentDescription="@string/toolbar_content_description_back"
+        app:navigationIcon="?homeAsUpIndicator"
+        app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+        app:theme="@style/TitleBar.ThemeOverlay" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -79,18 +87,17 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/undo_icon" />
-
-            <TextView
+            <Button
                 android:id="@+id/measurement_fragment_undo_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:background="@drawable/borderless_button"
+                android:drawableLeft="@drawable/undo_icon"
+                android:drawablePadding="8dp"
+                android:focusable="true"
+                android:padding="8dp"
                 android:text="@string/measurement_fragment_undo_button_text" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -102,18 +109,17 @@
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                app:srcCompat="@drawable/save_icon" />
-
-            <TextView
+            <Button
                 android:id="@+id/measurement_fragment_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:background="@drawable/borderless_button"
+                android:drawableLeft="@drawable/save_icon"
+                android:drawablePadding="8dp"
+                android:focusable="true"
+                android:padding="8dp"
                 android:text="@string/measurement_fragment_save_button_text" />
+
         </LinearLayout>
     </LinearLayout>
 

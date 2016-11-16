@@ -17,6 +17,21 @@ public class MeasureModel {
         return Settings.getWedgeCount(footSide);
     }
 
+    public static int getTotalWedgeCount() {
+        Integer leftCount = Settings.getWedgeCount(FootSide.LEFT);
+        Integer rightCount = Settings.getWedgeCount(FootSide.RIGHT);
+
+        if (leftCount == null) {
+            leftCount = 0;
+        }
+
+        if (rightCount == null) {
+            rightCount = 0;
+        }
+
+        return leftCount + rightCount;
+    }
+
     public static void setFootData(FootSide footSide, Float angle, Integer wedgeCount) {
         Settings.setFootAngle(footSide, angle);
         Settings.setWedgeCount(footSide, wedgeCount);

@@ -85,7 +85,15 @@
 
         </LinearLayout>
 
-        <include layout="@layout/toolbar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/TitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationContentDescription="@string/toolbar_content_description_back"
+            app:navigationIcon="?homeAsUpIndicator"
+            app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+            app:theme="@style/TitleBar.ThemeOverlay" />
     </FrameLayout>
 
     <Button
@@ -97,6 +105,7 @@
         android:layout_marginLeft="@dimen/app_margins"
         android:layout_marginRight="@dimen/app_margins"
         android:layout_weight="0"
+        android:focusable="true"
         android:text="@string/what_you_need_fragment_ok_button_label" />
 
 </LinearLayout>

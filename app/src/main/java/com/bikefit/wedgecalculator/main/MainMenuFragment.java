@@ -67,6 +67,7 @@ public class MainMenuFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
         return view;
     }

@@ -46,6 +46,7 @@
     </style>
 
     <style name="BorderlessButton">
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:background">@drawable/borderless_button</item>
         <item name="android:textColor">@color/borderless_button_text_color</item>
         <item name="android:minHeight">52dp</item>

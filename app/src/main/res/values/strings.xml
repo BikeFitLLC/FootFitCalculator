@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Wedge Calculator</string>
+    <string name="app_name">Bikefit</string>
 
     <!-- splash_activity Screen -->
     <string name="splash_screen_name">Bikefit</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_content_description_back">Back</string>
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Overview</string>
@@ -27,7 +30,7 @@
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_title">Overview</string>
-    <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. \nTap a step to skip to it.</string>
+    <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. Tap a step to skip to it.</string>
     <string name="main_menu_fragment_orientation_video">Orientation Video</string>
     <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
     <string name="main_menu_fragment_get_in_position">Get in Position</string>
@@ -92,5 +95,22 @@
     <string name="get_in_position_fragment_instruction_text_one_label">1. Remove your shoes</string>
     <string name="get_in_position_fragment_instruction_text_two_label">2. Kneel backwards on a chair or couch, feet facing outward</string>
     <string name="get_in_position_fragment_instruction_text_three_label">3. Hand the phone to your friend</string>
+
+    <!-- cleat_selection_fragment -->
+    <string name="cleat_selection_fragment_title_label">Select Your Cleat Type</string>
+    <string name="cleat_selection_fragment_look_header_label">Look Cleat Wedges®</string>
+    <string name="cleat_selection_fragment_look_description_label">For use with Look Keo, Look Delta, Shimano SL road, Campagnolo, Time road and similar 3-hole cleat systems.</string>
+    <string name="cleat_selection_fragment_speedplay_header_label">Speedplay Cleat Wedges®</string>
+    <string name="cleat_selection_fragment_speedplay_description_label">For use with Speedplay X-Series, Zero and Light Action cleat systems.</string>
+    <string name="cleat_selection_fragment_spd_header_label">SPD Cleat Wedges®</string>
+    <string name="cleat_selection_fragment_spd_description_label">For use with SPD-compatible cleats and most other side-by-side two hole cleat systems.</string>
+    <string name="cleat_selection_fragment_dont_know_button_label">I don\'t know which wedges I need</string>
+    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx</string>
+
+    <!-- cleat_selection_help_fragment -->
+    <string name="cleat_selection_help_fragment_get_fitted_button_label">Get professionally fitted</string>
+    <string name="cleat_selection_help_fragment_instruction_label">Check the number and arrangement of pegs on your shoes, and compare them to the diagrams. \n\nMost cleat systems fall into one of the three types listed on this page. \n\nIf you still have questions, contact a professional bike fitter in your area.</string>
 
 </resources>

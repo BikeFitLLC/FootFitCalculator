@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -49,13 +48,22 @@
             </LinearLayout>
         </ScrollView>
 
-        <include layout="@layout/toolbar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/TitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationContentDescription="@string/toolbar_content_description_back"
+            app:navigationIcon="?homeAsUpIndicator"
+            app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+            app:theme="@style/TitleBar.ThemeOverlay" />
     </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/app_margins"
         android:layout_marginLeft="@dimen/app_margins"
         android:layout_marginRight="@dimen/app_margins"
         android:layout_weight="0"
@@ -67,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:focusable="true"
             android:text="@string/camera_instructions_fragment_more_button_text"
             android:visibility="gone" />
 
@@ -76,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
+            android:focusable="true"
             android:text="@string/camera_instructions_fragment_snapshot_button_text" />
     </LinearLayout>
 

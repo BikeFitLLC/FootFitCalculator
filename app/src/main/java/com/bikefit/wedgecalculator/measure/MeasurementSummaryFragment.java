@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,7 +202,8 @@ public class MeasurementSummaryFragment extends Fragment {
 
     @OnClick(R.id.measurement_summary_fragment_purchase_button)
     public void onPurchaseButton() {
-        Log.d(getClass().getSimpleName(), "Purchase button pressed");
+        CleatSelectionFragment fragment = CleatSelectionFragment.newInstance();
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     //endregion
