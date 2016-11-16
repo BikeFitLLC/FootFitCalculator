@@ -102,5 +102,12 @@
     <string name="cleat_selection_fragment_spd_header_label">SPD Cleat Wedges ®</string>
     <string name="cleat_selection_fragment_spd_description_label">For use with SPD-compatible cleats and most other side-by-side two hole cleat systems.</string>
     <string name="cleat_selection_fragment_dont_know_button_label">I don\'t know which wedges I need</string>
+    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx</string>
+
+    <!-- cleat_selection_help_fragment -->
+    <string name="cleat_selection_help_fragment_get_fitted_button_label">Get professionally fitted</string>
+    <string name="cleat_selection_help_fragment_instruction_label">Check the number and arrangement of pegs on your shoes, and compare them to the diagrams. \n\nMost cleat systems fall into one of the three types listed on this page. \n\nIf you still have questions, contact a professional bike fitter in your area.</string>
 
 </resources>

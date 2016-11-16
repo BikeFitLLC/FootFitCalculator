@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.main.MainMenuActivity;
-import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
 
 import butterknife.BindView;
@@ -19,11 +17,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Screen for selecting a Cleat type (one of three options)
+ * Help screen for selecting a Cleat type
  */
-public class CleatSelectionFragment extends Fragment {
-
-    public static String WEDGE_COUNT = "WEDGE_COUNT";
+public class CleatSelectionHelpFragment extends Fragment {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
@@ -45,17 +41,15 @@ public class CleatSelectionFragment extends Fragment {
 
     private Unbinder mViewUnBinder;
     InternetUtil mInternetUtil = new InternetUtil();
-    int mTotalWedgeCount;
 
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    //todo send entire measurement model?
-    public static CleatSelectionFragment newInstance() {
+    public static CleatSelectionHelpFragment newInstance() {
         Bundle args = new Bundle();
 
-        CleatSelectionFragment fragment = new CleatSelectionFragment();
+        CleatSelectionHelpFragment fragment = new CleatSelectionHelpFragment();
         fragment.setArguments(args);
 
         return fragment;
@@ -68,13 +62,11 @@ public class CleatSelectionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cleat_selection_fragment, container, false);
+        View view = inflater.inflate(R.layout.cleat_selection_help_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
 
         mToolbar.setTitle(getString(R.string.cleat_selection_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
-
-        mTotalWedgeCount = MeasureModel.getTotalWedgeCount();
 
         return view;
     }
@@ -100,34 +92,12 @@ public class CleatSelectionFragment extends Fragment {
         }
     };
 
-    @OnClick(R.id.cleat_selection_fragment_look_cleat_button)
-    public void onLookCleatButton() {
+    @OnClick(R.id.cleat_selection_help_fragment_get_fitted_button)
+    public void onGetFittedButton() {
         if (mInternetUtil.checkInternet()) {
-            String url = getString(R.string.cleat_selection_fragment_look_url);
+            String url = getString(R.string.measurement_summary_fragment_professional_fitting_url);
             mInternetUtil.openExternalWebPage(url);
         }
-    }
-
-    @OnClick(R.id.cleat_selection_fragment_speedplay_cleat_button)
-    public void onSpeedplayCleatButton() {
-        if (mInternetUtil.checkInternet()) {
-            String url = getString(R.string.cleat_selection_fragment_speedplay_url);
-            mInternetUtil.openExternalWebPage(url);
-        }
-    }
-
-    @OnClick(R.id.cleat_selection_fragment_spd_cleat_button)
-    public void onSPDCleatButton() {
-        if (mInternetUtil.checkInternet()) {
-            String url = getString(R.string.cleat_selection_fragment_spd_url);
-            mInternetUtil.openExternalWebPage(url);
-        }
-    }
-
-    @OnClick(R.id.cleat_selection_fragment_dont_know_button)
-    public void onDontKnowButton() {
-        CleatSelectionHelpFragment fragment = CleatSelectionHelpFragment.newInstance();
-        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     //endregion
@@ -135,23 +105,10 @@ public class CleatSelectionFragment extends Fragment {
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
-    //region TEST ACCESSORS ------------------------------------------------------------------------
-    //endregion
-
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
     //endregion
 
-    //-- Optional! --
-    //region INTERFACE METHODS (InterfaceName) -----------------------------------------------------
-    //endregion
-
     //region PRIVATE METHODS -----------------------------------------------------------------------
-    //endregion
-
-    //region OBSERVERS -----------------------------------------------------------------------------
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
 
 }

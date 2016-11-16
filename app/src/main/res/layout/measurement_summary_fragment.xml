@@ -155,7 +155,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
                 android:text="@string/measurement_summary_fragment_purchase_button_label"
                 android:visibility="gone"
                 tools:visibility="visible" />
@@ -166,7 +165,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="8dp"
                 android:text="@string/measurement_summary_fragment_ok_button_label" />
         </LinearLayout>
 

@@ -40,7 +40,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="@dimen/app_margins"
                         android:background="@android:color/transparent"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/bikefit_logo" />
@@ -48,8 +48,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="8dp"
                         android:background="@android:color/transparent"
                         android:gravity="center_horizontal"
                         android:text="@string/main_menu_fragment_instruction_text" />
@@ -99,7 +98,7 @@
             android:id="@+id/panelBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/app_margins"
             android:layout_marginTop="8dp"
             android:layout_weight="0"
             android:gravity="center_horizontal">
