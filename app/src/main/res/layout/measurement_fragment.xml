@@ -6,7 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/TitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationContentDescription="@string/toolbar_content_description_back"
+        app:navigationIcon="?homeAsUpIndicator"
+        app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+        app:theme="@style/TitleBar.ThemeOverlay" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -83,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:contentDescription="@string/measurement_fragment_undo_button_text"
                 app:srcCompat="@drawable/undo_icon" />
 
             <TextView
@@ -106,6 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
+                android:contentDescription="@string/measurement_fragment_save_button_text"
                 app:srcCompat="@drawable/save_icon" />
 
             <TextView

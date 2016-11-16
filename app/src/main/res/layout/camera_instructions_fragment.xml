@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -49,7 +48,15 @@
             </LinearLayout>
         </ScrollView>
 
-        <include layout="@layout/toolbar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/TitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationContentDescription="@string/toolbar_content_description_back"
+            app:navigationIcon="?homeAsUpIndicator"
+            app:popupTheme="@style/TitleBar.PopupThemeOverlay"
+            app:theme="@style/TitleBar.ThemeOverlay" />
     </FrameLayout>
 
     <LinearLayout

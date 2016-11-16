@@ -93,7 +93,7 @@ public class CleatSelectionFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+    final View.OnClickListener mNavigationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             getActivity().onBackPressed();

@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">Wedge Calculator</string>
+    <string name="app_name">Bikefit</string>
 
     <!-- splash_activity Screen -->
     <string name="splash_screen_name">Bikefit</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_content_description_back">Back</string>
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Overview</string>
