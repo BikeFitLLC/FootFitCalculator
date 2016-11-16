@@ -7,7 +7,7 @@
 
     <include layout="@layout/toolbar" />
 
-    <LinearLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="@dimen/app_margins"
@@ -17,16 +17,15 @@
 
         <LinearLayout
             android:id="@+id/cleat_selection_fragment_look_cleat_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:paddingRight="8dp"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="100%">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -59,15 +58,15 @@
 
         <LinearLayout
             android:id="@+id/cleat_selection_fragment_speedplay_cleat_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_below="@+id/cleat_selection_fragment_look_cleat_button"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:paddingRight="8dp"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="100%">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -100,15 +99,15 @@
 
         <LinearLayout
             android:id="@+id/cleat_selection_fragment_spd_cleat_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_below="@+id/cleat_selection_fragment_speedplay_cleat_button"
             android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp">
+            android:paddingRight="8dp"
+            app:layout_heightPercent="33%"
+            app:layout_widthPercent="100%">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -139,15 +138,15 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/cleat_selection_fragment_dont_know_button"
-            style="@style/Button.Focus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/app_margins"
-            android:layout_marginTop="@dimen/app_margins"
-            android:layout_weight="0"
-            android:text="@string/cleat_selection_fragment_dont_know_button_label" />
-    </LinearLayout>
+    </android.support.percent.PercentRelativeLayout>
+
+    <Button
+        android:id="@+id/cleat_selection_fragment_dont_know_button"
+        style="@style/Button.Focus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margins"
+        android:layout_weight="0"
+        android:text="@string/cleat_selection_fragment_dont_know_button_label" />
 
 </LinearLayout>
