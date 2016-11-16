@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
+        android:focusable="true"
         android:text="@string/measurement_instructions_dialog_fragment_screen1_button_text" />
 
 </LinearLayout>

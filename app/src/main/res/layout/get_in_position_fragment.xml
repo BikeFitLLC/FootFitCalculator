@@ -91,6 +91,7 @@
         android:layout_marginRight="@dimen/app_margins"
         android:layout_marginTop="16dp"
         android:layout_weight="0"
+        android:focusable="true"
         android:text="@string/get_in_position_fragment_measure_button_label" />
 
 </LinearLayout>

@@ -66,6 +66,7 @@
                         style="@style/BorderlessButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
                         android:text="@string/main_menu_fragment_orientation_video" />
 
                     <Button
@@ -73,6 +74,7 @@
                         style="@style/BorderlessButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
                         android:text="@string/main_menu_fragment_what_you_need" />
 
                     <Button
@@ -80,6 +82,7 @@
                         style="@style/BorderlessButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
                         android:text="@string/main_menu_fragment_get_in_position" />
 
                     <Button
@@ -87,6 +90,7 @@
                         style="@style/BorderlessButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="true"
                         android:text="@string/main_menu_fragment_measure_your_feet_button_label" />
 
                     <Button
@@ -95,6 +99,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
+                        android:focusable="true"
                         android:text="@string/main_menu_fragment_get_results" />
                 </LinearLayout>
 
@@ -116,6 +121,7 @@
                 style="@style/Button.Focus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="true"
                 android:text="@string/main_menu_fragment_start_button_text" />
         </LinearLayout>
 
