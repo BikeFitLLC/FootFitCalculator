@@ -71,8 +71,9 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/measurement_fragment_bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_weight="0"
         android:baselineAligned="false"
