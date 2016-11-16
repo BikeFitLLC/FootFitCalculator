@@ -33,7 +33,6 @@
         <activity android:name=".main.OrientationVideoActivity"/>
         <activity android:name=".main.MainMenuActivity"/>
 
-
         <!-- Example Activities -->
         <activity android:name=".example.ExampleActivity"/>
         <!-- EndRegion -->
@@ -50,17 +49,8 @@
         <!-- EndRegion -->
 
         <!-- Testing Activities -->
-        <activity
-            android:name=".test.TestFragmentActivity"
-            android:exported="false"/>
-
-        <activity android:name=".test.TestMeasureWidgetActivity">
-<!--            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>-->
-        </activity>
+        <activity android:name=".test.TestFragmentActivity" android:exported="false"/>
+        <activity android:name=".test.TestMeasureWidgetActivity" />
         <!-- EndRegion -->
 
     </application>
