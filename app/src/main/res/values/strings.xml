@@ -93,4 +93,14 @@
     <string name="get_in_position_fragment_instruction_text_two_label">2. Kneel backwards on a chair or couch, feet facing outward</string>
     <string name="get_in_position_fragment_instruction_text_three_label">3. Hand the phone to your friend</string>
 
+    <!-- cleat_selection_fragment -->
+    <string name="cleat_selection_fragment_title_label">Select Your Cleat Type</string>
+    <string name="cleat_selection_fragment_look_header_label">Look Cleat Wedges ®</string>
+    <string name="cleat_selection_fragment_look_description_label">For use with Look Keo, Look Delta, Shimano SL road, Campagnolo, Time road and similar 3-hole cleat systems.</string>
+    <string name="cleat_selection_fragment_speedplay_header_label">Speedplay Cleat Wedges ®</string>
+    <string name="cleat_selection_fragment_speedplay_description_label">For use with Speedplay X-Series, Zero and Light Action cleat systems.</string>
+    <string name="cleat_selection_fragment_spd_header_label">SPD Cleat Wedges ®</string>
+    <string name="cleat_selection_fragment_spd_description_label">For use with SPD-compatible cleats and most other side-by-side two hole cleat systems.</string>
+    <string name="cleat_selection_fragment_dont_know_button_label">I don\'t know which wedges I need</string>
+
 </resources>
