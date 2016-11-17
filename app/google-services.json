@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "397793540160",
+    "project_id": "firebase-bikefit"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397793540160:android:038ef3c6a8a4757e",
+        "android_client_info": {
+          "package_name": "com.bikefit.wedgecalculator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrO1fy-nBxfHSNwd8ZNK-pKUYzB74p7Uk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-87599004-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
