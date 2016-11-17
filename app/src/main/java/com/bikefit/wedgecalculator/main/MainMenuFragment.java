@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
+import com.bikefit.wedgecalculator.measure.MeasureFeetInstructionsFragment;
 import com.bikefit.wedgecalculator.measure.MeasurementSummaryFragment;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
@@ -117,7 +117,7 @@ public class MainMenuFragment extends Fragment {
 
     @OnClick(R.id.main_menu_fragment_measure_your_feet_button)
     public void onMeasureFeetButton() {
-        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
+        MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 

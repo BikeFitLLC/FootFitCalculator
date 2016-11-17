@@ -134,7 +134,7 @@ public class MainMenuActivityUITest {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
         //THEN check for test on the resulting screen
-        onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
     }
 
     @Test

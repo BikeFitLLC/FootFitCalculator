@@ -23,7 +23,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 @RunWith(AndroidJUnit4.class)
-public class CameraInstructionsFragmentUITest {
+public class MeasureFeetInstructionsFragmentUITest {
 
     //region CLASS UNDER TEST ----------------------------------------------------------------------
 
@@ -61,7 +61,7 @@ public class CameraInstructionsFragmentUITest {
 
         // THEN the 1 options appear as buttons
         //onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
     }
 
     @Ignore
@@ -72,10 +72,10 @@ public class CameraInstructionsFragmentUITest {
         startActivityWithFragment();
 
         //THEN check the orientation video button appears
-        onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.measure_feet_instructions_fragment_more_button)).check(matches(isDisplayed()));
 
         //WHEN the button is clicked
-        onView(withId(R.id.camera_instructions_fragment_more_button)).perform(click());
+        onView(withId(R.id.measure_feet_instructions_fragment_more_button)).perform(click());
 
         //FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
@@ -95,10 +95,10 @@ public class CameraInstructionsFragmentUITest {
         startActivityWithFragment();
 
         //THEN check the orientation video button appears
-        onView(withId(R.id.camera_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
+        onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
 
         //WHEN the button is clicked
-        onView(withId(R.id.camera_instructions_fragment_snapshot_button)).perform(click());
+        onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).perform(click());
 
         //FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
@@ -114,7 +114,7 @@ public class CameraInstructionsFragmentUITest {
 
     private void startActivityWithFragment() {
         TestFragmentActivity activity = mActivityRule.launchActivity(null);
-        final CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
+        final MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(FootSide.LEFT);
         activity.transactToFragment(fragment);
     }
 

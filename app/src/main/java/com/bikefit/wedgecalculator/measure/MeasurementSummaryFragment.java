@@ -190,7 +190,7 @@ public class MeasurementSummaryFragment extends Fragment {
         FootSide newFoot = (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
 
         //Measure the next foot
-        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(newFoot);
+        MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(newFoot);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
