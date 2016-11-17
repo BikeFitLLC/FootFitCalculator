@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
-
 /**
  * @return suffix to be appended to version name.
  */
@@ -46,6 +45,11 @@ dependencies {
     compile "com.android.support:support-v13:${androidSupportLibVersion}"
     compile "com.android.support:design:${androidSupportLibVersion}"
     compile "com.android.support:percent:${androidSupportLibVersion}"
+
+    /**
+     * Google Play Services Analytics
+     */
+    compile "com.google.android.gms:play-services-analytics:${googlePlayServices}"
 
     /**
      * ButterKnife view injection

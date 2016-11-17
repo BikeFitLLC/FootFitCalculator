@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -14,9 +17,11 @@ public class BikeFitApplication extends Application {
     private static BikeFitApplication instance;
     private RefWatcher refWatcher;
 
+    private static final String PROPERTY_ID = "A-87599004-1";
+    private Tracker mTracker;
+
     // allow resource vectors in API 19
-    static
-    {
+    static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
@@ -48,6 +53,26 @@ public class BikeFitApplication extends Application {
         } else {
             return null;
         }
+    }
+
+    synchronized public Tracker getDefaultTracker() {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            mTracker = analytics.newTracker(PROPERTY_ID);
+        }
+        return mTracker;
+    }
+
+    /**
+     * Send a screen view to Google Analytics.
+     * Clear the screen from the tracker before returning.
+     *
+     * @param screenName Name of the screen.
+     */
+    synchronized public void sendAnalyticsView(String screenName) {
+        mTracker.setScreenName(screenName);
+        mTracker.send(new HitBuilders.AppViewBuilder().build());
+        mTracker.setScreenName(null);
     }
 
 

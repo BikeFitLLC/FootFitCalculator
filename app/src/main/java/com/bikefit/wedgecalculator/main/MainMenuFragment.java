@@ -69,6 +69,7 @@ public class MainMenuFragment extends Fragment {
         mToolbar.setNavigationOnClickListener(mNavigationListener);
 
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
+
         return view;
     }
 
