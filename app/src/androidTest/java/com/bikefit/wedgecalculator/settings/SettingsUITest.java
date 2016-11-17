@@ -35,6 +35,8 @@ public class SettingsUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
     }
 
     //endregion

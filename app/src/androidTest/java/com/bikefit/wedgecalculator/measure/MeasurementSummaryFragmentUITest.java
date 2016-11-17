@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.hamcrest.Description;
@@ -54,6 +55,8 @@ public class MeasurementSummaryFragmentUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
+        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
     }
 
     //endregion

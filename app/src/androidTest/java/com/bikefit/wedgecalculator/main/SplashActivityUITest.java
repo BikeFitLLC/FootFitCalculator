@@ -4,8 +4,10 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.startup.SplashActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +35,12 @@ public class SplashActivityUITest {
     //endregion
 
     //region SETUP ---------------------------------------------------------------------------------
+
+    @Before
+    public void setUp() throws Exception {
+        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+    }
+
     //endregion
 
     //region TESTS ---------------------------------------------------------------------------------
