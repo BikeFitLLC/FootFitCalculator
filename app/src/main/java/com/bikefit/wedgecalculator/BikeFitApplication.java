@@ -70,6 +70,9 @@ public class BikeFitApplication extends Application {
      * @param screenName Name of the screen.
      */
     synchronized public void sendAnalyticsView(String screenName) {
+        if (mTracker == null) {
+            getDefaultTracker();
+        }
         mTracker.setScreenName(screenName);
         mTracker.send(new HitBuilders.AppViewBuilder().build());
         mTracker.setScreenName(null);
