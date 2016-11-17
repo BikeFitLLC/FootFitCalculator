@@ -8,7 +8,7 @@
     <string name="toolbar_content_description_back">Back</string>
 
     <!-- Welcome Activity -->
-    <string name="welcome_activity_title">Overview</string>
+    <string name="welcome_activity_title">Welcome</string>
     <string name="activity_welcome_message">When your shoe, cleat, and pedal aren\'t aligned, riding is less efficient and more painful. \n\nWe\'ll guide you through measuring for a set of cleat wedges to improve your performance and safety.</string>
     <string name="welcome_screen_more_button">Tell me more</string>
     <string name="welcome_screen_orientation_button">Watch the orientation video</string>

@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
 
 import butterknife.BindView;
@@ -79,7 +80,7 @@ public class OrientationVideoFragment extends Fragment {
         mToolbar.setTitle(getResources().getString(R.string.orientation_video_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
 
-        //BikeFitApplication.getInstance().sendAnalyticsView(getResources().getString(R.string.orientation_video_fragment_title_label));
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.orientation_video_fragment_title_label));
 
         return view;
     }

@@ -20,6 +20,7 @@ import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
@@ -99,6 +100,7 @@ public class CameraInstructionsFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.camera_instructions_fragment_title_text));
 
         mFolderName = mFootSide.toString();
 

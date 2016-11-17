@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.main.OrientationVideoActivity;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,6 +24,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_activity);
         ButterKnife.bind(this);
+
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getString(R.string.welcome_activity_title));
     }
 
     // endregion

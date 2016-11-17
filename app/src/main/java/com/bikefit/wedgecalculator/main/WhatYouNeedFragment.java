@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +62,8 @@ public class WhatYouNeedFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.what_you_need_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.what_you_need_fragment_title_label));
 
         return view;
     }

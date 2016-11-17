@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.bikefit.wedgecalculator">
+    package="com.bikefit.wedgecalculator">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera" />
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="false"/>
+        android:required="false" />
 
     <application
         android:name=".BikeFitApplication"
@@ -23,35 +23,64 @@
             android:clearTaskOnLaunch="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".welcome.WelcomeActivity"/>
-        <activity android:name=".welcome.WedgingBenefitsActivity"/>
-        <activity android:name=".main.OrientationVideoActivity"/>
-        <activity android:name=".main.MainMenuActivity"/>
+        <activity android:name=".welcome.WelcomeActivity" />
+        <activity android:name=".welcome.WedgingBenefitsActivity" />
+        <activity android:name=".main.OrientationVideoActivity" />
+        <activity android:name=".main.MainMenuActivity" />
 
         <!-- Example Activities -->
-        <activity android:name=".example.ExampleActivity"/>
+        <activity android:name=".example.ExampleActivity" />
         <!-- EndRegion -->
 
         <!-- Register material-camera library Activities -->
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialCamera.CaptureActivity"/>
+            android:theme="@style/MaterialCamera.CaptureActivity" />
         <activity
             android:name="com.afollestad.materialcamera.CaptureActivity2"
             android:screenOrientation="portrait"
-            android:theme="@style/MaterialCamera.CaptureActivity"/>
+            android:theme="@style/MaterialCamera.CaptureActivity" />
         <!-- EndRegion -->
 
         <!-- Testing Activities -->
-        <activity android:name=".test.TestFragmentActivity" android:exported="false"/>
+        <activity
+            android:name=".test.TestFragmentActivity"
+            android:exported="false" />
         <activity android:name=".test.TestMeasureWidgetActivity" />
         <!-- EndRegion -->
+
+
+        <!-- GA complains in the monitor if these are not listed here -->
+
+        <!-- Optionally, register AnalyticsReceiver and AnalyticsService to support background dispatching on non-Google Play devices -->
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable installation campaign reporting -->
+        <receiver
+            android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.analytics.CampaignTrackingService" />
 
     </application>
 
