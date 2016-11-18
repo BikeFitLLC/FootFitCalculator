@@ -9,7 +9,7 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Welcome</string>
-    <string name="activity_welcome_message">When your shoe, cleat, and pedal aren\'t aligned, riding is less efficient and more painful. \n\nWe\'ll guide you through measuring for a set of cleat wedges to improve your performance and safety.</string>
+    <string name="activity_welcome_message">85% of cyclists that wear bike shoes require adjustments where their shoe connects to the pedal. \n\nWe\'ll guide you through measuring for a set of cleat wedges to improve your performance and safety.</string>
     <string name="welcome_screen_more_button">Tell me more</string>
     <string name="welcome_screen_orientation_button">Watch the orientation video</string>
     <string name="welcome_screen_start_button">Let\'s get started</string>
@@ -46,7 +46,7 @@
     <!-- Measure Feet Instructions Fragment -->
     <string name="measure_feet_instructions_fragment_title_text">%1$s Foot</string>
     <string name="measure_feet_instructions_fragment_header_text">Instructions</string>
-    <string name="measure_feet_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen, tap the camera button to take a snapshot.</string>
+    <string name="measure_feet_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen tap the camera button to take a snapshot.</string>
     <string name="measure_feet_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
     <string name="measure_feet_instructions_fragment_more_button_text">Tell me more</string>
     <string name="measure_feet_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
