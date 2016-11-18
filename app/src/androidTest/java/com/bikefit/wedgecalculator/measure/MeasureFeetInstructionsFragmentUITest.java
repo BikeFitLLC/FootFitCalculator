@@ -5,12 +5,11 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
-import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +27,7 @@ public class MeasureFeetInstructionsFragmentUITest {
     //region CLASS UNDER TEST ----------------------------------------------------------------------
 
     @Rule
-    public ActivityTestRule<TestFragmentActivity> mActivityRule = new ActivityTestRule<>(
-            TestFragmentActivity.class, false, false);
+    public ActivityTestRule<MainMenuActivity> mActivityRule = new ActivityTestRule<>(MainMenuActivity.class, false, false);
 
     //endregion
 
@@ -54,68 +52,65 @@ public class MeasureFeetInstructionsFragmentUITest {
     @Test
     public void testButtonsAppear() {
 
-        // WHEN the Activity with Fragment starts
+        // GIVEN the Fragment starts
         startActivityWithFragment();
 
-        // WHEN the fragment is displayed
+        // WHEN the screen is displayed
 
-        // THEN the 1 options appear as buttons
-        //onView(withId(R.id.camera_instructions_fragment_more_button)).check(matches(isDisplayed()));
+        // THEN the 2 buttons are displayed
+        onView(withId(R.id.measure_feet_instructions_fragment_more_button)).check(matches(isDisplayed()));
         onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
     }
 
-    @Ignore
     @Test
     public void testTellMeMoreButton() {
 
-        // WHEN the Activity with Fragment starts
+        // GIVEN the Fragment starts
         startActivityWithFragment();
 
-        //THEN check the orientation video button appears
+        // WHEN the screen is displayed
+
+        // THEN check the "Tell me more" button appears
         onView(withId(R.id.measure_feet_instructions_fragment_more_button)).check(matches(isDisplayed()));
 
-        //WHEN the button is clicked
+        // WHEN the button is clicked
         onView(withId(R.id.measure_feet_instructions_fragment_more_button)).perform(click());
 
-        //FIRST wait for screen to load
+        // FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
-        //THEN check for test on the resulting screen
-        onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
-
+        // THEN check for test on the resulting screen
+        onView(withId(R.id.measurement_feet_instructions_help_dialog_fragment_button)).check(matches(isDisplayed()));
     }
 
-    @Ignore
     @Test
     public void testTakeASnapshotButton() {
 
-        //todo find a way to test the camera opens
-
-        // WHEN the Activity with Fragment starts
+        // GIVEN the Fragment starts
         startActivityWithFragment();
 
-        //THEN check the orientation video button appears
+        // WHEN the screen is displayed
+
+        // THEN check the "Take a snapshot" button appears
         onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
 
-        //WHEN the button is clicked
+        // WHEN the button is clicked
         onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).perform(click());
 
-        //FIRST wait for screen to load
+        // FIRST wait for screen to load
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
 
-        //THEN check for test on the resulting screen
-        //onView(withText("Center the red line")).check(matches(isDisplayed()));
-
-
+        // THEN check for test on the resulting screen
+        onView(withId(R.id.mcam_fragment_videocapture_camera_instructions)).check(matches(isDisplayed()));
     }
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
     private void startActivityWithFragment() {
-        TestFragmentActivity activity = mActivityRule.launchActivity(null);
+        MainMenuActivity activity = mActivityRule.launchActivity(null);
         final MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(FootSide.LEFT);
-        activity.transactToFragment(fragment);
+        activity.showFragment(fragment, true);
     }
 
     //endregion
