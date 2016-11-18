@@ -79,7 +79,7 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
-    <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro/</string>
+    <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro?AWC=true</string>
 
     <!-- what_you_need_fragment -->
     <string name="what_you_need_fragment_title_label">What You\'ll Need</string>
@@ -105,9 +105,9 @@
     <string name="cleat_selection_fragment_spd_header_label">SPD Cleat Wedges®</string>
     <string name="cleat_selection_fragment_spd_description_label">For use with SPD-compatible cleats and most other side-by-side two hole cleat systems.</string>
     <string name="cleat_selection_fragment_dont_know_button_label">I don\'t know which wedges I need</string>
-    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx</string>
-    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx</string>
-    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx?AWC=true</string>
+    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx?AWC=true</string>
+    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx?AWC=true</string>
 
     <!-- cleat_selection_help_fragment -->
     <string name="cleat_selection_help_fragment_get_fitted_button_label">Get professionally fitted</string>
