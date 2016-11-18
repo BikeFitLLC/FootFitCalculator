@@ -14,6 +14,7 @@ import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
 import com.bikefit.wedgecalculator.measure.MeasurementSummaryFragment;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +69,9 @@ public class MainMenuFragment extends Fragment {
         mToolbar.setTitle(getResources().getString(R.string.main_menu_fragment_title));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
 
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.main_menu_fragment_title));
         mResultsButton.setEnabled(MeasureModel.areBothFeetMeasured());
+
         return view;
     }
 

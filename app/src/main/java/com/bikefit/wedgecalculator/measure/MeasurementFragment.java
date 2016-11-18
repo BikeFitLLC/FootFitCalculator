@@ -20,6 +20,7 @@ import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -105,6 +106,7 @@ public class MeasurementFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
 
         Bundle args = getArguments();
         if (args != null) {

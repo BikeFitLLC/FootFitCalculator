@@ -9,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
@@ -70,9 +71,10 @@ public class OrientationVideoFragmentAndroidTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
+        AnalyticsTracker.INSTANCE.setDryRun(true);
+
         // GIVEN the webview returns settings
         when(mMockWebview.getSettings()).thenReturn(mMockWebSettings);
-
     }
 
     //endregion

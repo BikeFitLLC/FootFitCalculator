@@ -3,6 +3,7 @@ package com.bikefit.wedgecalculator.measure.model;
 import android.support.test.InstrumentationRegistry;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.Settings;
 
 import org.junit.Before;
@@ -33,6 +34,7 @@ public class MeasureModelUITest {
     @Before
     public void setUp() throws Exception {
         mApplication = (BikeFitApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

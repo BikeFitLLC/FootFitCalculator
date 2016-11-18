@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry;
 
 import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +33,7 @@ public class FootSideUITest {
     @Before
     public void setUp() throws Exception {
         mApplication = (BikeFitApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

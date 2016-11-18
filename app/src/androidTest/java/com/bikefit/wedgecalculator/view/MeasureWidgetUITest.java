@@ -4,6 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.test.TestMeasureWidgetActivity;
 
 import org.junit.Before;
@@ -41,6 +42,7 @@ public class MeasureWidgetUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

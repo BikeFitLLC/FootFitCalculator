@@ -35,6 +35,7 @@ public class SettingsUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

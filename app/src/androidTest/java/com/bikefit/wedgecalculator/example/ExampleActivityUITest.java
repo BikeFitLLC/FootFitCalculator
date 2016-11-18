@@ -3,6 +3,8 @@ package com.bikefit.wedgecalculator.example;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class ExampleActivityUITest {
 
     @Before
     public void setUp() throws Exception {
-
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

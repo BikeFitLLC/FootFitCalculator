@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
 
 import butterknife.BindView;
@@ -73,6 +74,7 @@ public class CleatSelectionFragment extends Fragment {
 
         mToolbar.setTitle(getString(R.string.cleat_selection_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.cleat_selection_fragment_title_label));
 
         mTotalWedgeCount = MeasureModel.getTotalWedgeCount();
 

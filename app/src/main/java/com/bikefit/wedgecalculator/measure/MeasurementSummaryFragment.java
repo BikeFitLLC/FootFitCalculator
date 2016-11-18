@@ -18,6 +18,7 @@ import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -132,6 +133,7 @@ public class MeasurementSummaryFragment extends Fragment {
 
         mToolbar.setTitle(getPageTitle(mLeftAngle, mRightAngle));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getPageTitle(mLeftAngle, mRightAngle));
 
         return view;
     }

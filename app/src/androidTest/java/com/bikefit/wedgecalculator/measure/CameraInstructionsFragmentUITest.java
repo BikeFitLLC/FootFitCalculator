@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.test.TestFragmentActivity;
 
 import org.junit.Before;
@@ -43,6 +44,7 @@ public class CameraInstructionsFragmentUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

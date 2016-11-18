@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
+import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +64,8 @@ public class GetInPositionFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.get_in_position_fragment_title_label));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.get_in_position_fragment_title_label));
+
         return view;
     }
 
