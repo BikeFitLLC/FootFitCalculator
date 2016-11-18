@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 /**
  * @return suffix to be appended to version name.
  */
-def gcustomVersionNameSuffix() {
+def customVersionNameSuffix() {
     def buildNum = System.getenv('BUDDYBUILD_BUILD_NUMBER')
     return buildNum != null ? "$buildNum" : "Local"
 }
@@ -27,12 +27,12 @@ android {
         debug {
             minifyEnabled false
             applicationIdSuffix ".dev"
-            versionNameSuffix "." + gcustomVersionNameSuffix() + "-dev"
+            versionNameSuffix "." + customVersionNameSuffix() + "-dev"
         }
         release {
             minifyEnabled true
             shrinkResources true
-            versionNameSuffix "." + gcustomVersionNameSuffix()
+            versionNameSuffix "." + customVersionNameSuffix()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
