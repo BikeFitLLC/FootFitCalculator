@@ -54,7 +54,6 @@ public class BikeFitApplication extends Application {
         }
 
         AnalyticsTracker.INSTANCE.setupAnalytics(this);
-
     }
 
     //endregion

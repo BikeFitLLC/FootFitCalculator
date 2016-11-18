@@ -33,7 +33,7 @@ public class FootSideUITest {
     @Before
     public void setUp() throws Exception {
         mApplication = (BikeFitApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

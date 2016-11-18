@@ -42,7 +42,7 @@ public class MeasureWidgetUITest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

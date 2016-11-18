@@ -1,7 +1,6 @@
 package com.bikefit.wedgecalculator.settings;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -23,8 +22,8 @@ public enum AnalyticsTracker {
 
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
+    boolean mDryRun = false;
     GoogleAnalytics mAnalytics;
-    boolean mAnalyticsEnabled = false;
     Tracker mTracker;
 
     //endregion
@@ -39,23 +38,33 @@ public enum AnalyticsTracker {
 
     public synchronized void setupAnalytics(Context context) {
         mAnalytics = GoogleAnalytics.getInstance(context);
-        mAnalyticsEnabled = !mAnalytics.getAppOptOut();
         mTracker = mAnalytics.newTracker(PROPERTY_ID);
+        mAnalytics.setDryRun(mDryRun);
+        //BuildConfig.DEBUG
     }
 
-    public synchronized boolean setAnalyticsEnabled(boolean enable) {
-        if (mAnalytics == null) {
-            mAnalyticsEnabled = false;
-        } else {
-            mAnalytics.setAppOptOut(!enable);
-            mAnalyticsEnabled = enable;
+    public boolean getDryRun() {
+        return mDryRun;
+    }
+
+    /**
+     * Set the dryRun flag for Google Analytics.  If the Analytics object hasn't been setup yet, this
+     * class will set the value whenever the obejct has been setup (setupAnalytics)
+     * <p>
+     * From Documentation:
+     * The SDK provides a dryRun flag that when set, prevents any data from being sent to Google Analytics.
+     * The dryRun flag should be set whenever you are testing or debugging an implementation and
+     * do not want test data to appear in your Google Analytics reports.
+     *
+     * @param dryRun enable dryRun or not
+     */
+    public synchronized void setDryRun(boolean dryRun) {
+        mDryRun = dryRun;
+
+        // if mAnalytics has already been setup, update its dryRun flag
+        if (mAnalytics != null) {
+            mAnalytics.setDryRun(mDryRun);
         }
-        return mAnalyticsEnabled;
-    }
-
-    public boolean getAnalyticsEnabled() {
-        mAnalyticsEnabled = mAnalytics != null && !mAnalytics.getAppOptOut();
-        return mAnalyticsEnabled;
     }
 
     /**
@@ -66,13 +75,12 @@ public enum AnalyticsTracker {
      */
     synchronized public void sendAnalyticsScreen(String screenName) {
 
-        if (!mAnalyticsEnabled) {
-            Log.i(this.getClass().getSimpleName(), "Send Analytics Screen CANCELED (" + screenName + "): Analytics Disabled");
+        if (mAnalytics == null || mTracker == null) {
             return;
         }
 
         mTracker.setScreenName(screenName);
-        mTracker.send(new HitBuilders.AppViewBuilder().build());
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         mTracker.setScreenName(null);
     }
 

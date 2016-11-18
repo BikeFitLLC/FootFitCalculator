@@ -36,7 +36,7 @@ public class ExampleActivityUITest {
 
     @Before
     public void setUp() throws Exception {
-        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

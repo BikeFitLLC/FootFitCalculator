@@ -34,7 +34,7 @@ public class MeasureModelUITest {
     @Before
     public void setUp() throws Exception {
         mApplication = (BikeFitApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
     }
 
     //endregion

@@ -71,7 +71,7 @@ public class OrientationVideoFragmentAndroidTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        AnalyticsTracker.INSTANCE.setAnalyticsEnabled(false);
+        AnalyticsTracker.INSTANCE.setDryRun(true);
 
         // GIVEN the webview returns settings
         when(mMockWebview.getSettings()).thenReturn(mMockWebSettings);
