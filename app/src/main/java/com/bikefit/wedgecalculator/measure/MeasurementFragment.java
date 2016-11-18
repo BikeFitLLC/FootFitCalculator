@@ -64,7 +64,7 @@ public class MeasurementFragment extends Fragment {
 
     private String mFilePath;
     private FootSide mFootSide = FootSide.LEFT;
-    private MeasurementInstructionsDialogFragment mInstructionsDialog;
+    private MeasurementDialogFragment mInstructionsDialog;
     private Unbinder mViewUnBinder;
 
     private boolean mDialogDisplayed = false;
@@ -201,7 +201,7 @@ public class MeasurementFragment extends Fragment {
 
     private void showDialog() {
         if (!mDialogDisplayed) {
-            mInstructionsDialog = MeasurementInstructionsDialogFragment.newInstance();
+            mInstructionsDialog = MeasurementDialogFragment.newInstance();
             mInstructionsDialog.setTargetFragment(this, 1);
             mInstructionsDialog.show(getFragmentManager(), null);
             mDialogDisplayed = true;

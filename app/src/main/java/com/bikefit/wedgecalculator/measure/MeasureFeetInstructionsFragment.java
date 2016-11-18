@@ -184,7 +184,8 @@ public class MeasureFeetInstructionsFragment extends Fragment {
 
     @OnClick(R.id.measure_feet_instructions_fragment_more_button)
     public void onTellMeMoreButton() {
-        // "Tell me more" button - not implemented yet
+        MeasureFeetInstructionsHelpFragment fragment = MeasureFeetInstructionsHelpFragment.newInstance(mFootSide.getLabel());
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     View.OnClickListener mNavigationListener = new View.OnClickListener() {

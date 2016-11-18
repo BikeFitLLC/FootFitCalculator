@@ -57,11 +57,11 @@
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
 
-    <!-- measurement_instructions_dialog_fragment -->
-    <string name="measurement_instructions_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
-    <string name="measurement_instructions_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
-    <string name="measurement_instructions_dialog_fragment_screen2_button_text">Done</string>
-    <string name="measurement_instructions_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
+    <!-- measurement_dialog_fragment -->
+    <string name="measurement_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
+    <string name="measurement_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
+    <string name="measurement_dialog_fragment_screen2_button_text">Done</string>
+    <string name="measurement_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
 
     <!-- measurement_summary_fragment -->
     <string name="measurement_summary_fragment_title_label">Measurement Complete</string>
@@ -112,5 +112,13 @@
     <!-- cleat_selection_help_fragment -->
     <string name="cleat_selection_help_fragment_get_fitted_button_label">Get professionally fitted</string>
     <string name="cleat_selection_help_fragment_instruction_label">Check the number and arrangement of pegs on your shoes, and compare them to the diagrams. \n\nMost cleat systems fall into one of the three types listed on this page. \n\nIf you still have questions, contact a professional bike fitter in your area.</string>
+
+    <!-- Measure Feet Instructions Help Fragment -->
+    <string name="measure_feet_instructions_help_fragment_title_text">%1$s Foot Camera Help</string>
+    <string name="measure_feet_instructions_help_fragment_ready_button_label">I\'m Ready</string>
+    <string name="measure_feet_instructions_help_fragment_no_measurement">No Measurement</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_text">This is what it should look like when you have everything lined up correctly: the line is centered on the middle of the leg, and the bottom of the heel is clearly visible.</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_instruction_text">Press the <i>I\'m Ready</i> button when you are ready to proceed.</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_button_label">Dismiss</string>
 
 </resources>
