@@ -9,7 +9,7 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Welcome</string>
-    <string name="activity_welcome_message">85% of cyclists that wear bike shoes require adjustments where their shoe connects to the pedal. \n\nWe\'ll guide you through measuring for a set of cleat wedges to improve your performance and safety.</string>
+    <string name="activity_welcome_message">85% of cyclists with bike shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges. Well-fitted cleat wedges improve your performance and safety.</string>
     <string name="welcome_screen_more_button">Tell me more</string>
     <string name="welcome_screen_orientation_button">Watch the orientation video</string>
     <string name="welcome_screen_start_button">Let\'s get started</string>
@@ -30,7 +30,7 @@
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_title">Overview</string>
-    <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. Tap a step to skip to it.</string>
+    <string name="main_menu_fragment_instruction_text">Select a step to begin.</string>
     <string name="main_menu_fragment_orientation_video">Orientation Video</string>
     <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
     <string name="main_menu_fragment_get_in_position">Get in Position</string>
