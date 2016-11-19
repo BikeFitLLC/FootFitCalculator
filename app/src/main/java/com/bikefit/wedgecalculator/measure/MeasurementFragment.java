@@ -15,14 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialcamera.util.ImageUtil;
-import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.view.MeasureWidget;
-import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -164,13 +162,6 @@ public class MeasurementFragment extends Fragment {
 
         super.onDestroyView();
         mViewUnBinder.unbind();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     //endregion

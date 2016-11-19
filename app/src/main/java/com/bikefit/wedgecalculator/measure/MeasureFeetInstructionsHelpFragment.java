@@ -7,11 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
-import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,13 +89,6 @@ public class MeasureFeetInstructionsHelpFragment extends Fragment {
         mToolbar = null;
         super.onDestroyView();
         mViewUnBinder.unbind();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     //endregion

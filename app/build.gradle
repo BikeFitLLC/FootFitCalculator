@@ -23,6 +23,15 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    signingConfigs {
+        release {
+            keyAlias "release"
+            keyPassword "n3w!fabric!disrupter!"
+            storeFile file("../keystores/bikefit.jks")
+            storePassword "n3w!fabric!disrupter!"
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false
@@ -34,11 +43,13 @@ android {
             shrinkResources true
             versionNameSuffix "." + customVersionNameSuffix()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
+
     /**
      * Android support libraries
      */
@@ -59,7 +70,6 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterKnifeVersion}"
     apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
-
     /**
      * Test libraries
      */
@@ -75,12 +85,5 @@ dependencies {
      * Material-Camera
      */
     compile project(':material-camera')
-
-    /**
-     * Leak Canary
-     */
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
 
 }

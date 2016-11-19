@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
-import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 
@@ -120,14 +118,6 @@ public class MeasureFeetInstructionsFragment extends Fragment {
 
         super.onDestroyView();
         mViewUnBinder.unbind();
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     //endregion
