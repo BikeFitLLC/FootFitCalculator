@@ -20,14 +20,14 @@ import butterknife.Unbinder;
 /**
  * Show a 2-step dialog with measurement instructions.
  */
-public class MeasurementInstructionsDialogFragment extends DialogFragment {
+public class MeasurementDialogFragment extends DialogFragment {
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
-    @BindView(R.id.measurement_instructions_dialog_fragment_button)
+    @BindView(R.id.measurement_dialog_fragment_button)
     Button mDialogButton;
 
-    @BindView(R.id.measurement_instructions_dialog_fragment_text)
+    @BindView(R.id.measurement_dialog_fragment_text)
     TextView mDialogText;
 
     //endregion
@@ -41,8 +41,8 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static MeasurementInstructionsDialogFragment newInstance() {
-        MeasurementInstructionsDialogFragment fragment = new MeasurementInstructionsDialogFragment();
+    public static MeasurementDialogFragment newInstance() {
+        MeasurementDialogFragment fragment = new MeasurementDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -55,7 +55,7 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.measurement_instructions_dialog_fragment, null);
+        View dialogView = inflater.inflate(R.layout.measurement_dialog_fragment, null);
         mViewUnBinder = ButterKnife.bind(this, dialogView);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity(), R.style.WedgeDialog);
@@ -79,11 +79,11 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.measurement_instructions_dialog_fragment_button)
+    @OnClick(R.id.measurement_dialog_fragment_button)
     public void onButtonClick() {
 
         String currentButtonText = (String) mDialogButton.getText();
-        String button1Text = getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen1_button_text);
+        String button1Text = getActivity().getString(R.string.measurement_dialog_fragment_screen1_button_text);
 
         Log.d(this.getClass().getSimpleName(), "Button pressed: " + currentButtonText);
 
@@ -99,13 +99,13 @@ public class MeasurementInstructionsDialogFragment extends DialogFragment {
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
     private void displayScreen1() {
-        mDialogButton.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen1_button_text));
-        mDialogText.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen1_description_text));
+        mDialogButton.setText(getActivity().getString(R.string.measurement_dialog_fragment_screen1_button_text));
+        mDialogText.setText(getActivity().getString(R.string.measurement_dialog_fragment_screen1_description_text));
     }
 
     private void displayScreen2() {
-        mDialogButton.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen2_button_text));
-        mDialogText.setText(getActivity().getString(R.string.measurement_instructions_dialog_fragment_screen2_description_text));
+        mDialogButton.setText(getActivity().getString(R.string.measurement_dialog_fragment_screen2_button_text));
+        mDialogText.setText(getActivity().getString(R.string.measurement_dialog_fragment_screen2_description_text));
     }
 
     //endregion

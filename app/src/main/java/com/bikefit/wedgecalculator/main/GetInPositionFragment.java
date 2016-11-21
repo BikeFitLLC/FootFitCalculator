@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bikefit.wedgecalculator.R;
-import com.bikefit.wedgecalculator.measure.CameraInstructionsFragment;
+import com.bikefit.wedgecalculator.measure.MeasureFeetInstructionsFragment;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 
@@ -94,7 +94,7 @@ public class GetInPositionFragment extends Fragment {
 
     @OnClick(R.id.get_in_position_fragment_measure_button)
     public void okButtonClicked() {
-        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(FootSide.LEFT);
+        MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(FootSide.LEFT);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 

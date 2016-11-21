@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/mcam_fragment_videocapture_measurement_space" />
+                app:srcCompat="@drawable/measurement_space" />
 
             <TextView
                 android:id="@+id/measurement_fragment_foot_display_angle"
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borderless_button"
-                android:drawableLeft="@drawable/undo_icon"
+                android:drawableLeft="@drawable/undo_icon_drawable"
                 android:drawablePadding="8dp"
                 android:focusable="true"
                 android:padding="8dp"
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borderless_button"
-                android:drawableLeft="@drawable/save_icon"
+                android:drawableLeft="@drawable/save_icon_drawable"
                 android:drawablePadding="8dp"
                 android:focusable="true"
                 android:padding="8dp"

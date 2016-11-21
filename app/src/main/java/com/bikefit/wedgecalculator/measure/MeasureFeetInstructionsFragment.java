@@ -16,12 +16,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
-import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 
@@ -33,8 +31,7 @@ import butterknife.Unbinder;
 /**
  * Show Instructions on how to use the camera
  */
-public class CameraInstructionsFragment extends Fragment {
-
+public class MeasureFeetInstructionsFragment extends Fragment {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
@@ -61,8 +58,8 @@ public class CameraInstructionsFragment extends Fragment {
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
-    public static CameraInstructionsFragment newInstance(FootSide footSide) {
-        CameraInstructionsFragment fragment = new CameraInstructionsFragment();
+    public static MeasureFeetInstructionsFragment newInstance(FootSide footSide) {
+        MeasureFeetInstructionsFragment fragment = new MeasureFeetInstructionsFragment();
         Bundle args = new Bundle();
         args.putSerializable(FootSide.FOOTSIDE_KEY, footSide);
 
@@ -82,7 +79,7 @@ public class CameraInstructionsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.camera_instructions_fragment, container, false);
+        View view = inflater.inflate(R.layout.measure_feet_instructions_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -98,9 +95,9 @@ public class CameraInstructionsFragment extends Fragment {
             mFootSide = FootSide.LEFT;
         }
 
-        mToolbar.setTitle(getResources().getString(R.string.camera_instructions_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setTitle(getResources().getString(R.string.measure_feet_instructions_fragment_title_text, mFootSide.getLabel()));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
-        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.camera_instructions_fragment_title_text));
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.measure_feet_instructions_fragment_title_text, mFootSide.getLabel()));
 
         mFolderName = mFootSide.toString();
 
@@ -121,14 +118,6 @@ public class CameraInstructionsFragment extends Fragment {
 
         super.onDestroyView();
         mViewUnBinder.unbind();
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
     }
 
     //endregion
@@ -158,7 +147,7 @@ public class CameraInstructionsFragment extends Fragment {
 
         if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
             // Sample was denied WRITE_EXTERNAL_STORAGE permission
-            Toast.makeText(getActivity(), getActivity().getString(R.string.camera_instructions_fragment_permission_denied_text), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.measure_feet_instructions_fragment_permission_denied_text), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -166,7 +155,7 @@ public class CameraInstructionsFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    @OnClick(R.id.camera_instructions_fragment_snapshot_button)
+    @OnClick(R.id.measure_feet_instructions_fragment_snapshot_button)
     public void onLaunchCameraButton() {
 
         final File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
@@ -183,9 +172,10 @@ public class CameraInstructionsFragment extends Fragment {
         materialCamera.start(CAMERA_RQ);
     }
 
-    @OnClick(R.id.camera_instructions_fragment_more_button)
+    @OnClick(R.id.measure_feet_instructions_fragment_more_button)
     public void onTellMeMoreButton() {
-        // "Tell me more" button - not implemented yet
+        MeasureFeetInstructionsHelpFragment fragment = MeasureFeetInstructionsHelpFragment.newInstance(mFootSide.getLabel());
+        ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
     View.OnClickListener mNavigationListener = new View.OnClickListener() {

@@ -4,7 +4,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 /**
  * @return suffix to be appended to version name.
  */
-def getVersionNameSuffix() {
+def customVersionNameSuffix() {
     def buildNum = System.getenv('BUDDYBUILD_BUILD_NUMBER')
     return buildNum != null ? "$buildNum" : "Local"
 }
@@ -18,25 +18,38 @@ android {
         minSdkVersion commonMinSdkVersion
         targetSdkVersion commonTargetSdkVersion
         versionCode 1
-        versionName "1.0." + getVersionNameSuffix()
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias "release"
+            keyPassword "n3w!fabric!disrupter!"
+            storeFile file("../keystores/bikefit.jks")
+            storePassword "n3w!fabric!disrupter!"
+        }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
             applicationIdSuffix ".dev"
+            versionNameSuffix "." + customVersionNameSuffix() + "-dev"
         }
         release {
             minifyEnabled true
             shrinkResources true
+            versionNameSuffix "." + customVersionNameSuffix()
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
+
     /**
      * Android support libraries
      */
@@ -57,7 +70,6 @@ dependencies {
     compile "com.jakewharton:butterknife:${butterKnifeVersion}"
     apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
 
-
     /**
      * Test libraries
      */
@@ -73,12 +85,5 @@ dependencies {
      * Material-Camera
      */
     compile project(':material-camera')
-
-    /**
-     * Leak Canary
-     */
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}"
 
 }

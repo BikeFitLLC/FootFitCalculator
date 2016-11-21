@@ -10,43 +10,46 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ScrollView
+        <!--        <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">-->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="@dimen/app_margins"
             android:layout_marginRight="@dimen/app_margins"
-            android:scrollbars="none">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/foot_icon" />
+
+            <TextView
+                android:id="@+id/measure_feet_instructions_fragment_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp"
+                android:layout_weight="0"
+                android:gravity="center_horizontal"
+                android:text="@string/measure_feet_instructions_fragment_header_text"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    app:srcCompat="@drawable/foot_icon" />
+            <TextView
+                android:id="@+id/measure_feet_instructions_fragment_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/measure_feet_instructions_fragment_description_text" />
 
-                <TextView
-                    android:id="@+id/camera_instructions_fragment_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/camera_instructions_fragment_header_text"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/camera_instructions_fragment_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/camera_instructions_fragment_description_text" />
-
-            </LinearLayout>
-        </ScrollView>
+        </LinearLayout>
+        <!--        </ScrollView>-->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -71,23 +74,22 @@
 
         <!-- Client feature that is not ready yet -->
         <Button
-            android:id="@+id/camera_instructions_fragment_more_button"
+            android:id="@+id/measure_feet_instructions_fragment_more_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:focusable="true"
-            android:text="@string/camera_instructions_fragment_more_button_text"
-            android:visibility="gone" />
+            android:text="@string/measure_feet_instructions_fragment_more_button_text" />
 
         <Button
-            android:id="@+id/camera_instructions_fragment_snapshot_button"
+            android:id="@+id/measure_feet_instructions_fragment_snapshot_button"
             style="@style/Button.Focus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:focusable="true"
-            android:text="@string/camera_instructions_fragment_snapshot_button_text" />
+            android:text="@string/measure_feet_instructions_fragment_snapshot_button_text" />
     </LinearLayout>
 
 </LinearLayout>

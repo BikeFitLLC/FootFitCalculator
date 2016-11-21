@@ -9,7 +9,7 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Welcome</string>
-    <string name="activity_welcome_message">When your shoe, cleat, and pedal aren\'t aligned, riding is less efficient and more painful. \n\nWe\'ll guide you through measuring for a set of cleat wedges to improve your performance and safety.</string>
+    <string name="activity_welcome_message">85% of cyclists with bike shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges. Well-fitted cleat wedges improve your performance and safety.</string>
     <string name="welcome_screen_more_button">Tell me more</string>
     <string name="welcome_screen_orientation_button">Watch the orientation video</string>
     <string name="welcome_screen_start_button">Let\'s get started</string>
@@ -30,7 +30,7 @@
 
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_title">Overview</string>
-    <string name="main_menu_fragment_instruction_text">Here are the steps in the BikeFit process. Tap a step to skip to it.</string>
+    <string name="main_menu_fragment_instruction_text">Select a step to begin.</string>
     <string name="main_menu_fragment_orientation_video">Orientation Video</string>
     <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
     <string name="main_menu_fragment_get_in_position">Get in Position</string>
@@ -43,13 +43,13 @@
     <string name="camera_fragment_request_permission">This section requires the camera permission.</string>
     <string name="camera_fragment_camera_error">This device doesn\'t support Camera2 API.</string>
 
-    <!-- Camera Instructions Fragment -->
-    <string name="camera_instructions_fragment_title_text">%1$s Foot</string>
-    <string name="camera_instructions_fragment_header_text">Instructions</string>
-    <string name="camera_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen, tap the camera button to take a snapshot.</string>
-    <string name="camera_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
-    <string name="camera_instructions_fragment_more_button_text">Tell me more</string>
-    <string name="camera_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
+    <!-- Measure Feet Instructions Fragment -->
+    <string name="measure_feet_instructions_fragment_title_text">%1$s Foot</string>
+    <string name="measure_feet_instructions_fragment_header_text">Instructions</string>
+    <string name="measure_feet_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen tap the camera button to take a snapshot.</string>
+    <string name="measure_feet_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
+    <string name="measure_feet_instructions_fragment_more_button_text">Tell me more</string>
+    <string name="measure_feet_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
 
     <!-- Measurement Fragment -->
     <string name="measurement_fragment_title_text">%1$s Foot</string>
@@ -57,11 +57,11 @@
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
 
-    <!-- measurement_instructions_dialog_fragment -->
-    <string name="measurement_instructions_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
-    <string name="measurement_instructions_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
-    <string name="measurement_instructions_dialog_fragment_screen2_button_text">Done</string>
-    <string name="measurement_instructions_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
+    <!-- measurement_dialog_fragment -->
+    <string name="measurement_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
+    <string name="measurement_dialog_fragment_screen1_description_text">Now adjust the horizontal red line so that it follows the bottom of your friend\'s heel. \n\nSwiping up and down on the left side of the screen moves the line, and swiping on the right side rotates it.</string>
+    <string name="measurement_dialog_fragment_screen2_button_text">Done</string>
+    <string name="measurement_dialog_fragment_screen2_description_text">The number of wedges below the crosshairs tracks how many wedges we predict you\'ll need. The measured angle is at the top of the screen.</string>
 
     <!-- measurement_summary_fragment -->
     <string name="measurement_summary_fragment_title_label">Measurement Complete</string>
@@ -79,7 +79,7 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
-    <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro/</string>
+    <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro?AWC=true</string>
 
     <!-- what_you_need_fragment -->
     <string name="what_you_need_fragment_title_label">What You\'ll Need</string>
@@ -105,12 +105,20 @@
     <string name="cleat_selection_fragment_spd_header_label">SPD Cleat Wedges®</string>
     <string name="cleat_selection_fragment_spd_description_label">For use with SPD-compatible cleats and most other side-by-side two hole cleat systems.</string>
     <string name="cleat_selection_fragment_dont_know_button_label">I don\'t know which wedges I need</string>
-    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx</string>
-    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx</string>
-    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx</string>
+    <string name="cleat_selection_fragment_look_url">http://www.bikefit.com/p-7-8-pack-look-cleat-wedges.aspx?AWC=true</string>
+    <string name="cleat_selection_fragment_speedplay_url">http://www.bikefit.com/p-9-8-pack-speedplay-cleat-wedges.aspx?AWC=true</string>
+    <string name="cleat_selection_fragment_spd_url">http://www.bikefit.com/p-3-8-pack-spd-cleat-wedges.aspx?AWC=true</string>
 
     <!-- cleat_selection_help_fragment -->
     <string name="cleat_selection_help_fragment_get_fitted_button_label">Get professionally fitted</string>
     <string name="cleat_selection_help_fragment_instruction_label">Check the number and arrangement of pegs on your shoes, and compare them to the diagrams. \n\nMost cleat systems fall into one of the three types listed on this page. \n\nIf you still have questions, contact a professional bike fitter in your area.</string>
+
+    <!-- Measure Feet Instructions Help Fragment -->
+    <string name="measure_feet_instructions_help_fragment_title_text">%1$s Foot Camera Help</string>
+    <string name="measure_feet_instructions_help_fragment_ready_button_label">I\'m Ready</string>
+    <string name="measure_feet_instructions_help_fragment_no_measurement">No Measurement</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_text">This is what it should look like when you have everything lined up correctly: the line is centered on the middle of the leg, and the bottom of the heel is clearly visible.</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_instruction_text">Press the <i>I\'m Ready</i> button when you are ready to proceed.</string>
+    <string name="measurement_feet_instructions_help_dialog_fragment_button_label">Dismiss</string>
 
 </resources>

@@ -21,6 +21,7 @@
         <activity
             android:name=".startup.SplashActivity"
             android:clearTaskOnLaunch="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,13 +29,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".welcome.WelcomeActivity" />
-        <activity android:name=".welcome.WedgingBenefitsActivity" />
-        <activity android:name=".main.OrientationVideoActivity" />
-        <activity android:name=".main.MainMenuActivity" />
+        <activity
+            android:name=".welcome.WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".welcome.WedgingBenefitsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.OrientationVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.MainMenuActivity"
+            android:screenOrientation="portrait" />
 
         <!-- Example Activities -->
-        <activity android:name=".example.ExampleActivity" />
+        <activity
+            android:name=".example.ExampleActivity"
+            android:screenOrientation="portrait" />
         <!-- EndRegion -->
 
         <!-- Register material-camera library Activities -->
@@ -51,8 +62,11 @@
         <!-- Testing Activities -->
         <activity
             android:name=".test.TestFragmentActivity"
-            android:exported="false" />
-        <activity android:name=".test.TestMeasureWidgetActivity" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".test.TestMeasureWidgetActivity"
+            android:screenOrientation="portrait" />
         <!-- EndRegion -->
 
 

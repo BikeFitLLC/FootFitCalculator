@@ -13,14 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bikefit.wedgecalculator.BikeFitApplication;
 import com.bikefit.wedgecalculator.R;
 import com.bikefit.wedgecalculator.main.MainMenuActivity;
 import com.bikefit.wedgecalculator.measure.model.FootSide;
 import com.bikefit.wedgecalculator.measure.model.MeasureModel;
 import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.settings.InternetUtil;
-import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -99,7 +97,7 @@ public class MeasurementSummaryFragment extends Fragment {
     private Float mRightAngle;
     private Integer mRightWedgeCount;
 
-    InternetUtil mInternetUtil = new InternetUtil();
+    InternetUtil mInternetUtil;
 
     //endregion
 
@@ -124,6 +122,8 @@ public class MeasurementSummaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.measurement_summary_fragment, container, false);
         mViewUnBinder = ButterKnife.bind(this, view);
 
+        mInternetUtil = new InternetUtil();
+
         //grab the MeasureModel items locally
         mLeftAngle = MeasureModel.getAngle(FootSide.LEFT);
         mLeftWedgeCount = MeasureModel.getWedgeCount(FootSide.LEFT);
@@ -145,6 +145,11 @@ public class MeasurementSummaryFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         mToolbar = null;
         mLeftAngle = null;
@@ -157,15 +162,7 @@ public class MeasurementSummaryFragment extends Fragment {
         mViewUnBinder.unbind();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        RefWatcher refWatcher = BikeFitApplication.getRefWatcher(getActivity());
-        refWatcher.watch(this);
-    }
-
     //endregion
-
 
     //region WIDGET --------------------------------------------------------------------------------
     //endregion
@@ -190,7 +187,7 @@ public class MeasurementSummaryFragment extends Fragment {
         FootSide newFoot = (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
 
         //Measure the next foot
-        CameraInstructionsFragment fragment = CameraInstructionsFragment.newInstance(newFoot);
+        MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(newFoot);
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
