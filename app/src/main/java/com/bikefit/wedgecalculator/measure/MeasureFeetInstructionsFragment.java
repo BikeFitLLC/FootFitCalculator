@@ -159,6 +159,8 @@ public class MeasureFeetInstructionsFragment extends Fragment {
     public void onLaunchCameraButton() {
 
         final File saveDir = new File(getActivity().getExternalFilesDir(null), mFolderName);
+        cleanImageFolder(saveDir);
+
         int color = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.materialCameraBottomBarColor);
 
         materialCamera = new MaterialCamera(this)
@@ -197,6 +199,22 @@ public class MeasureFeetInstructionsFragment extends Fragment {
             message = e.getMessage() == null ? "" : ": " + e.getMessage();
         }
         Toast.makeText(getActivity(), "Camera Error" + message, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Clean any jpg files from the folder before saving any other files
+     *
+     * @param directory The folder to remove past jpg files from
+     */
+    private void cleanImageFolder(File directory) {
+        if (directory.isDirectory()) {
+            String[] files = directory.list();
+            for (String file : files) {
+                if (file.endsWith(".jpg")) {
+                    new File(directory, file).delete();
+                }
+            }
+        }
     }
 
     //endregion
