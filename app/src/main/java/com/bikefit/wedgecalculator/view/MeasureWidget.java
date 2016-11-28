@@ -163,7 +163,9 @@ public class MeasureWidget extends View {
         mRotateIconTransform.setTranslate(-rotateIconSize.x * 0.5f, -rotateIconSize.y * 0.5f);
         mUpDownIconTransform.setTranslate(-upDownIconSize.x * 0.5f, -upDownIconSize.y * 0.5f);
 
-        mFootSide = FootSide.LEFT;
+        if (!isInEditMode()) {
+            mFootSide = FootSide.LEFT;
+        }
     }
 
     //endregion
