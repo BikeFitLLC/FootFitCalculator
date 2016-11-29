@@ -9,10 +9,11 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Welcome</string>
-    <string name="activity_welcome_message">85% of cyclists with bike shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges. Well-fitted cleat wedges improve your performance and safety.</string>
-    <string name="welcome_screen_more_button">Tell me more</string>
-    <string name="welcome_screen_orientation_button">Watch the orientation video</string>
-    <string name="welcome_screen_start_button">Let\'s get started</string>
+    <string name="welcome_activity_welcome_message">85% of cyclists with bike shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges. Well-fitted cleat wedges improve your performance and safety.</string>
+    <string name="welcome_activity_more_button">Tell me more</string>
+    <string name="welcome_activity_orientation_button">Watch the orientation video</string>
+    <string name="welcome_activity_start_button">Let\'s get started</string>
+    <string name="welcome_activity_bikefit_logo_content_description">Bike Fit logo</string>
 
     <!-- Wedging Benefits Activity -->
     <string name="activity_wedging_benefits_top_text">Placeholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
@@ -37,6 +38,7 @@
     <string name="main_menu_fragment_measure_your_feet_button_label">Measure Your Feet</string>
     <string name="main_menu_fragment_get_results">Results</string>
     <string name="main_menu_fragment_start_button_text">Got it</string>
+    <string name="main_menu_fragment_bikefit_logo_content_description">Bike Fit logo</string>
 
     <!-- Camera Fragment -->
     <string name="camera_fragment_instruction_text">Center the red line with the back of the heel and tap the screen to take a screenshot</string>
@@ -50,12 +52,14 @@
     <string name="measure_feet_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
     <string name="measure_feet_instructions_fragment_more_button_text">Tell me more</string>
     <string name="measure_feet_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
+    <string name="measure_feet_instructions_fragment_foot_icon_content_description">Drawing of heal of foot centered on screen</string>
 
     <!-- Measurement Fragment -->
     <string name="measurement_fragment_title_text">%1$s Foot</string>
     <string name="measurement_fragment_angle_display_format">%.2f°</string>
     <string name="measurement_fragment_undo_button_text">UNDO</string>
     <string name="measurement_fragment_save_button_text">SAVE</string>
+    <string name="measurement_fragment_wedge_icon_content_description">Visual representation of wedge count calculated from angle</string>
 
     <!-- measurement_dialog_fragment -->
     <string name="measurement_dialog_fragment_screen1_button_text">Next (1 of 2)</string>
@@ -79,6 +83,9 @@
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
     <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
+    <string name="measurement_summary_fragment_wedge_count_graphic_content_description">Wedge count graphic</string>
+    <string name="measurement_summary_fragment_right_not_measured_content_description">Right foot is not measured yet.</string>
+    <string name="measurement_summary_fragment_left_not_measured_content_description">Left foot not measured yet</string>
     <string name="measurement_summary_fragment_professional_fitting_url">http://blog.bikefit.com/find-a-bikefit-pro?AWC=true</string>
 
     <!-- what_you_need_fragment -->
@@ -87,6 +94,9 @@
     <string name="what_you_need_fragment_couch_text">A sofa or chair to dangle \nyour feet over</string>
     <string name="what_you_need_fragment_lightbulb_text">Good lighting</string>
     <string name="what_you_need_fragment_highfive_text">A friend to help you</string>
+    <string name="what_you_need_fragment_couch_icon_content_description">Drawing of couch or sofa</string>
+    <string name="what_you_need_fragment_light_bulb_icon_content_description">Drawing of a light bulb</string>
+    <string name="what_you_need_fragment_highfive_icon_content_description">Drawing of two hands giving a high-five</string>
 
     <!-- get_in_position_fragment -->
     <string name="get_in_position_fragment_title_label">Get in Position</string>
@@ -95,6 +105,7 @@
     <string name="get_in_position_fragment_instruction_text_one_label">1. Remove your shoes</string>
     <string name="get_in_position_fragment_instruction_text_two_label">2. Kneel backwards on a chair or couch, feet facing outward</string>
     <string name="get_in_position_fragment_instruction_text_three_label">3. Hand the phone to your friend</string>
+    <string name="get_in_position_fragment_illustration_icon_content_description">Drawing of person kneeling on chair with no shoes on to help take picture of feet.</string>
 
     <!-- cleat_selection_fragment -->
     <string name="cleat_selection_fragment_title_label">Select Your Cleat Type</string>
@@ -117,6 +128,9 @@
     <string name="measure_feet_instructions_help_fragment_title_text">%1$s Foot Camera Help</string>
     <string name="measure_feet_instructions_help_fragment_ready_button_label">I\'m Ready</string>
     <string name="measure_feet_instructions_help_fragment_no_measurement">No Measurement</string>
+    <string name="measure_feet_instructions_help_fragment_footimage_content_description">Drawing of foot with heal centered on screen</string>
+
+    <!-- measurement_feet_instructions_help_dialog_fragment -->
     <string name="measurement_feet_instructions_help_dialog_fragment_text">This is what it should look like when you have everything lined up correctly: the line is centered on the middle of the leg, and the bottom of the heel is clearly visible.</string>
     <string name="measurement_feet_instructions_help_dialog_fragment_instruction_text">Press the <i>I\'m Ready</i> button when you are ready to proceed.</string>
     <string name="measurement_feet_instructions_help_dialog_fragment_button_label">Dismiss</string>

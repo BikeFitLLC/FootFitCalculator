@@ -28,6 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/what_you_need_fragment_couch_icon_content_description"
                     app:srcCompat="@drawable/couch_icon" />
 
                 <TextView
@@ -50,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/what_you_need_fragment_light_bulb_icon_content_description"
                     app:srcCompat="@drawable/lightbulb_icon" />
 
                 <TextView
@@ -71,6 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/what_you_need_fragment_highfive_icon_content_description"
                     app:srcCompat="@drawable/highfive_icon" />
 
                 <TextView

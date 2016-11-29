@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/measure_feet_instructions_help_fragment_footimage_content_description"
             app:srcCompat="@drawable/foot_for_centering" />
 
         <LinearLayout

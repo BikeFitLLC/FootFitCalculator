@@ -124,7 +124,6 @@ public class MeasurementFragment extends Fragment {
             mDialogDisplayed = savedInstanceState.getBoolean(DIALOG_DISPLAYED_KEY, false);
         }
 
-        mMeasureWidget.setDebugMode(false);
         setWedgeGraphicSide(mFootSide);
 
         if (!mDialogDisplayed) {

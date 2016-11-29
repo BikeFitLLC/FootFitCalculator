@@ -50,6 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/app_margins"
                         android:background="@android:color/transparent"
+                        android:contentDescription="@string/main_menu_fragment_bikefit_logo_content_description"
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/bikefit_logo" />
 

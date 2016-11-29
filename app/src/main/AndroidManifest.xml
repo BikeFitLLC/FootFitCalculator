@@ -67,6 +67,12 @@
         <activity
             android:name=".test.TestMeasureWidgetActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".test.TestMeasurementFragmentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait">
+        </activity>
+
         <!-- EndRegion -->
 
 
