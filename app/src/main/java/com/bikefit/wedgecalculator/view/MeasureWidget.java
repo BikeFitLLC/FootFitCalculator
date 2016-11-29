@@ -67,7 +67,7 @@ public class MeasureWidget extends View {
     private Rect mViewAreaInWindow = new Rect();
 
     // Constraints
-    private float mMaxiumAngle = DEFAULT_MAXIMUM_ANGLE;
+    private float mMaximumAngle = DEFAULT_MAXIMUM_ANGLE;
     private float mPaintStrokeWidth = DEFAULT_STROKE_WIDTH;
     private int mPaintColor = DEFAULT_COLOR;
 
@@ -121,15 +121,21 @@ public class MeasureWidget extends View {
         if (!isInEditMode() && attrs != null) {
             TypedArray styleValues = BikeFitApplication.getInstance().obtainStyledAttributes(attrs, R.styleable.MeasureWidget);
             mDebugMode = styleValues.getBoolean(R.styleable.MeasureWidget_debugMode, DEFAULT_DEBUG_MODE);
-            mMaxiumAngle = styleValues.getFloat(R.styleable.MeasureWidget_maximumAngle, DEFAULT_MAXIMUM_ANGLE);
+            mMaximumAngle = styleValues.getFloat(R.styleable.MeasureWidget_maximumAngle, DEFAULT_MAXIMUM_ANGLE);
             mPaintStrokeWidth = styleValues.getFloat(R.styleable.MeasureWidget_strokeWidth, DEFAULT_STROKE_WIDTH);
             mPaintColor = styleValues.getInt(R.styleable.MeasureWidget_strokeColor, DEFAULT_COLOR);
             styleValues.recycle();
         } else {
             mDebugMode = DEFAULT_DEBUG_MODE;
-            mMaxiumAngle = DEFAULT_MAXIMUM_ANGLE;
+            mMaximumAngle = DEFAULT_MAXIMUM_ANGLE;
             mPaintStrokeWidth = DEFAULT_STROKE_WIDTH;
             mPaintColor = DEFAULT_COLOR;
+        }
+
+        setupLinePaint();
+
+        if (!isInEditMode()) {
+            mFootSide = FootSide.LEFT;
         }
 
         DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
@@ -137,18 +143,20 @@ public class MeasureWidget extends View {
         float screenWidth = dm.widthPixels;
 
         mUpDownIcon = VectorDrawableCompat.create(getResources(), R.drawable.up_down_icon, null);
+        mRotateIcon = VectorDrawableCompat.create(getResources(), R.drawable.rotate_icon, null);
+
+        if (mUpDownIcon == null || mRotateIcon == null) {
+            return;
+        }
+
         mUpDownIcon.setBounds(0, 0, mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
         PointF upDownIconSize = new PointF(mUpDownIcon.getIntrinsicWidth(), mUpDownIcon.getIntrinsicHeight());
 
-        mRotateIcon = VectorDrawableCompat.create(getResources(), R.drawable.rotate_icon, null);
         mRotateIcon.setBounds(0, 0, mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
         PointF rotateIconSize = new PointF(mRotateIcon.getIntrinsicWidth(), mRotateIcon.getIntrinsicHeight());
 
         mInputTouchRadius = 1.33f * (Math.max(rotateIconSize.y, upDownIconSize.y) * 0.5f);
-
-        mDistanceFromTopOfScreen = 0;
-
-        setupLinePaint();
+        mDistanceFromTopOfScreen = 0;   //initial value, will be set with mGlobalLayoutListener
 
         // Initial transforms
         mDistanceToIconsFromCenter = screenWidth / 3;
@@ -157,11 +165,8 @@ public class MeasureWidget extends View {
         mRotateIconTransform.setTranslate(-rotateIconSize.x * 0.5f, -rotateIconSize.y * 0.5f);
         mUpDownIconTransform.setTranslate(-upDownIconSize.x * 0.5f, -upDownIconSize.y * 0.5f);
 
-        if (!isInEditMode()) {
-            mFootSide = FootSide.LEFT;
-        }
-
-        setupViewTreeObserverForCapturingViewSize();
+        //setup ViewTreeObserver for capturing this view's size
+        getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
     }
 
     //endregion
@@ -275,17 +280,6 @@ public class MeasureWidget extends View {
         //setup debug paint
         mDebugPaint = new Paint(mLinePaint);
         mDebugPaint.setStrokeWidth(3);
-    }
-
-    private void setupViewTreeObserverForCapturingViewSize() {
-        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                getGlobalVisibleRect(mViewAreaInWindow);
-                mDistanceFromTopOfScreen = mViewAreaInWindow.top;
-            }
-        });
     }
 
     //endregion
@@ -407,7 +401,7 @@ public class MeasureWidget extends View {
 
         // Apply the delta to the current angle, and clamp
         float newAngle = clampAngle(mAngle + angleDelta);
-        float clampedAngle = clamp(-mMaxiumAngle, mMaxiumAngle, newAngle);
+        float clampedAngle = clamp(-mMaximumAngle, mMaximumAngle, newAngle);
 
         // Adjust the delta by the clamped amount, ensuring the angle and delta never go across the boundary
         angleDelta += clampedAngle - newAngle;
@@ -554,5 +548,15 @@ public class MeasureWidget extends View {
     //endregion
 
     //region INNER CLASSES -------------------------------------------------------------------------
+
+    private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+            getGlobalVisibleRect(mViewAreaInWindow);
+            mDistanceFromTopOfScreen = mViewAreaInWindow.top;
+        }
+    };
+
     //endregion
 }
