@@ -8,7 +8,6 @@ import com.bikefit.wedgecalculator.settings.AnalyticsTracker;
 import com.bikefit.wedgecalculator.startup.SplashActivity;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,7 +45,6 @@ public class SplashActivityUITest {
 
     //region TESTS ---------------------------------------------------------------------------------
 
-    @Ignore
     @Test
     public void splashScreenDisplayed() {
         // WHEN the activity starts
