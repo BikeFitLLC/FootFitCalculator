@@ -49,7 +49,7 @@ public enum AnalyticsTracker {
 
     /**
      * Set the dryRun flag for Google Analytics.  If the Analytics object hasn't been setup yet, this
-     * class will set the value whenever the obejct has been setup (setupAnalytics)
+     * class will set the value whenever the object has been setup (setupAnalytics)
      * <p>
      * From Documentation:
      * The SDK provides a dryRun flag that when set, prevents any data from being sent to Google Analytics.
