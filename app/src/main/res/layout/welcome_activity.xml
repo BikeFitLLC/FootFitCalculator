@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/welcome_activity_bikefit_logo_content_description"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/bikefit_logo" />
 
@@ -31,9 +32,9 @@
             android:layout_height="0dp"
             android:layout_weight="2"
             android:background="@android:color/transparent"
-            android:text="@string/activity_welcome_message"
+            android:text="@string/welcome_activity_welcome_message"
             android:textSize="18sp"
-            tools:text="@string/activity_welcome_message" />
+            tools:text="@string/welcome_activity_welcome_message" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="@string/welcome_screen_more_button"
+                android:text="@string/welcome_activity_more_button"
                 android:visibility="gone" />
 
             <Button
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:focusable="true"
-                android:text="@string/welcome_screen_orientation_button" />
+                android:text="@string/welcome_activity_orientation_button" />
 
             <Button
                 android:id="@+id/activity_welcome_start_button"
@@ -66,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="true"
-                android:text="@string/welcome_screen_start_button" />
+                android:text="@string/welcome_activity_start_button" />
         </LinearLayout>
 
     </LinearLayout>

@@ -19,8 +19,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:clipChildren="false">
 
         <ImageView
             android:id="@+id/measurement_fragment_foot_image"
@@ -67,6 +67,7 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="16dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/measurement_fragment_wedge_icon_content_description"
             android:src="@drawable/wedge_graphic_left" />
 
     </FrameLayout>
@@ -94,8 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borderless_button"
-                android:drawableLeft="@drawable/undo_icon_drawable"
                 android:drawablePadding="8dp"
+                android:drawableStart="@drawable/undo_icon_drawable"
                 android:focusable="true"
                 android:padding="8dp"
                 android:text="@string/measurement_fragment_undo_button_text" />
@@ -116,8 +117,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/borderless_button"
-                android:drawableLeft="@drawable/save_icon_drawable"
                 android:drawablePadding="8dp"
+                android:drawableStart="@drawable/save_icon_drawable"
                 android:focusable="true"
                 android:padding="8dp"
                 android:text="@string/measurement_fragment_save_button_text" />

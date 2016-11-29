@@ -1,5 +1,6 @@
 package com.bikefit.wedgecalculator.measure;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ public class MeasurementDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        @SuppressLint("InflateParams")
         View dialogView = inflater.inflate(R.layout.measurement_dialog_fragment, null);
         mViewUnBinder = ButterKnife.bind(this, dialogView);
 
