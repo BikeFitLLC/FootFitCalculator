@@ -5,7 +5,6 @@
         <attr name="debugMode" format="boolean" />
         <attr name="strokeWidth" format="float" />
         <attr name="maximumAngle" format="float" />
-        <attr name="maximumDistanceFromEdge" format="float" />
         <attr name="strokeColor" format="integer" />
     </declare-styleable>
 
