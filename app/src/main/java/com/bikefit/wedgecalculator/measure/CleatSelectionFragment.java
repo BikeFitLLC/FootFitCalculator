@@ -45,7 +45,7 @@ public class CleatSelectionFragment extends Fragment {
     //region CLASS VARIABLES -----------------------------------------------------------------------
 
     private Unbinder mViewUnBinder;
-    InternetUtil mInternetUtil = new InternetUtil();
+    InternetUtil mInternetUtil;
     int mTotalWedgeCount;
 
     //endregion
@@ -76,6 +76,7 @@ public class CleatSelectionFragment extends Fragment {
         mToolbar.setNavigationOnClickListener(mNavigationListener);
         AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.cleat_selection_fragment_title_label));
 
+        mInternetUtil = new InternetUtil();
         mTotalWedgeCount = MeasureModel.getTotalWedgeCount();
 
         return view;
