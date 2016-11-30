@@ -35,11 +35,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     // region LISTENER METHODS ---------------------------------------------------------------------
 
-    @OnClick(R.id.activity_welcome_more_button)
-    public void onMoreInformationButton() {
-        startActivity(new Intent(WelcomeActivity.this, WedgingBenefitsActivity.class));
-    }
-
     @OnClick(R.id.activity_welcome_orientation_button)
     public void onOrientationVideoButton() {
         startActivity(new Intent(WelcomeActivity.this, OrientationVideoActivity.class));

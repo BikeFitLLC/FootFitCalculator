@@ -46,14 +46,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/activity_welcome_more_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/welcome_activity_more_button"
-                android:visibility="gone" />
-
-            <Button
                 android:id="@+id/activity_welcome_orientation_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -33,9 +33,6 @@
             android:name=".welcome.WelcomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".welcome.WedgingBenefitsActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".main.OrientationVideoActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -15,10 +15,6 @@
     <string name="welcome_activity_start_button">Let\'s get started</string>
     <string name="welcome_activity_bikefit_logo_content_description">Bike Fit logo</string>
 
-    <!-- Wedging Benefits Activity -->
-    <string name="activity_wedging_benefits_top_text">Placeholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
-    <string name="activity_wedging_benefits_bottom_text">Placeholder text, please replace with real copy. A misalignment may not always be visible while the cyclist is pedaling but that does not mean a misalighment does not exist. \n\nPlaceholder text, please replace with real copy. Curabitur lobortis id lorem id bibendum. Ut id consectetur magna.</string>
-
     <!-- FootSide enum -->
     <string name="footSide_left">Left</string>
     <string name="footSide_right">Right</string>
