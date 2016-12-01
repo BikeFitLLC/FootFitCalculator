@@ -1,7 +1,6 @@
 package com.bikefit.wedgecalculator.main;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -60,7 +59,7 @@ public class MainMenuActivityUITest {
         onView(withId(R.id.main_menu_fragment_what_you_need_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_get_in_position_button)).check(matches(isDisplayed()));
         onView(withId(R.id.main_menu_fragment_measure_your_feet_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.main_menu_fragment_get_results_button)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_get_results_button)).check(matches(isDisplayed()));
 
         onView(withId(R.id.main_menu_fragment_start_button)).check(matches(isDisplayed()));
     }
@@ -143,7 +142,7 @@ public class MainMenuActivityUITest {
         mActivityRule.launchActivity(null);
 
         //THEN check the orientation video button appears
-        onView(withId(R.id.main_menu_fragment_get_results_button)).perform(ViewActions.scrollTo()).check(matches(isDisplayed()));
+        onView(withId(R.id.main_menu_fragment_get_results_button)).check(matches(isDisplayed()));
 
         //WHEN the button is clicked
         onView(withId(R.id.main_menu_fragment_get_results_button)).perform(click());
