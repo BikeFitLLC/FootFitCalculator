@@ -175,10 +175,13 @@ public class MeasurementSummaryFragment extends Fragment {
 
             if (mLeftAngle != null && mRightAngle != null) {
                 startActivity(new Intent(getContext(), MainMenuActivity.class));
+                getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
                 getActivity().finish();
             } else {
                 getActivity().onBackPressed();
+                getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
+
         }
     };
 
