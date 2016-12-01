@@ -81,49 +81,30 @@
         android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/undo_button"
+        <Button
+            android:id="@+id/measurement_fragment_undo_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:background="@drawable/borderless_button"
+            android:drawableStart="@drawable/undo_icon_drawable"
+            android:focusable="true"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="@string/measurement_fragment_undo_button_text" />
 
-            <Button
-                android:id="@+id/measurement_fragment_undo_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borderless_button"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/undo_icon_drawable"
-                android:focusable="true"
-                android:padding="8dp"
-                android:text="@string/measurement_fragment_undo_button_text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/save_button"
+        <Button
+            android:id="@+id/measurement_fragment_save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:background="@drawable/borderless_button"
+            android:drawableStart="@drawable/save_icon_drawable"
+            android:focusable="true"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:text="@string/measurement_fragment_save_button_text" />
 
-            <Button
-                android:id="@+id/measurement_fragment_save_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/borderless_button"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/save_icon_drawable"
-                android:focusable="true"
-                android:padding="8dp"
-                android:text="@string/measurement_fragment_save_button_text" />
-
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
