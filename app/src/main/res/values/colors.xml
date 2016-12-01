@@ -15,10 +15,10 @@
     <color name="disabledText">#77FFFFFF</color>
 
     <!-- Primary Button colors -->
-    <color name="primaryButton">@color/colorPrimary</color>
-    <color name="primaryButtonPressed">#031C37</color>
+    <color name="primaryButton">#265373</color>
+    <color name="primaryButtonPressed">#071F30</color>
     <color name="primaryButtonDisabled">#807e7e</color>
-    <color name="primaryButtonRipple">#031C37</color>
+    <color name="primaryButtonRipple">#04172C</color>
 
     <!-- Focus Button colors (orange) -->
     <color name="focusButton">@color/orange</color>
