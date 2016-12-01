@@ -9,7 +9,7 @@
 
     <!-- Welcome Activity -->
     <string name="welcome_activity_title">Welcome</string>
-    <string name="welcome_activity_welcome_message">85% of cyclists with bike shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges. Well-fitted cleat wedges improve your performance and safety.</string>
+    <string name="welcome_activity_welcome_message">85% of cyclists with bicycle shoes need adjustments where their shoe connects to the pedal. \n\nThis app will help you measure yourself for a set of cleat wedges that will likely improve that shoe-pedal connection. Well-fitted cleat wedges improve your comfort, performance and safety.</string>
     <string name="welcome_activity_more_button">Tell me more</string>
     <string name="welcome_activity_orientation_button">Watch the orientation video</string>
     <string name="welcome_activity_start_button">Let\'s get started</string>
@@ -20,7 +20,7 @@
     <string name="footSide_right">Right</string>
 
     <!-- video_orientation_fragment -->
-    <string name="orientation_video_default_url">https://www.youtube.com/embed/C0DPdy98e4c</string>
+    <string name="orientation_video_default_url">https://www.youtube.com/embed/L6yojCdiUlM?rel=0&amp;showinfo=0&amp;cc_load_policy=0</string>
     <string name="orientation_video_fragment_title_label">Orientation Video</string>
     <string name="orientation_video_no_connection"><![CDATA[<html>Your Network Connection is NOT Available.<br/><br/>Please check your network settings and try again.</html>]]></string>
     <string name="orientation_video_fragment_done_button_label">Done</string>
