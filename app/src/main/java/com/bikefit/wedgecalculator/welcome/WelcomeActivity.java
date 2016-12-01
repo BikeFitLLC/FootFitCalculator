@@ -38,11 +38,13 @@ public class WelcomeActivity extends AppCompatActivity {
     @OnClick(R.id.activity_welcome_orientation_button)
     public void onOrientationVideoButton() {
         startActivity(new Intent(WelcomeActivity.this, OrientationVideoActivity.class));
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     @OnClick(R.id.activity_welcome_start_button)
     public void onStartButton() {
         startActivity(new Intent(WelcomeActivity.this, MainMenuActivity.class));
+        overridePendingTransition(R.anim.enter_from_right, R.anim.exit_to_left);
     }
 
     // endregion

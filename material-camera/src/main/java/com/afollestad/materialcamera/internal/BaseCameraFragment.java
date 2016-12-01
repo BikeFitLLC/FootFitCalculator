@@ -123,6 +123,7 @@ abstract class BaseCameraFragment extends Fragment implements CameraUriInterface
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
+                getActivity().overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
             }
         });
 
