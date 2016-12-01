@@ -49,11 +49,9 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:background">@drawable/borderless_button</item>
         <item name="android:textColor">@color/borderless_button_text_color</item>
-        <item name="android:minHeight">52dp</item>
         <item name="android:minWidth">350dp</item>
         <item name="android:maxWidth">400dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
     </style>
 
     <!-- Dialog styles -->
