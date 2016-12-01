@@ -1,9 +1,11 @@
 package com.afollestad.materialcamera;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.media.CamcorderProfile;
+import android.os.Bundle;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -367,11 +369,15 @@ public class MaterialCamera {
     }
 
     public void start(int requestCode) {
-        if (mIsFragment && mSupportFragment != null)
-            mSupportFragment.startActivityForResult(getIntent(), requestCode);
-        else if (mIsFragment && mAppFragment != null)
-            mAppFragment.startActivityForResult(getIntent(), requestCode);
-        else
-            mActivityContext.startActivityForResult(getIntent(), requestCode);
+
+        Bundle bundle = ActivityOptions.makeCustomAnimation(mContext, R.anim.enter_from_right, R.anim.exit_to_left).toBundle();
+
+        if (mIsFragment && mSupportFragment != null) {
+            mSupportFragment.startActivityForResult(getIntent(), requestCode, bundle);
+        } else if (mIsFragment && mAppFragment != null) {
+            mAppFragment.startActivityForResult(getIntent(), requestCode, bundle);
+        } else {
+            mActivityContext.startActivityForResult(getIntent(), requestCode, bundle);
+        }
     }
 }

@@ -29,9 +29,14 @@ public class MainMenuActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         if (savedInstanceState == null) {
-            MainMenuFragment fragment = MainMenuFragment.newInstance();
-            showFragment(fragment, false);
+            showMainMenuFragment();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
     }
 
     //endregion
@@ -43,6 +48,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void showFragment(Fragment fragment, boolean addToBackstack) {
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
         if (addToBackstack) {
             fragmentTransaction.addToBackStack(null);
@@ -60,6 +66,15 @@ public class MainMenuActivity extends AppCompatActivity {
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    // Show initial MainMenuFragment, no back stack, and avoid the animation (already animated from previous activity)
+    private void showMainMenuFragment() {
+        MainMenuFragment fragment = MainMenuFragment.newInstance();
+        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu_activity_fragment, fragment);
+        fragmentTransaction.commit();
+    }
+
     //endregion
 
     //region LISTENERS -----------------------------------------------------------------------------

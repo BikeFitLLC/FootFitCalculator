@@ -37,6 +37,16 @@ public class OrientationVideoActivity extends AppCompatActivity {
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
+    // region LIFECYCLE METHODS --------------------------------------------------------------------
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter_from_left, R.anim.exit_to_right);
+    }
+
+    //endregion
+
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
     //endregion
 
@@ -44,7 +54,6 @@ public class OrientationVideoActivity extends AppCompatActivity {
     //endregion
 
     //region INNER CLASSES -------------------------------------------------------------------------
-
     //endregion
 
     //region LISTENERS -----------------------------------------------------------------------------

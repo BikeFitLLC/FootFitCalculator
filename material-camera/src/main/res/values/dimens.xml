@@ -11,4 +11,7 @@
     <dimen name="mcam_action_icon_size">56dp</dimen>
     <dimen name="mcam_action_icon_size_smaller">48dp</dimen>
 
+    <!-- Wedge calculator -->
+    <dimen name="mcam_fragment_stillshot_button_text_size">18sp</dimen>
+
 </resources>

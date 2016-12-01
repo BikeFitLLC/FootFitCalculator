@@ -19,7 +19,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.Matchers.not;
 
 /**
  * UI Test for the WelcomeActivity
@@ -55,9 +54,6 @@ public class WelcomeActivityUITest {
     public void testButtonsAppear() {
         // WHEN the activity starts
         mActivityRule.launchActivity(null);
-
-        // THEN the "Tell me More" button does not appear
-        onView(withId(R.id.activity_welcome_more_button)).check(matches(not(isDisplayed())));
 
         // THEN the 2 options appear as buttons
         onView(withId(R.id.activity_welcome_orientation_button)).check(matches(isDisplayed()));

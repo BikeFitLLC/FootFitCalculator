@@ -20,112 +20,150 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/app_margins"
         android:layout_marginRight="@dimen/app_margins"
+        android:layout_weight="1"
         android:background="@android:color/transparent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="@dimen/app_margins"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/main_menu_fragment_bikefit_logo_content_description"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/bikefit_logo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:text="@string/main_menu_fragment_instruction_text"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:scrollbars="none">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/main_menu_fragment_orientation_video_button"
+                    style="@style/BorderlessButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:orientation="vertical">
+                    android:focusable="true"
+                    android:text="@string/main_menu_fragment_orientation_video" />
+            </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/app_margins"
-                        android:background="@android:color/transparent"
-                        android:contentDescription="@string/main_menu_fragment_bikefit_logo_content_description"
-                        android:scaleType="centerInside"
-                        app:srcCompat="@drawable/bikefit_logo" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="center_horizontal"
-                        android:text="@string/main_menu_fragment_instruction_text" />
+                <Button
+                    android:id="@+id/main_menu_fragment_what_you_need_button"
+                    style="@style/BorderlessButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:text="@string/main_menu_fragment_what_you_need" />
 
-                    <Button
-                        android:id="@+id/main_menu_fragment_orientation_video_button"
-                        style="@style/BorderlessButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:text="@string/main_menu_fragment_orientation_video" />
+            </LinearLayout>
 
-                    <Button
-                        android:id="@+id/main_menu_fragment_what_you_need_button"
-                        style="@style/BorderlessButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:text="@string/main_menu_fragment_what_you_need" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/main_menu_fragment_get_in_position_button"
-                        style="@style/BorderlessButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:text="@string/main_menu_fragment_get_in_position" />
+                <Button
+                    android:id="@+id/main_menu_fragment_get_in_position_button"
+                    style="@style/BorderlessButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:text="@string/main_menu_fragment_get_in_position" />
 
-                    <Button
-                        android:id="@+id/main_menu_fragment_measure_your_feet_button"
-                        style="@style/BorderlessButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:text="@string/main_menu_fragment_measure_your_feet_button_label" />
+            </LinearLayout>
 
-                    <Button
-                        android:id="@+id/main_menu_fragment_get_results_button"
-                        style="@style/BorderlessButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="true"
-                        android:text="@string/main_menu_fragment_get_results" />
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-            </ScrollView>
+                <Button
+                    android:id="@+id/main_menu_fragment_measure_your_feet_button"
+                    style="@style/BorderlessButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:text="@string/main_menu_fragment_measure_your_feet_button_label" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/main_menu_fragment_get_results_button"
+                    style="@style/BorderlessButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="true"
+                    android:text="@string/main_menu_fragment_get_results" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/panelBottom"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/panelBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/app_margins"
+        android:layout_marginLeft="@dimen/app_margins"
+        android:layout_marginRight="@dimen/app_margins"
+        android:layout_marginTop="8dp"
+        android:layout_weight="0"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/main_menu_fragment_start_button"
+            style="@style/Button.Focus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/app_margins"
-            android:layout_marginTop="8dp"
-            android:layout_weight="0"
-            android:gravity="center_horizontal">
-
-            <Button
-                android:id="@+id/main_menu_fragment_start_button"
-                style="@style/Button.Focus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:text="@string/main_menu_fragment_start_button_text" />
-        </LinearLayout>
+            android:focusable="true"
+            android:text="@string/main_menu_fragment_start_button_text" />
 
     </LinearLayout>
 

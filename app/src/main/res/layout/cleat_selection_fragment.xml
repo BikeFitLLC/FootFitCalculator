@@ -18,8 +18,7 @@
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/app_margins"
-        android:layout_marginRight="@dimen/app_margins"
+        android:layout_marginTop="16dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -31,8 +30,8 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="@dimen/app_margins"
+            android:paddingRight="@dimen/app_margins"
             app:layout_heightPercent="33%"
             app:layout_widthPercent="100%">
 
@@ -74,8 +73,8 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="@dimen/app_margins"
+            android:paddingRight="@dimen/app_margins"
             app:layout_heightPercent="33%"
             app:layout_widthPercent="100%">
 
@@ -117,8 +116,8 @@
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="@dimen/app_margins"
+            android:paddingRight="@dimen/app_margins"
             app:layout_heightPercent="33%"
             app:layout_widthPercent="100%">
 
