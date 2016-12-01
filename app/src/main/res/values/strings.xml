@@ -28,10 +28,10 @@
     <!-- Main Menu Fragment -->
     <string name="main_menu_fragment_title">Overview</string>
     <string name="main_menu_fragment_instruction_text">Select a step to begin.</string>
-    <string name="main_menu_fragment_orientation_video">Orientation Video</string>
+    <string name="main_menu_fragment_orientation_video">Orientation video</string>
     <string name="main_menu_fragment_what_you_need">What you\'ll need</string>
-    <string name="main_menu_fragment_get_in_position">Get in Position</string>
-    <string name="main_menu_fragment_measure_your_feet_button_label">Measure Your Feet</string>
+    <string name="main_menu_fragment_get_in_position">Get in position</string>
+    <string name="main_menu_fragment_measure_your_feet_button_label">Measure your feet</string>
     <string name="main_menu_fragment_get_results">Results</string>
     <string name="main_menu_fragment_start_button_text">Got it</string>
     <string name="main_menu_fragment_bikefit_logo_content_description">Bike Fit logo</string>
@@ -78,7 +78,7 @@
     <string name="measurement_summary_fragment_complete_instruction_text">According to these measurements, you\'ll need a total of %1$d wedges. \n\nA properly fitted bike reduces the risk of injury, decreases fatigue, and provides you with more power on each cycle.</string>
     <string name="measurement_summary_fragment_full_fitting_button_label">Do a full fitting myself</string>
     <string name="measurement_summary_fragment_professional_button_label">Get professionally fitted</string>
-    <string name="measurement_summary_fragment_purchase_button_label">Purchase Wedges</string>
+    <string name="measurement_summary_fragment_purchase_button_label">Purchase wedges</string>
     <string name="measurement_summary_fragment_wedge_count_graphic_content_description">Wedge count graphic</string>
     <string name="measurement_summary_fragment_right_not_measured_content_description">Right foot is not measured yet.</string>
     <string name="measurement_summary_fragment_left_not_measured_content_description">Left foot not measured yet</string>
@@ -122,7 +122,7 @@
 
     <!-- Measure Feet Instructions Help Fragment -->
     <string name="measure_feet_instructions_help_fragment_title_text">%1$s Foot Camera Help</string>
-    <string name="measure_feet_instructions_help_fragment_ready_button_label">I\'m Ready</string>
+    <string name="measure_feet_instructions_help_fragment_ready_button_label">I\'m ready</string>
     <string name="measure_feet_instructions_help_fragment_no_measurement">No Measurement</string>
     <string name="measure_feet_instructions_help_fragment_footimage_content_description">Drawing of foot with heal centered on screen</string>
 
