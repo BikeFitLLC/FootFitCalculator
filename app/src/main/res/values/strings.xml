@@ -45,7 +45,7 @@
     <string name="measure_feet_instructions_fragment_title_text">%1$s Foot</string>
     <string name="measure_feet_instructions_fragment_header_text">Instructions</string>
     <string name="measure_feet_instructions_fragment_description_text">Start by pointing the camera straight down, center the red line over the heel and ankle.\n\nThen tap the camera button to take a snapshot.</string>
-    <string name="measure_feet_instructions_fragment_snapshot_button_text">Take a Snapshot</string>
+    <string name="measure_feet_instructions_fragment_snapshot_button_text">Measure %1$s foot</string>
     <string name="measure_feet_instructions_fragment_more_button_text">Tell me more</string>
     <string name="measure_feet_instructions_fragment_permission_denied_text">Pictures will be saved in a cache directory instead of an external storage directory since permission was denied.</string>
     <string name="measure_feet_instructions_fragment_foot_icon_content_description">Drawing of heal of foot centered on screen</string>
@@ -67,7 +67,7 @@
     <string name="measurement_summary_fragment_title_label">Measurement Complete</string>
     <string name="measurement_summary_fragment_title_onefoot_label">%1$s Foot Complete</string>
     <string name="measurement_summary_fragment_title_nofeet_label">Nothing Measured</string>
-    <string name="measurement_summary_fragment_ok_button_label">OK, let\'s do it</string>
+    <string name="measurement_summary_fragment_ok_button_label">OK, measure %1$s foot</string>
     <string name="measurement_summary_fragment_not_measured_label">\?</string>
     <string name="measurement_summary_fragment_unknown_label">Unknown</string>
     <string name="measurement_summary_fragment_angle_label">%1$.0f° Tilt</string>

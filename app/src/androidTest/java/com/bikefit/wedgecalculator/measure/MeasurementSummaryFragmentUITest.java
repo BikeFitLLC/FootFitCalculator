@@ -194,6 +194,10 @@ public class MeasurementSummaryFragmentUITest {
 
         // THEN verify only one button is displayed
         verifyOneFootButtons();
+
+        // THEN verify the OK button shows the expected label
+        String expectedOKButtonLabel = activity.getResources().getString(R.string.measurement_summary_fragment_ok_button_label, inactiveFoot.getLabel().toLowerCase());
+        onView(withText(expectedOKButtonLabel)).check(matches(isDisplayed()));
     }
 
     /**
