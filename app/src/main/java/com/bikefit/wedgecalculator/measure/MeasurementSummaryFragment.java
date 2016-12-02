@@ -135,6 +135,8 @@ public class MeasurementSummaryFragment extends Fragment {
         mToolbar.setNavigationOnClickListener(mNavigationListener);
         AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getPageTitle(mLeftAngle, mRightAngle));
 
+        mOkButton.setText(getString(R.string.measurement_summary_fragment_ok_button_label, getNextFoot().getLabel().toLowerCase()));
+
         return view;
     }
 
@@ -187,7 +189,7 @@ public class MeasurementSummaryFragment extends Fragment {
 
     @OnClick(R.id.measurement_summary_fragment_ok_button)
     public void onOkButton() {
-        FootSide newFoot = (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
+        FootSide newFoot = getNextFoot();
 
         //Measure the next foot
         MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(newFoot);
@@ -325,6 +327,10 @@ public class MeasurementSummaryFragment extends Fragment {
         // angle label
         angleLabel.setTextColor(disabledColor);
         angleLabel.setText(getString(R.string.measurement_summary_fragment_unknown_label));
+    }
+
+    private FootSide getNextFoot() {
+        return (mLeftAngle == null) ? FootSide.LEFT : FootSide.RIGHT;
     }
 
     //endregion
