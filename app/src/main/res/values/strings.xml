@@ -20,7 +20,7 @@
     <string name="footSide_right">Right</string>
 
     <!-- video_orientation_fragment -->
-    <string name="orientation_video_default_url">https://www.youtube.com/embed/L6yojCdiUlM?rel=0&amp;showinfo=0&amp;cc_load_policy=0</string>
+    <string name="orientation_video_default_url">https://www.youtube.com/embed/pI_CtKukOQk?rel=0&amp;showinfo=0&amp;cc_load_policy=0</string>
     <string name="orientation_video_fragment_title_label">Orientation Video</string>
     <string name="orientation_video_no_connection"><![CDATA[<html>Your Network Connection is NOT Available.<br/><br/>Please check your network settings and try again.</html>]]></string>
     <string name="orientation_video_fragment_done_button_label">Done</string>
