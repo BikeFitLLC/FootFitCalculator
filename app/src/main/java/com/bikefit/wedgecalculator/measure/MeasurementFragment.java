@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -102,20 +103,19 @@ public class MeasurementFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
-        mToolbar.setNavigationOnClickListener(mNavigationListener);
-        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
-
         Bundle args = getArguments();
         if (args != null) {
             mFilePath = args.getString(FILE_PATH_KEY);
             mFootSide = (FootSide) args.getSerializable(FootSide.FOOTSIDE_KEY);
-
             //Set bitmap image after view is ready
             mFootImage.getViewTreeObserver().addOnPreDrawListener(mBitmapListener);
         } else {
             mFootSide = FootSide.LEFT;
         }
+
+        mToolbar.setTitle(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
+        mToolbar.setNavigationOnClickListener(mNavigationListener);
+        AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.measurement_fragment_title_text, mFootSide.getLabel()));
 
         mMeasureWidget.setFootSide(mFootSide);
         mMeasureWidget.setAngleListener(mAngleListener);
@@ -166,6 +166,12 @@ public class MeasurementFragment extends Fragment {
     //endregion
 
     //region PUBLIC CLASS METHODS ------------------------------------------------------------------
+
+    @VisibleForTesting
+    void setDialogDisplayed(boolean displayed) {
+        mDialogDisplayed = displayed;
+    }
+
     //endregion
 
     //region PRIVATE METHODS -----------------------------------------------------------------------
