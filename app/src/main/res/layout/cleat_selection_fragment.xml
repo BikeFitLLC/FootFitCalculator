@@ -37,10 +37,14 @@
             app:layout_widthPercent="100%">
 
             <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cleat_selection_fragment_look_header_label"
+                android:scaleType="fitCenter"
+                android:scaleX=".8"
+                android:scaleY=".8"
                 app:srcCompat="@drawable/cleat_type_look_icon" />
 
             <LinearLayout
@@ -87,6 +91,9 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cleat_selection_fragment_speedplay_header_label"
+                android:scaleType="fitCenter"
+                android:scaleX=".8"
+                android:scaleY=".8"
                 app:srcCompat="@drawable/cleat_type_speedplay" />
 
             <LinearLayout
@@ -126,10 +133,14 @@
             app:layout_widthPercent="100%">
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/cleat_selection_fragment_spd_header_label"
+                android:scaleType="fitCenter"
+                android:scaleX=".8"
+                android:scaleY=".8"
                 app:srcCompat="@drawable/cleat_type_spd" />
 
             <LinearLayout
