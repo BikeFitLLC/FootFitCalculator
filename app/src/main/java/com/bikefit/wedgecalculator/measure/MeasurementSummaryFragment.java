@@ -97,7 +97,7 @@ public class MeasurementSummaryFragment extends Fragment {
     private Float mRightAngle;
     private Integer mRightWedgeCount;
 
-    InternetUtil mInternetUtil;
+    private InternetUtil mInternetUtil;
 
     //endregion
 
@@ -147,11 +147,6 @@ public class MeasurementSummaryFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onDestroyView() {
         mToolbar = null;
         mLeftAngle = null;
@@ -171,7 +166,7 @@ public class MeasurementSummaryFragment extends Fragment {
 
     //region LISTENERS -----------------------------------------------------------------------------
 
-    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+    private final View.OnClickListener mNavigationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 

@@ -185,7 +185,7 @@ public class MeasureFeetInstructionsFragment extends Fragment {
         ((MainMenuActivity) getActivity()).showFragment(fragment, true);
     }
 
-    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+    private final View.OnClickListener mNavigationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             getActivity().onBackPressed();

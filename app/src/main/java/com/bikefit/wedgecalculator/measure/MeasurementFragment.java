@@ -243,7 +243,7 @@ public class MeasurementFragment extends Fragment {
         }
     };
 
-    View.OnClickListener mNavigationListener = new View.OnClickListener() {
+    private final View.OnClickListener mNavigationListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             getActivity().onBackPressed();
