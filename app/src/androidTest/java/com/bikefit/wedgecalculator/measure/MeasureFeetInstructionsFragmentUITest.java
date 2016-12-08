@@ -20,6 +20,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 @RunWith(AndroidJUnit4.class)
 public class MeasureFeetInstructionsFragmentUITest {
@@ -53,7 +54,7 @@ public class MeasureFeetInstructionsFragmentUITest {
     public void testButtonsAppear() {
 
         // GIVEN the Fragment starts
-        startActivityWithFragment();
+        startActivityWithFragment(FootSide.LEFT);
 
         // WHEN the screen is displayed
 
@@ -66,7 +67,7 @@ public class MeasureFeetInstructionsFragmentUITest {
     public void testTellMeMoreButton() {
 
         // GIVEN the Fragment starts
-        startActivityWithFragment();
+        startActivityWithFragment(FootSide.LEFT);
 
         // WHEN the screen is displayed
 
@@ -84,15 +85,37 @@ public class MeasureFeetInstructionsFragmentUITest {
     }
 
     @Test
-    public void testTakeASnapshotButton() {
+    public void testSnapshotButtonLeft() {
+        testFootScreenBehavior(FootSide.LEFT);
+    }
 
-        // GIVEN the Fragment starts
-        startActivityWithFragment();
+    @Test
+    public void testSnapshotButtonRight() {
+        testFootScreenBehavior(FootSide.RIGHT);
+    }
 
-        // WHEN the screen is displayed
+    //endregion
 
-        // THEN check the "Take a snapshot" button appears
+    //region PRIVATE METHODS -----------------------------------------------------------------------
+
+    private MainMenuActivity startActivityWithFragment(FootSide footSide) {
+        MainMenuActivity activity = mActivityRule.launchActivity(null);
+        final MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(footSide);
+        activity.showFragment(fragment, true);
+        return activity;
+    }
+
+    private void testFootScreenBehavior(FootSide footSide) {
+
+        // GIVEN the Fragment starts for the given foot
+        MainMenuActivity activity = startActivityWithFragment(footSide);
+
+        // THEN check the "Measure left foot" button appears
         onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).check(matches(isDisplayed()));
+
+        // THEN I see the expected text in the button
+        String expectedButtonText = activity.getResources().getString(R.string.measure_feet_instructions_fragment_snapshot_button_text, footSide.getLabel().toLowerCase());
+        onView(withText(expectedButtonText)).check(matches(isDisplayed()));
 
         // WHEN the button is clicked
         onView(withId(R.id.measure_feet_instructions_fragment_snapshot_button)).perform(click());
@@ -102,15 +125,6 @@ public class MeasureFeetInstructionsFragmentUITest {
 
         // THEN check for test on the resulting screen
         onView(withId(R.id.mcam_fragment_videocapture_camera_instructions)).check(matches(isDisplayed()));
-    }
-    //endregion
-
-    //region PRIVATE METHODS -----------------------------------------------------------------------
-
-    private void startActivityWithFragment() {
-        MainMenuActivity activity = mActivityRule.launchActivity(null);
-        final MeasureFeetInstructionsFragment fragment = MeasureFeetInstructionsFragment.newInstance(FootSide.LEFT);
-        activity.showFragment(fragment, true);
     }
 
     //endregion
