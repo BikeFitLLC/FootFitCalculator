@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
@@ -48,6 +49,9 @@ public class MeasureFeetInstructionsFragment extends Fragment {
 
     @BindView(R.id.measure_feet_instructions_fragment_snapshot_button)
     Button mReadyButton;
+
+    @BindView(R.id.measure_feet_instructions_fragment_foot_image)
+    ImageView mFootImage;
 
     //endregion
 
@@ -101,10 +105,12 @@ public class MeasureFeetInstructionsFragment extends Fragment {
 
         mToolbar.setTitle(getResources().getString(R.string.measure_feet_instructions_fragment_title_text, mFootSide.getLabel()));
         mToolbar.setNavigationOnClickListener(mNavigationListener);
+
         AnalyticsTracker.INSTANCE.sendAnalyticsScreen(getResources().getString(R.string.measure_feet_instructions_fragment_title_text, mFootSide.getLabel()));
 
         mFolderName = mFootSide.toString();
         mReadyButton.setText(getString(R.string.measure_feet_instructions_fragment_snapshot_button_text, mFootSide.getLabel().toLowerCase()));
+        mFootImage.setImageLevel(mFootSide.ordinal());
 
         //Shouldn't be needed if we're not using external storage
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
