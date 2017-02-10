@@ -71,3 +71,14 @@ Testing libraries:
 ### Who do I talk to?
 
 * Jason Jerome jjerome@generalui.com
+
+
+### Analytics
+
+* Log in to google analytics as bikefitapps@gmail.com
+* Note: both android and ios apps log events here
+* Note: the debug build does not send any analytics events...?
+
+### How do I find it in the Play Store?
+
+* The app is called "The Foot Fit Calculator" in the play store.
