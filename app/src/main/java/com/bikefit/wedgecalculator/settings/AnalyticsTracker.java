@@ -1,6 +1,7 @@
 package com.bikefit.wedgecalculator.settings;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -16,7 +17,8 @@ public enum AnalyticsTracker {
 
     //region STATIC LOCAL CONSTANTS ----------------------------------------------------------------
 
-    private static final String PROPERTY_ID = "A-87599004-1";
+    private static final String PROPERTY_ID = "UA-87599004-1";
+    private static final String TAG = AnalyticsTracker.class.getSimpleName();
 
     //endregion
 
@@ -75,10 +77,12 @@ public enum AnalyticsTracker {
      */
     synchronized public void sendAnalyticsScreen(String screenName) {
 
-        if (mAnalytics == null || mTracker == null) {
+        if (mAnalytics == null || mTracker == null) { // TODO: george also filter out debug
+            Log.d(TAG, "ERROR - mAnalytics or mTracker are null");
             return;
         }
 
+        Log.d(TAG, "LOGGING EVENT: [" + screenName + "]");
         mTracker.setScreenName(screenName);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         mTracker.setScreenName(null);
