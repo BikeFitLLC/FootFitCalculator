@@ -76,8 +76,8 @@ Testing libraries:
 ### Analytics
 
 * Log in to google analytics as bikefitapps@gmail.com
-* Note: both android and ios apps log events here
-* Note: the debug build does not send any analytics events...?
+* Note: the debug build does not send any analytics events
+* Note: the iPhone events from Dec 2016 are 'spam' events.  Subsequently, Matt created a filter to block all traffic from Country = Russia, but George removed it Feb 2017, since the recommendation is you have at least one view that contains all traffic.
 
 ### How do I find it in the Play Store?
 
