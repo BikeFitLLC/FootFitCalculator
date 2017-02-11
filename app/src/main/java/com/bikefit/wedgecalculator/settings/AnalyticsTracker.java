@@ -77,7 +77,7 @@ public enum AnalyticsTracker {
      */
     synchronized public void sendAnalyticsScreen(String screenName) {
 
-        if (mAnalytics == null || mTracker == null) { // TODO: george also filter out debug
+        if (mAnalytics == null || mTracker == null) {
             Log.d(TAG, "ERROR - mAnalytics or mTracker are null");
             return;
         }
